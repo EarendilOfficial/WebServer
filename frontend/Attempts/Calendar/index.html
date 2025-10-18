@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia de Estudiantes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <header>
+        <h1>Asistencia de Estudiantes</h1>
+    </header>
+
+    <main>
+        <section class="student-info">
+            <h2>Información del Estudiante</h2>
+            <p><strong>Nombre:</strong> Juan Pérez</p>
+            <p><strong>Clase:</strong> 5to Grado - Sección B</p>
+        </section>
+
+        <section class="calendar-container">
+            <div class="calendar-header">
+                <span class="material-symbols-outlined nav-button" id="prev-month">
+                    chevron_left
+                </span>
+                <h2 id="current-month-year">Septiembre 2025</h2>
+                <span class="material-symbols-outlined nav-button" id="next-month">
+                    chevron_right
+                </span>
+            </div>
+            <div class="calendar-grid">
+                <div class="day-name">Dom</div>
+                <div class="day-name">Lun</div>
+                <div class="day-name">Mar</div>
+                <div class="day-name">Mié</div>
+                <div class="day-name">Jue</div>
+                <div class="day-name">Vie</div>
+                <div class="day-name">Sáb</div>
+                <div class="day"></div>
+                <div class="day present">1</div>
+                <div class="day absent">2</div>
+                <div class="day present">3</div>
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sistema de Asistencia</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

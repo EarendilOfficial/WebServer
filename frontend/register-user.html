@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar</title>
+    <link rel="icon" type="image/x-icon" href="resources/icons/icon_A_mini.png">
+    <link rel="stylesheet" href="../resources/css/loading_icon.css">
+    <link rel="stylesheet" href="../resources/css/tooltip.css">
+    <link rel="stylesheet" href="pages/register/style.css">
+</head>
+<body>
+    <div id="loading-overlay" class="shown">
+        <img src="resources/icons/start_terminator.png" alt="[">
+        <img src="resources/icons/middle_terminator.png" alt="O">
+        <img src="resources/icons/end_terminator.png" alt="]">
+    </div>
+            
+    <div class="container fade-out" id="body">
+        <div id="image-container">
+            <div id="form-container"> 
+                <img id="center-image" src="resources/icons/logo/icon_normal.png" alt="Imagen Logo">
+                <div class="login-title">
+                    <img src="pages/register/create_account_icon.png" alt="Imagen Logo">
+                </div>
+                <form>
+                    <input autofocus id="username" type="text" placeholder="Nombre de usuario" required>
+                    <input id="mail" type="email" placeholder="Correo">
+                    <input id="pass1" type="password" placeholder="Contraseña" required>
+                    <input id="pass2" type="password" placeholder="Repita la contraseña" required>
+                    <input class="uppercase-input" id="uit" type="text" placeholder="UIT 'XXXX-XXXX-XXXX'" required>
+                    <button id="send" type="submit">Enviar</button>
+                    <a id="login-link" class="mini">Ya tienes una cuenta?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="custom-alert" class="alert-modal">
+        <div class="alert-content">
+            <h3 id="alert-title">¡Error!</h3>
+            <p id="alert-message">Algo salió mal. Por favor, inténtalo de nuevo.</p>
+            <button id="alert-close">Aceptar</button>
+        </div>
+    </div>
+        <script src="pages/register/script.js"></script>
+        <script src="resources/js/auto_box_scroll.js"></script>
+        <script src="resources/js/tooltip.js"></script>
+</body>
+</html>

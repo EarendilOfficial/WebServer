@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
+    z-index: 0;
+    background-color: #000; /* Fondo oscuro para que los puntos blancos destaquen */
+
+    z-index: 0;
+    transition: opacity 0.5s ease-out; 
+}
+
+.container {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../resources/backgrounds/deepslate_bricks.png');
+    background-size: cover;
+    image-rendering: pixelated;
+    background-repeat: repeat;
+    background-size: 80px 80px;
+    opacity: 1;
+}
+
+
+#particleCanvas {
+    display: block; /* Asegura que el canvas sea un elemento de bloque */
+    position: fixed;
+    top : 0; left : 0;
+    z-index: 1;
+}
+
+/* ... código de #image-container ... */
+#image-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-10vh));
+    z-index: 2;
+    transition: transform 0.5s ease-in-out; /* Solo transicionar el transform */
+}
+
+/* ... código de #center-image ... */
+#center-image {
+    z-index: 4;
+    object-fit: contain;
+    opacity: 1; 
+    transition: opacity 0.3s ease-out, transform 0.5s ease-in-out, width 0.5s ease-in-out, height 0.5s ease-in-out;
+    
+    /* 🔑 SOLUCIÓN: Centrar el elemento absoluto dentro de su padre */
+    position: absolute; 
+    top: 50%;         /* Mover al centro vertical del padre */
+    left: 50%;        /* Mover al centro horizontal del padre */
+    transform: translate(-50%, -325%); 
+    /* Nota: Usamos -50vh para subirlo a la parte superior de la pantalla */
+    width: 90px; 
+    height: 90px;
+    cursor: auto;
+}
+
+/* Ocultar IMAGEN después de que el contenedor se ha movido */
+#image-container.moved #center-image.hide-logo {
+    opacity: 0; /* Hacemos que se desvanezca */
+    pointer-events: none; /* Evita clicks */
+}
+
+
+/* 2. Estilos del Formulario */
+#form-container {
+    z-index: 3;
+    width: 300px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(255, 122, 122);
+    backdrop-filter: blur(1px);
+    
+    /* 🚨 Sombra más limpia o de resplandor blanco/azul */
+    box-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.5), /* Sombra oscura para profundidad */
+        0 0 20px rgba(84, 110, 255, 0.3); /* Resplandor blanco suave */
+
+    /* ... resto de estilos ... */
+    
+    /* MODIFICACIÓN CLAVE: Posicionamiento para ocupar el lugar */
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -30%);
+    
+    /* Gestión de la visibilidad y transición */
+    pointer-events: none; /* No clickable cuando está oculto */ 
+    opacity: 1; /* Hace que aparezca */
+    pointer-events: auto; /* Vuelve a ser clickable */
+}
+
+
+/* Estilos de los inputs para que se vean bien */
+#form-container input {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    border-color: #ffffff;
+    border-block-end: #bebebe;
+    border-style: outset;
+    border-width: thick;
+    border-radius: 10px;
+    font-size: 1em;
+    font-style: normal;
+}
+
+#form-container button {
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #ffffff;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    width: 60%;
+    margin: 10px auto;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px;
+    transition: background-color 200ms, color 200ms, border-color 200ms, width 100ms;
+}
+
+#form-container button:hover {
+    background-color: #FF8C00;  
+    color: #000;
+    border-color: #ff8c0075;
+}
+
+#form-container button:active {
+    width: 65%;
+    color: white;
+    background-color: #ff8c00a1;
+}
+
+
+
+.login-title {
+    /* Eliminamos las propiedades de color y fuente que ya no aplican a un icono */
+    margin-top: 5px; 
+    
+    /* 🔑 CLAVE 1: Centrado usando Flexbox */
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical (si el contenedor tiene altura) */
+    
+    /* Añade margen inferior para separar del formulario */
+    margin-bottom: 30px; 
+}
+
+.login-title img {
+    /* 🔑 CLAVE 2: Ajustar el tamaño del icono (ejemplo: 40px) */
+    width: 400px; 
+    height: 40px; 
+    
+    /* Opcional: Un ligero resplandor para que destaque */
+    filter: drop-shadow(0 0 5px #38007b); 
+}
+
+.mini {
+    color: #AAAAAA;
+    margin-top: -20px;
+    font-family: "monospace";
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#body {
+    transition: opacity 0.3s;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+
+/* Definición de la fuente Monocraft */
+@font-face {
+    font-family: 'Monocraft';
+    src: url('../../resources/fonts/Monocraft.woff2') format('woff2'),
+        url('../../resources/fonts/Monocraft.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    
+    /* 🔑 CLAVE PARA FUENTES PIXELADAS 🔑 */
+    /* Deshabilita el suavizado para que los píxeles sean nítidos */
+    -webkit-font-smoothing: none; 
+    -moz-osx-font-smoothing: grayscale; 
+    /* Esta propiedad es ideal para mantener la calidad pixelada */
+    image-rendering: pixelated; 
+}
+
+/* Aplicación de la fuente a la página */
+body, input, button {
+    font-family: 'Monocraft', monospace; /* 'monospace' como fallback */
+}
+
+#username {
+    font-weight: bold;
+}
+
+#username::placeholder {
+    font-weight: bold;
+    color: rgb(67, 67, 67);
+}
+
+#form-container .uppercase-input {
+    font-style: oblique;
+    font-weight: bold;
+    color: darkcyan;
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin: 10px auto;
+    border-right-color: rgb(87 255 255);
+    border-bottom-color: rgb(1 223 223);
+    border-top-color: #b4f8fd;
+    border-left-color:#b4f8fd;
+    border-style: outset;
+    border-width: thick;
+    border-radius: 10px;
+    font-size: 1em;
+    font-style: normal;
+}
+
+#uit::placeholder {
+    color: #6b948f;
+}
+
+.uppercase-input {
+    text-transform: uppercase;
+}

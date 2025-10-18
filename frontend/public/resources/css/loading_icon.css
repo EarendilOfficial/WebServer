@@ -1,0 +1,31 @@
+/* Overlay de Carga (Aparece en la transición) / Loading Overlay (Appears during transition)🔄️ */ 
+#loading-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    scale: 30%;
+    z-index: 100;
+    /* background-color: #000; */
+
+    /* Centrar el spinner usando Flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Estilo de visibilidad (será controlado por JS) */
+    gap: 100px; /* START: Wide separation */
+    visibility: hidden;
+    opacity: 0;
+    
+    /* 🔑 FIX: Combine both transitions into one declaration */
+    transition: opacity 0.5s ease-in-out, 
+                visibility 0.5s ease-in-out, 
+                gap 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+}
+
+/* Ocultar inicialmente el overlay */
+#loading-overlay.shown {
+    visibility: visible;
+    opacity: 1;
+    gap: 5px; /* END: Close separation, triggers animation */
+}

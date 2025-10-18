@@ -1,0 +1,82 @@
+/* Asegúrate de que .status-card y el body estén configurados */
+.status-card {
+    /* ... Tus estilos de tarjeta existentes ... */
+    padding: 15px;
+    background-color: rgba(30, 30, 30, 0.9);
+    border: 1px solid #444;
+}
+
+/* ----------------------------------
+ * ESTILOS DE CABECERA Y NOMBRE
+ * ---------------------------------- */
+.player-header {
+    display: flex; /* Alinea ícono y nombre en fila */
+    align-items: center;
+    justify-content: center; /* Centra el bloque entero horizontalmente */
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333; /* Separador */
+}
+
+.player-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 2px #55FFFF); /* Resaltar el ícono */
+}
+
+.player-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: whitesmoke; /* Color Lava para el nombre */
+}
+
+/* ----------------------------------
+ * ESTILOS DE ESTADÍSTICAS
+ * ---------------------------------- */
+.player-stats {
+    display: flex;
+    flex-direction: column; /* Apila las filas de estadísticas verticalmente */
+    gap: 8px; /* Espacio entre cada estadística */
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between; /* 🔑 CLAVE: Mueve la etiqueta a la izquierda y el valor a la derecha */
+    font-size: 0.95rem;
+    padding: 2px 0;
+    border-bottom: 1px dotted rgba(68, 68, 68, 0.5); /* Línea punteada suave */
+}
+
+.stat-label {
+    color: #AAAAAA; /* Gris sutil para la etiqueta */
+    text-align: left;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: white; /* Valor en blanco */
+    text-align: right;
+}
+
+/* Colores Temáticos para Valores */
+.reputation-good {
+    color: #7CFC00; /* Verde Slime */
+}
+
+.clan-tag {
+    color: #55FFFF; /* Cian Diamante */
+}
+
+.kill-count {
+    color: #FF4500; /* Rojo/Naranja para Kills */
+}
+
+.money-yellow {
+    color: gold;
+}
+
+.missions {
+    color: rgb(110, 43, 226);
+}

@@ -1,0 +1,71 @@
+/* --- ESTILOS DEL MODAL DE ALERTA --- */
+.alert-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.alert-modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alert-modal.hidden {
+    display: none; /* Se oculta completamente cuando no es visible */
+}
+
+.alert-content {
+    background-color: #2c2c2c; /* Color oscuro de fondo de bloque de Nether */
+    color: white;
+    padding: 1rem;
+    border: 4px solid #55FFFF; /* Borde color Diamante/Cian */
+    border-radius: 0; /* Bordes duros estilo pixel */
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 350px;
+    
+    /* Animación simple de pop-up */
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.alert-modal.visible .alert-content {
+    transform: scale(1);
+}
+
+#alert-title {
+    font-family: 'Monocraft', monospace;
+    font-size: 1.5rem;
+    color: #FF8C00; /* Título color Lava/Advertencia */
+    margin-top: 0;
+}
+
+.alert-content p {
+    font-family: 'Monocraft', monospace;
+    font-size: 1rem;
+    margin: 15px 0;
+}
+
+#alert-close {
+    background-color: #7CFC00; /* Botón color Slime/Éxito */
+    color: black;
+    font-family: 'Monocraft', monospace;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#alert-close:hover {
+    background-color: #55FFFF;
+}

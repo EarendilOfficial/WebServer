@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Monocraft';
+    src: url('../../resources/fonts/Monocraft.woff2') format('woff2'),
+        url('../../resources/fonts/Monocraft.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    
+    /* 🔑 CLAVE PARA FUENTES PIXELADAS 🔑 */
+    /* Deshabilita el suavizado para que los píxeles sean nítidos */
+    -webkit-font-smoothing: none; 
+    -moz-osx-font-smoothing: grayscale; 
+    /* Esta propiedad es ideal para mantener la calidad pixelada */
+    image-rendering: pixelated; 
+}

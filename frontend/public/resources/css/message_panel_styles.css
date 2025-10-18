@@ -1,0 +1,150 @@
+/* --- Panel de Contenido Mensajes --- */
+
+
+/* -------------------------------------------------- */
+/* Contenido Default  */
+.default {
+    background-color: #1e1e1ee6;
+    padding: 5px;
+    border-radius: 0; /* Bordes duros */
+    box-shadow: none; /* Eliminar la sombra para ver la imagen de borde */
+    background-clip: padding-box; 
+
+    /* 🔑 1. DEFINIR EL BORDE DE RESPALDO Y GROSOR */
+    border: 60px solid transparent; /* Grosor deseado del borde, debe ser transparente */
+    
+    /* 🔑 2. APLICAR LA IMAGEN DE BORDE */
+    /* Reemplaza 'ruta/a/marco_madera.png' con tu textura de marco de bloque */
+    border-image-source:
+    url("/borders/panel_border4.png");
+    
+    /* 3. CORTAR Y REPETIR */
+    /* Cortar 15 píxeles de cada esquina de la imagen fuente */
+    border-image-slice: 34;
+    
+    /* Repetir los lados sin estirar. 'round' es mejor para píxeles. */
+    border-image-repeat: round; 
+}
+
+
+.default h2 {
+    color: #bbbbbb; /* Título color Lava */
+    border-bottom: 2px dashed #444;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+/* ---------------------------------------------------------- */
+/* Estilo contenido amarillo */
+.yellow {
+    border-left: 5px solid #FFC107; /* Amarillo */
+    background-color: #332d18;
+    color: #FFF;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.yellow h2 {
+    color: #ff8000; /* Título color Lava */
+    border-bottom: 2px dashed #444;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+
+/* ---------------------------------------------------------- */
+/* Estilo de Evento (event) */
+.green {
+    border-left: 5px solid #28a745; /* Verde */
+    background-color: #153315;
+    color: #FFF;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.green h2 {
+    color: #14cd00; /* Título color Lava */
+    border-bottom: 2px dashed #444;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+/* ---------------------------------------------------------- */
+/* Estilo de Hotfix (hotfix) */
+.hotfix {
+    border-left: 5px solid #DC3545; /* Rojo */
+    background-color: #331515;
+    color: #FFF;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.hotfix h2 {
+    color: #de3400; /* Título color Lava */
+    border-bottom: 2px dashed #444;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+/* ---------------------------------------------------------- */
+/* Estilo de Mantenimiento (purpura) */
+.purple {
+    border-left: 5px solid #6F42C1; /* Púrpura */
+    background-color: #2e1533;
+    color: #FFF;
+    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.purple h2 {
+    color: #7300ff; /* Título color Lava */
+    border-bottom: 2px dashed #444;
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.3rem;
+}
+
+
+
+
+
+
+
+/* ----------------------------------------------- */
+/* Siempre iguales, texto del mensaje y firma */
+/* ----------------------------------------------- */
+.message-content p {
+    line-height: 1.8;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.message-content img {
+    /* Clave 1: Limita el ancho al 100% del contenedor padre (.message-content). 
+       Si la imagen es más pequeña, mantiene su tamaño original. */
+    max-width: 100%; 
+    
+    /* Clave 2: Mantiene la proporción de la imagen. 
+       Ajusta la altura automáticamente según el nuevo ancho. */
+    max-height: 20rem; 
+    
+    /* Opcional: Estilo visual para mejor integración */
+    display: block; /* Asegura que no haya espacios debajo de la imagen */
+    margin: 15px auto; /* Centra la imagen y da un poco de espacio vertical */
+    border-radius: 4px; /* Un poco de redondeo, si lo deseas */
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+    color: #AAAAAA;
+    margin-top: 20px;
+}

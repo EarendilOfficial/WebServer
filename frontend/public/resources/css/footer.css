@@ -1,0 +1,127 @@
+/* ----------------------------------
+ * FOOTER
+ * ---------------------------------- */
+
+.site-footer {
+    background-color: #0d0d0d; /* Fondo muy oscuro, similar al header */
+    border-top: 2px solid #55FFFF; /* Borde superior cian (Diamante) */
+    padding: 40px 30px 20px 30px;
+    margin-top: 50px;
+    font-family: 'Monocraft', monospace;
+    color: #f0f0f0;
+}
+
+.footer-grid {
+    display: grid;
+    /* Define 4 columnas de igual tamaño, adaptables */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.footer-section {
+    padding-right: 20px;
+}
+
+.footer-title {
+    color: #FF8C00; /* Título color Lava/Advertencia */
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 5px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #7CFC00; /* Verde Slime al pasar el ratón */
+    text-decoration: underline;
+}
+
+/* ----------------------------------
+ * COLUMNA DE COPYRIGHT Y SOCIAL
+ * ---------------------------------- */
+.footer-copyright {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.footer-logo {
+    width: 15rem;
+    height: auto;
+    margin-bottom: 10px;
+    image-rendering: pixelated;
+}
+
+.footer-copyright p {
+    font-size: 0.8rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.trademark {
+    color: #888;
+    font-style: italic;
+    font-size: 0.7rem !important;
+}
+
+.footer-social {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px dashed #333;
+    margin-top: 20px;
+}
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #55FFFF;
+    margin: 0 15px;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+
+.footer-social a img {
+    height: 30px;
+    width: auto;
+    margin-right: 8px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 1px #ffffff);
+}
+
+.footer-social a:hover {
+    color: #7CFC00;
+}
+
+/* Responsividad básica para móviles */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+        gap: 20px;
+    }
+    .footer-copyright {
+        grid-column: span 2; /* Ocupa ambas columnas */
+        align-items: center;
+        text-align: center;
+    }
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Eärendil - Admin Anuncios</title>
+        <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
+        
+        <link rel="stylesheet" href="../pages/dashboard/style.css"> 
+        <link rel="stylesheet" href="pages/edit_announcements/admin_styles.css"> 
+        <link rel="stylesheet" href="/plantilla.css"> 
+    </head>
+
+    <body id="body">
+        <div id="loading-overlay" class="shown">
+            <img src="../resources/icons/start_terminator.png" alt="[">
+            <img src="../resources/icons/middle_terminator.png" alt="O">
+            <img src="../resources/icons/end_terminator.png" alt="]">
+        </div>
+        
+        <div class="header scrolled">
+            <div id="page-logo-container">
+                <img id="page-logo" src="../resources/icons/logo/earendil_Logo.png" alt="Earendil Logo Grande">
+            </div>
+            <div>
+                <legend class="legend">Admin Tools</legend>
+            </div>
+            <ul class="nav_links">
+                <li class="nav_links_text"><a href="/admin/news"><img src="../resources/icons/sections/news_icon.png" alt="Dashboard">Noticias</a></li>
+                <li class="nav_links_text"><a href="/admin/users"><img src="../resources/icons/sections/social_icon.png" alt="Usuarios">Usuarios</a></li>
+                <li class="nav_links_text"><a href="/admin/settings"><img src="../resources/icons/sections/discord_icon.png" alt="Ajustes">Ajustes</a></li>
+                <li class="nav_links_text"><a id="logout_link" href="/app/dashboard"><img src="../resources/icons/sections/logout_icon.png" alt="Salir de las herramientas">Salir</a></li>
+            </ul>
+        </div>
+
+
+        <main class="admin-grid">
+
+            <section class="editor-container">
+                <h2>✍️ Editor de Anuncio Semanal</h2>
+                
+                <div class="input-group">
+                    <label for="announcement-title">Título del Anuncio:</label>
+                    <input type="text" id="announcement-title" value="Update Semanal:" maxlength="120">
+                </div>
+
+                <div class="input-group">
+                    <label for="content-input">Contenido (Texto Plano o Markdown simple):</label>
+                    <textarea id="content-input" rows="15" placeholder="Escribe el mensaje aquí. Puedes usar **negrita** o *cursiva*. Tambien puedes crear links con ^link^ o mostrar imagenes con ^^imagen^^"></textarea>
+                </div>
+                
+                <div class="options-group">
+                    <div class="input-group">
+                        <label for="style-preset">Preajuste de Estilo:</label>
+                        <select id="style-preset">
+                            <option value="default">⭐ Default (Anuncio Semanal)</option>
+                            <option value="yellow">⚠️ Mensaje Amarillo (Advertencia)</option>
+                            <option value="green">🟩 Mensaje Verde (Bueno)</option>
+                            <option value="hotfix">🔥 Mensaje Rojo (Hotfix)</option>
+                            <option value="purple">🛠️ Mensaje Purpura (mantenimiento)</option>
+                            <option value="lore">🏰 Historia (Piedra)</option>
+                            <option value="color1"> Borde 1</option>
+                            <option value="color2"> Borde 2</option>
+                            <option value="color3"> Borde 3</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="media-type">Tipo de Contenido Multimedia:</label>
+                        <select id="media-type">
+                            <option value="none">❌ Ninguno</option>
+                            <option value="image">🖼️ Imagen (URL)</option>
+                            <option value="video_embed">▶️ Video Embed (URL)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group media-url-group hidden">
+                        <label for="media-url">URL del Recurso:</label>
+                        <input type="url" id="media-url" placeholder="Ej: https://i.imgur.com/image.jpg o URL de YouTube Embed">
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="preview-button" class="btn-preview">Vista Previa 👁️</button>
+                    <button id="save-button" class="btn-save" disabled>Guardar y Publicar 💾</button>
+                    <span id="save-status"></span>
+                </div>
+            </section>
+            
+            <section class="preview-container">
+                <h2>Vista Previa del Dashboard</h2>
+                <div id="preview-output" class="latest-content default">
+                    <p class="placeholder-text">Presiona 'Vista Previa' para ver el resultado.</p>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="site-footer">
+            <div class="footer-grid">
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">Explorar</h4>
+                    <ul class="footer-links">
+                        <li><a href="/news">Noticias</a></li>
+                        <li><a href="/social">Comunidad Social</a></li>
+                        <li><a href="/clans">Ranking de Clanes</a></li>
+                        <li><a href="/wiki">Wiki & Guías</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="/report">Reportar un Jugador</a></li>
+                        <li><a href="/faq">Preguntas Frecuentes (FAQ)</a></li>
+                        <li><a href="/contact">Contacto de Soporte</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/terms">Términos de Servicio</a></li>
+                        <li><a href="/privacy">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section footer-copyright">
+                    <img src="../resources/icons/logo/earendil_logo_mini.png" alt="Earendil Logo" class="footer-logo">
+                    <p>&copy; 2025 Eärendil MC. Todos los derechos reservados.</p>
+                    <p class="trademark">No afiliado a Mojang Studios.</p>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <a><img src="../resources/icons/sections/mail_icon.png" alt="Correo">earendil.official@gmail.com</a>
+                <a href="https://www.youtube.com/@EarendilOfficial" target="_blank"><img src="../resources/icons/yt_icon.png" alt="Discord"> Youtube</a>
+                <!-- <a href="https://twitter.com/yourserver" target="_blank"><img src="../resources/icons/twitter_icon.png" alt="Twitter"> Twitter</a> -->
+                </div>
+        </footer>
+
+        <div id="custom-alert" class="alert-modal">...</div>
+        <script src="pages/edit_announcements/admin_styles.js"></script> 
+        <script src="/resources/js/announcement_Render.js"></script> 
+    </body>
+</html>
