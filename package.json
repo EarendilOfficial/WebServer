@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon backend/mainServer.js",
-    "production": "node --env-file=backend/proto.env backend/mainServer.js"
+    "production": "node --env-file=backend/.env backend/mainServer.js"
   },
   "keywords": [],
   "author": "",
