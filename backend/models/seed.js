@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const Attendance = require('../old/attendanceModel'); 
-const uitSchema = require('./uit');
+const uitSchema = require('../schema/uit');
 
 const sampleAttendance = [
     { studentId: 'student123', date: new Date('2025-09-19T12:00:00Z'), status: 'present' },

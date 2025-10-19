@@ -37,7 +37,7 @@ playerCodesDB.on('connected', () => {
 
 
 // ---- Routes ---- //
-const PORT = 255;
+const PORT = 3001;
 const path = require("path");
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
@@ -84,7 +84,6 @@ app.get('/register-user', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, "..", 'frontend/public')));
-
 
 
 // ---- Server Start ---- //

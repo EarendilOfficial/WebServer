@@ -22,7 +22,7 @@ async function getLatestAnnouncementsController(req, res) {
             .exec();
 
         // 2. Manejar la respuesta
-        if (!latestAnnouncement) {
+        if (!latestAnnouncement || latestAnnouncement.length == 0) {
             // Si no hay anuncios publicados, enviamos un mensaje por defecto.
             return res.status(200).json({ 
                 title: "Bienvenido", 
