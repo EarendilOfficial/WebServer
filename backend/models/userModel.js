@@ -23,7 +23,7 @@ const userModelSchema = new mongoose.Schema(
         
         groups: [],
         friends: [],
-        archievements: [],
+        achievements: [],
 
         uit: {type: String},
         isAdmin: {type: Boolean, required: false},

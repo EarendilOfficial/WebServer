@@ -1,0 +1,198 @@
+body {
+    margin: 0;
+    font-family: 'Monocraft', monospace;
+    background-color: #1a1a1a; /* Fondo muy oscuro de Nether/Deepslate */
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background-image: url('../../resources/backgrounds/camera_side.png'); 
+    background-size: cover;
+    image-rendering: pixelated;
+    background-repeat: repeat;
+    background-size: 80px 80px;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: saturation;
+
+    /* To fix the background to the screen */
+    /* background-attachment: fixed; */
+}
+
+#title {
+    margin: 50px auto 0px; /* Centrar horizontalmente */
+    padding: 20px 10%;
+    max-width: max-content;
+}
+
+#title h1 {
+    font-size: 1.5rem; /* El h1 es la excepción, pero lo ajustaremos */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Opcional: para que destaque */
+}
+
+/* ----------------------------------
+ * LAYOUT PRINCIPAL DEL REPORTE
+ * ---------------------------------- */
+.report-main-grid {
+    display: grid;
+    /* Divide el espacio en dos columnas iguales */
+    grid-template-columns: 1fr 2fr; 
+    gap: 40px;
+    padding: 50px 50px;
+    margin: auto; /* Centrar debajo del header */
+    min-height: 70vh;
+    max-width: fit-content;
+}
+
+/* ----------------------------------
+ * ESTILO DE VENTANA GUI (GENERAL)
+ * ---------------------------------- */
+.gui-window {
+    /* 🔑 Base de ventana de menú con bordes duros */
+    background-color: #2c2c2c; /* Fondo de ventana oscuro */
+    border: 1px solid #444; 
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 20px 20px 15px rgba(0, 0, 0, 0.6);
+    text-align: center;
+}
+
+.window-title {
+    color: #aa9bff; /* Cian Diamante */
+    font-size: 1.2rem;
+    border-bottom: 1px solid #aa9bff;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    color: #FF8C00; /* Naranja Lava para preguntas */
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+/* ----------------------------------
+ * 1. SECCIÓN DE SELECCIÓN DE JUGADOR
+ * ---------------------------------- */
+#player-search {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #444;
+    color: white;
+    border: 2px solid #666;
+    font-family: 'Monocraft', monospace;
+    image-rendering: pixelated;
+}
+
+.list-container {
+    max-height: 400px; /* Altura máxima para la lista */
+    overflow-y: auto; /* Permite scroll */
+    border: 1px solid #555;
+    background-color: #1e1e1e;
+}
+
+.player-item {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.player-item:hover {
+    background-color: rgba(124, 252, 0, 0.1); /* Fondo verde claro */
+}
+
+/* Estado de Jugador Seleccionado */
+.player-item.selected {
+    background-color: #7CFC00; /* Verde Slime sólido */
+    color: black;
+    font-weight: bold;
+}
+
+/* ----------------------------------
+ * 2. PANEL DE OPCIONES DE REPORTE
+ * ---------------------------------- */
+.reason-choose-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.reason-item a {
+    display: block;
+    text-decoration: none;
+    color: #f0f0f0;
+    background-color: #444; /* Botón gris oscuro */
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border: 2px solid #666;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Monocraft', monospace;
+    text-align: left;
+}
+
+.reason-item a:hover {
+    background-color: #666;
+}
+
+/* Estado de Razón Seleccionada */
+.reason-item.selected a {
+    background-color: #FF8C00; /* Naranja Lava */
+    color: black;
+    border-color: #FF4500;
+}
+
+/* --- Área de Detalles --- */
+#report-details {
+    width: calc(100% - 24px); /* Ajuste de padding */
+    height: 15rem;
+    padding: 10px;
+    background-color: #444;
+    font-size: 1.1rem;
+    color: white;
+    border: 2px solid #666;
+    resize: vertical; /* Permite al usuario redimensionar verticalmente */
+    font-family: 'Monocraft', monospace;
+    image-rendering: pixelated;
+}
+
+/* --- Botón Final --- */
+#submit-report-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    background-color: #838383; /* Botón final de acción (Slime Green) */
+    
+    /* Border */
+    border-color: #ffffff;
+    border-block-end: #bebebe;
+    border-style: outset;
+    border-width: thick;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    font-family: 'Monocraft', monospace;
+    image-rendering: pixelated;
+}
+
+#submit-report-btn:hover {
+    background-color: #55FF55;
+    transform: translateY(-1px); /* Efecto de "clic" */
+    transform: scale(1.02);
+}
+
+#submit-report-btn:active {
+    color: #aa9bff;
+    transform: scale(0.95);
+}

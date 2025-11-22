@@ -4,7 +4,7 @@ const Users = require('../models/userModel.js')
 async function getMyUserData(req, res, next) {
     const username_ = req.user.username;
 
-    const userData = await Users.findOne({username: username_}).select('username mail mcAccount payement groups friends archievements uit deletedAccount balance registration_date');
+    const userData = await Users.findOne({username: username_}).select('username mail mcAccount payement groups friends achievements uit balance registration_date');
 
     if (userData) {
         req.userData = userData;

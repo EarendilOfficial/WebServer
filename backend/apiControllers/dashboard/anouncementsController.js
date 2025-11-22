@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 // Cargar el esquema de bd de anuncios guardados
-const announcementSch = require("../schema/announcementSchema");
+const announcementSch = require("../../schema/announcementSchema");
 
 /**
  * Controlador para obtener el anuncio más reciente y publicado.
  * Expone un endpoint /api/get_content_latest (ruta protegida por isAuthCheck).
 */
-async function getLatestAnnouncementsController(req, res) {
+async function getLatestAnnouncementsHandler(req, res) {
     const HtmlContent = await mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
     const Announcement = HtmlContent.model('Anuncios', announcementSch);
 
@@ -45,7 +45,7 @@ async function getLatestAnnouncementsController(req, res) {
     }
 }
 
-async function saveAnnouncementController(req, res) {
+async function saveAnnouncementHandler(req, res) {
     const HtmlContent =  mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
     const Announcement = HtmlContent.model('Anuncios', announcementSch);
     
@@ -81,4 +81,4 @@ async function saveAnnouncementController(req, res) {
     res.status(200).json({ message: 'Anuncio guardado', id: '200' });
 }
 
-module.exports = { getLatestAnnouncementsController, saveAnnouncementController };
+module.exports = { getLatestAnnouncementsHandler, saveAnnouncementHandler };

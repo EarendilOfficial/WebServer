@@ -20,11 +20,6 @@ router.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/dashboard.html"));
 });
 
-router.get('/reports', (req, res) => {
-    console.log(`User ${req.user.username} accessed reports.`);
-    res.sendFile(path.join(__dirname, "..", "frontend/reports.html"));
-});
-
 
 
 
