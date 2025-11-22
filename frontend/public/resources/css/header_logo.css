@@ -1,0 +1,77 @@
+/* ----------------------------------
+ * LOGO FLOTANTE Y STICKY
+ * ---------------------------------- */
+
+/* 1. Estado Inicial: Logo Grande y Centrado sobre el contenido */
+#page-logo-container {
+    position: absolute;
+    top: -12rem; /* Separación inicial del header */
+    left: 50%;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 15; /* Asegura que esté por encima del header y el grid */
+    pointer-events: none; /* Permite hacer click en el contenido debajo del logo */
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    background-clip: padding-box; 
+
+    /* 🔑 1. DEFINIR EL BORDE DE RESPALDO Y GROSOR */
+    /* border: 40px solid transparent; Grosor deseado del borde, debe ser transparente */
+    
+}
+
+#page-logo {
+    height: 140px; /* Tamaño GRANDE */
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 10px #000000c0); /* Sombra para que flote */
+}
+
+
+/* 2. Estado Final (Activado por JavaScript al hacer scroll) */
+.header.scrolled #page-logo-container {
+    /* 🔑 Mueve el logo a la esquina superior izquierda */
+    top: 10px; /* Posición vertical final en el header */
+    left: 20px; /* Posición horizontal final */
+    transform: translateX(0); /* Desactivamos el centrado */
+
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+
+    border: none;
+}
+
+.header.scrolled #page-logo {
+    height: 60px; /* Tamaño MINI, igual al que era antes */
+    filter: none; /* Removemos la sombra flotante */
+}
+
+.header.scrolled {
+    justify-content: flex-end;
+    font-size: 0rem;
+}
+
+.space {
+    margin-top: 10rem;
+}
+
+.upper_coating {
+    height: 250px;
+    margin: 0;
+    font-family: 'Monocraft', monospace;
+    font-weight: bold;
+    background-color: #1a1a1a; /* Fondo muy oscuro de Nether/Deepslate */
+    color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    text-align: right;
+
+    background-color: black;
+    background-size: cover;
+    image-rendering: pixelated;
+    background-repeat: repeat;
+    background-size: 80px 80px;
+    background-blend-mode: darken;
+}
+
+.close-row {
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+}

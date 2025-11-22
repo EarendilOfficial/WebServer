@@ -1,0 +1,145 @@
+/* ----------------------------------
+ * HEADER Y NAVEGACIÓN
+ * ---------------------------------- */
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    padding-top: 16px;
+    border-top: 5px solid hsl(0, 0%, 14%); /* Línea de luz Diamante/Cian */
+    border-bottom: 2px solid #1b1b1b; /* Línea de luz Diamante/Cian */
+    position: relative; /* Necesario para z-index si hay fixed/absolute en el body */
+    z-index: 10;
+    margin-top: 0rem;
+
+    /* Fondo de pantalla */
+    /* background-image: url('../../resources/backgrounds/stonebrick.png'); */
+    background-size: cover;
+    image-rendering: pixelated;
+    background-repeat: repeat;
+    background-size: 90px 90px;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-blend-mode: darken;
+
+    position: sticky; /* Hacemos el header pegajoso */
+    top: 0;
+}
+
+.nav_links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.nav_links_text a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: color 0.2s, background-color 0.2s;
+    
+    /* Estilo de Iconos en el enlace */
+    display: flex;
+    align-items: center;
+    transition: font-size 0.5s cubic-bezier(0.17, 0.78, 0.21, 1.38);
+}
+
+.nav_links a img {
+    height: 40px; /* Tamaño del icono */
+    width: 40px;
+    margin-right: 8px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 1px #ffffff); /* Pequeño resplandor */
+}
+
+.nav_links_text a:hover {
+    /* color: #7CFC00;  */
+    font-size: 1rem;
+}
+
+/* ----------------------------------
+ * MENÚ DESPLEGABLE (USUARIO)
+ * ---------------------------------- */
+.dropdown {
+    position: relative;
+    padding: 0px 0px;
+    font-size: 1rem;
+}
+
+.dropdown-toggle {
+    /* El enlace principal se comporta como los demás */
+    cursor: pointer;
+
+    /* background-color: #ffffff; */
+    border-color: #c0c0c0;
+    border-block-end: #bebebe;
+    border-style: ridge;
+    border-width: thick;
+    border-radius: 10px;
+    padding: 0px 10px;
+    background-image: url('../../resources/backgrounds/deepslate_tiles.png');
+    background-size: 64px 64px;
+    image-rendering: pixelated;
+
+    text-decoration: none;
+    display: flex;
+    color: rgb(255, 255, 255);
+    align-items: center;
+    transition: color 0.2s, background-color 0.2s;
+    transition: background-size 0.5s cubic-bezier(0, -3, 0, 3);
+}
+
+.dropdown-toggle:hover {
+    background-size: 68px 68px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 110%; /* Coloca el menú justo debajo del enlace "Usuario" */
+    left: 51%;
+    transform: translateX(-50%); /* Centra el menú horizontalmente bajo el enlace */
+    background-color: #0d0d0d;
+    /* min-width: 180px; */
+    border: 4px solid #8f8f8f; /* Borde color Lava */
+    border-style: ridge;
+    border-radius: 10px;
+    list-style: none;
+    padding: 5px 0;
+    margin: 0;
+    z-index: 20;
+    
+    /* Inicialmente oculto */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(-10px); /* Ligeramente desplazado para la transición */
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+
+    background-image: url('../../resources/backgrounds/deepslate_bricks.png');
+    background-size: 64px 64px;
+    image-rendering: pixelated;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0); /* Vuelve a la posición normal */
+}
+
+.dropdown-menu li a {
+    padding: 8px 15px;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: rgba(0, 252, 84, 0.2); /* Fondo verde semitransparente al pasar el ratón */
+}

@@ -8,7 +8,7 @@ const Users = require('../models/userModel.js')
  * Middleware para verificar si el usuario está autenticado a través de JWT.
  * Se espera que el token se encuentre en la cookie 'sessionId'.
  */
-function isAuthCheck(req, res, next) {
+async function isAuthCheck(req, res, next) {
     // Check for the 'token' cookie, which stores the JWT
     const token = req.cookies.sessionId; 
     
@@ -21,6 +21,11 @@ function isAuthCheck(req, res, next) {
     try {
         // Verify the token
         const decoded = jwt.verify(token, JWT_SECRET);
+
+        // Check the database for the user given that it is not deleted 
+        const user_in_check = await Users.findOne({username: decoded.username, $nor: [{deletedAccount: true}]});
+        // If user is deleted account, return error
+        if (!user_in_check) return res.status(401).send({ message: "Unauthorized: Invalid or expired login" });
         
         // Attach the decoded payload (e.g., userId) to the request object for use in routes
         req.user = decoded; 
@@ -34,7 +39,7 @@ function isAuthCheck(req, res, next) {
 
 async function isAdminCheck(req, res, next) {
     try {
-        // Decode the cookie token
+        // Use userId to search for if the user is admin
         if (await isAdmin(req.user.userId)) return next();
 
         // else

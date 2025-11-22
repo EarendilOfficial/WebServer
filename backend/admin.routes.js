@@ -22,7 +22,7 @@ router.get('/edit_anounncements', (req, res) => {
 
 router.get('/reports', (req, res) => {
     console.log(`User ${req.user.username} accessed reports.`);
-    res.sendFile(path.join(__dirname, "..", "frontend/reports.html"));
+    res.sendFile(path.join(__dirname, "..", "frontend/handleReports.html"));
 });
 
 

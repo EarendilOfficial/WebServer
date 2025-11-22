@@ -37,12 +37,14 @@ playerCodesDB.on('connected', () => {
 
 
 // ---- Routes ---- //
-const PORT = 3001;
+const PORT = 6294;
 const path = require("path");
+const userRoutes = require("./user.routes.js");
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
 
+app.use('/user', userRoutes);
 app.use('/app', protectedRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api', apiRequestRoutes);
@@ -78,16 +80,17 @@ app.get('/', apiLimiter, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
 });
 
-// Registration path
+// Registration
 app.get('/register-user', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/register-user.html"));
 });
 
+// Static files
 app.use(express.static(path.join(__dirname, "..", 'frontend/public')));
 
 
 // ---- Server Start ---- //
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server Started at: http://localhost:${PORT}`);
     console.log(`Access the unprotected root: http://localhost:${PORT}`);
     console.log(`Test protected route: http://localhost:${PORT}/protected`);
@@ -95,16 +98,16 @@ app.listen(PORT, () => {
 });
 
 
-// Manejo de requests malformados
-app.use((err, req, res, next) => {
-    // Si el error es una instancia de SyntaxError y tiene el tipo 'entity.parse.failed',
-    // significa que el JSON estaba malformado.
-    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-        // Log solo el evento de error, no el cuerpo malicioso.
-        console.error('ERROR: Malformed JSON received from IP:', req.ip); 
-        return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
-    }
+// // Manejo de requests malformados
+// app.use((err, req, res, next) => {
+//     // Si el error es una instancia de SyntaxError y tiene el tipo 'entity.parse.failed',
+//     // significa que el JSON estaba malformado.
+//     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+//         // Log solo el evento de error, no el cuerpo malicioso.
+//         console.error('ERROR: Malformed JSON received from IP:', req.ip); 
+//         return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
+//     }
 
-    // Para cualquier otro error no manejado, déjalo pasar.
-    next(); 
-});
+//     // Para cualquier otro error no manejado, déjalo pasar.
+//     next(); 
+// });
