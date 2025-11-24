@@ -3,6 +3,12 @@
 
 const express = require("express");
 const app = express();
+const path = require("path");
+
+// Activar EJS como renderizador de las paginas, para reciclar el encabezado y el footer
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../frontend/views'));
+
 app.set('trust proxy', 1); //Get the actual ip from the client
 const { apiLimiter, generalLimiter, loginLimiter } = require("./security/rateLimiter.js");
 const { isAuthCheck } = require("./auth/Auth_Middleware.js"); // Middleware
@@ -38,7 +44,6 @@ playerCodesDB.on('connected', () => {
 
 // ---- Routes ---- //
 const PORT = 6294;
-const path = require("path");
 const userRoutes = require("./user.routes.js");
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");

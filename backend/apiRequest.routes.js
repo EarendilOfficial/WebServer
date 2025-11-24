@@ -25,8 +25,7 @@ router.use(express.json({
 
 
 // ---------------- RUTAS --------------- //
-// - - - dashboard.html
-// Return: title textContent stylePreset media author
+// Obtiene los ultimos anuncios de la base de datos
 router.get('/get_content_latest', getLatestAnnouncementsHandler)
 
 // Get all the minecraft data
@@ -40,8 +39,7 @@ router.get('/get_user_count', async ({res}) => {
     return res.status(200).json({number: playerCount});
 })
 
-// Get playernames or username (if playername not available) for reports
-// Return: Array(name, name, ...)
+// Get playernames or username (if playername not available) for reports // Return: Array(name, name, ...)
 router.get('/get_player_names', async ({res}) => {
     let playersData = await fgetUsersSafeData();
     playersData = playersData.map((user)=> {

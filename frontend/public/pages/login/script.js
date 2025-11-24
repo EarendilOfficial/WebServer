@@ -14,7 +14,7 @@ const field_password = document.getElementById("password");
 
 window.onload = () => {   
     body.classList.remove("fade-out");
-    loading_overlay.classList.remove('shown');
+    // loading_overlay.classList.remove('shown'); Removed loading overlay
 };
 
 let width = window.innerWidth;

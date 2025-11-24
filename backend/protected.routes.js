@@ -17,7 +17,7 @@ router.use(isAuthCheck);
 router.get('/dashboard', (req, res) => {
     // Como el middleware ya corrió, podemos asumir que req.user existe.
     console.log(`User ${req.user.username} accessed dashboard.`);
-    res.sendFile(path.join(__dirname, "..", "frontend/dashboard.html"));
+    res.render('app/dashboard')
 });
 
 
