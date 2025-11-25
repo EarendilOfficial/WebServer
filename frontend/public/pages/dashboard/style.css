@@ -35,6 +35,11 @@
 }
 
 .status-card h3 {
+    border: 5px solid #444;
+    border-style: double dotted;
+    padding: 10px;
+    border-radius: 5px;
+
     color: #55FFFF; /* Títulos secundarios color Cian */
     margin-top: 0;
     font-size: 1.1rem;
@@ -56,6 +61,7 @@
 .latest-update .update-image {
     width: 80%;
     max-height: 150px;
+    max-width: fit-content;
     object-fit: cover;
     margin: 10px 0;
     border: none;
@@ -63,6 +69,7 @@
 }
 .latest-update .version {
     color: #AAAAAA;
+    margin-top: 0;
     font-size: 0.9rem;
 }
 
@@ -71,6 +78,9 @@
     list-style: none;
     padding: 0;
     margin: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 .event-list li {
     padding: 5px;
@@ -80,6 +90,101 @@
 .event-list li.no-events {
     color: #AAAAAA;
     font-style: italic;
+}
+
+.event-list li.error-text {
+    color: #a50000;
+    font-style: italic;
+}
+
+.event-list li .description{
+    color: white;
+    margin: 5px;
+    font-style: normal;
+}
+
+.event-list li .date{
+    color: rgb(133, 133, 133);
+    margin: 0px;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+
+/* Colores de los eventos en la lista segun el rango del evento */
+.event-list li.epic {
+    color: #f700ff;
+}
+
+.event-list li.legendary strong{
+    color: #0099ff;
+    text-shadow: 
+        /* Contorno Nítido para Legibilidad */
+        /* Resplandor Temático */
+        1px 2px 0px rgba(0, 132, 255, 0.8);
+}
+
+.event-list li.christmas {
+    /* Fondo sutil para distinguir la línea */
+    background-color: rgba(255, 0, 0, 0.05);
+    border-color: rgb(255, 255, 255) !important;
+    border-width: 1px;
+    font-size: 1rem;
+    padding: 8px 10px;
+}
+
+/* COLOR NAVIDEÑO ANIMADO (¡OH SÍ!) */
+.event-list li.christmas .description {
+    font-size: 0.9rem;
+}
+
+.event-list li.christmas strong {
+    /* 1. Definir el degradado de colores navideños */
+    background-image: linear-gradient(
+        45deg, 
+        #FF0000 10%,     /* Rojo */
+        #009900 30%,     /* Verde */
+        #ffffff 50%,     /* Blanco Brillante */
+        #FF0000 100%
+    );
+    
+    /* 🔑 CLAVE 1: Aumentar el tamaño del fondo horizontalmente */
+    background-size: 200% 100%; /* Duplicamos el ancho para que el degradado se mueva */
+    
+    /* 2. Recortar el degradado al texto */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Hacer que el texto sea transparente */
+    color: transparent !important;
+    
+    /* 🔑 CLAVE 2: Aplicar la animación de desplazamiento */
+    animation: festive-scroll 6s linear infinite; /* 4 segundos, lineal, infinito */
+    
+    /* 4. Añadir sombras (Mantenemos la corrección de legibilidad) */
+    text-shadow: 
+        /* Contorno Nítido para Legibilidad */
+        /* Resplandor Temático */
+        1px 2px 0px rgba(134, 0, 0, 0.5);
+}
+/* ----------------------------------
+ * DEFINICIÓN DE LA ANIMACIÓN
+ * ---------------------------------- */
+@keyframes festive-scroll {
+    0% {
+        /* Estado inicial: El fondo del degradado empieza a la izquierda */
+        background-position: 100% 0;
+    }
+
+    50% {
+        /* Estado medio: El degradado se desplaza al centro (opcional) */
+        background-position: 0% 0;
+    }
+
+    100% {
+        /* Estado final: El fondo del degradado se desplaza a la derecha */
+        background-position: 100% 0;
+    }
 }
 
 .latest-content {

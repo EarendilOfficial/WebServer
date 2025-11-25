@@ -15,6 +15,8 @@ const { fgetUsersSafeData } = require('./dataGetters/get_UserSafeData.js');
 const { sendReportHandler } = require('./apiControllers/reports/playerReportController.js');
 const { reportValidationRules, validateReport } = require('./security/reportValidation.js');
 const { reportLimiter } = require('./security/rateLimiter.js');
+const { getActiveEvents } = require('./dataGetters/get_activeEvents.js');
+const createEventsHandler = require('./apiControllers/dashboard/eventsController.js');
 
 
 // El chequeo de autenticacion se aplica a todas las rutas
@@ -49,6 +51,39 @@ router.get('/get_player_names', async ({res}) => {
     return res.status(200).json({playersData: playersData})
 })
 
+// Endpoint para la Última Actualización
+router.get('/get_latest_update', async (req, res) => {
+    try {
+        // En un escenario real, buscarías el documento más reciente:
+        // const latestUpdate = await UpdateModel.findOne().sort({ timestamp: -1 });
+        
+        // Simulación de datos:
+        const latestUpdate = {
+            versionName: 'The Eärendil Conquer',
+            serverVersion: '1.20.1',
+            imageUrl: '/resources/icons/logo/earendil_conquer.png',
+            description: 'Grandes cambios en el sistema de clanes y nuevos biomas.',
+            timestamp: new Date()
+        };
+
+        return res.json(latestUpdate || {});
+    } catch (e) {
+        return res.status(500).json({ error: 'Fallo al obtener actualización' });
+    }
+});
+
+// Endpoint para Eventos Activos
+router.get('/get_active_events', async (req, res) => {
+    try {
+        // Obtencion de datos:
+        const activeEvents = await getActiveEvents();
+
+        return res.json({ events: activeEvents });
+    } catch (e) {
+        return res.status(500).json({ error: 'Fallo al obtener eventos' });
+    }
+});
+
 // Add a report to the database
 router.post(
     '/sendReport', reportLimiter,
@@ -63,5 +98,6 @@ router.post(
 // This is only accesible to admin (isAdminCheck is middleware for admin verification)
 router.post('/save_announcement', isAdminCheck, saveAnnouncementHandler);
 
+router.post('/add_event', isAdminCheck, createEventsHandler);
 
 module.exports = router;

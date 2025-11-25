@@ -281,6 +281,7 @@ async function sendLoginData(username, password) {
             // Add loading animation
             body.classList.add('fade-out');
             loading_overlay.classList.add('shown');
+            localStorage.setItem('isFirstLogin', 'true')
 
             setTimeout(()=>{
                 // Ejemplo de redirección:

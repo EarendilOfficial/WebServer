@@ -9,7 +9,6 @@
     left: 50%;
     transform: translateX(-50%); /* Centrado horizontal */
     z-index: 15; /* Asegura que esté por encima del header y el grid */
-    pointer-events: none; /* Permite hacer click en el contenido debajo del logo */
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     background-clip: padding-box; 

@@ -1,4 +1,5 @@
 const logout_link = document.getElementById('logout_link');
+const firstLogin = localStorage.getItem('isFirstLogin')
 
 logout_link.addEventListener('click', async ()=>{
     const response = await fetch('/logout', {
@@ -17,7 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const loading_overlay = document.getElementById('loading-overlay');
     const scrollThreshold = 180; // Distancia en píxeles antes de que el logo se mueva
 
-    loading_overlay.classList.remove("shown");
+    // Esto hace que el icono de carga no aparezca de nuevo
+    if (firstLogin === 'true') {
+        loading_overlay.classList.remove("shown");
+        localStorage.setItem('isFirstLogin', 'false')
+    } else {
+        loading_overlay.innerHTML = ''
+    }
+
 
     function handleScroll() {
         // Verifica si el scroll vertical (scrollY) ha superado el umbral
@@ -36,12 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Añade el detector de eventos de scroll
     window.addEventListener('scroll', handleScroll);
 
-    getLatestContent();
+    obtenerUltimosAnuncios();
+    
+    // Muestra informacion general del perfil de usuario de minecraft 
     getPlayerData();
+    
+    // Cargar otros datos laterales
     getPlayerCount()
+    getLatestUpdate();
+    getActiveEvents();
 });
 
-async function getLatestContent() {
+async function obtenerUltimosAnuncios() {
     // limpiar el contenedor
     const announcementContainer = document.querySelector('.latest-content');
     announcementContainer.innerHTML = '';
@@ -106,4 +120,88 @@ async function getPlayerCount() {
     const data = await response.json();
     console.log("Active players:", data.number)
     active_players.innerHTML = data.number
+}
+
+async function getLatestUpdate() {
+    const updateTitle = document.querySelector('.latest-update h3');
+    const updateImage = document.querySelector('.latest-update .update-image');
+    const updateDesc = document.querySelector('.latest-update .description');
+    const serverVersion = document.querySelector('.latest-update .version');
+
+    try {
+        const response = await fetch('/api/get_latest_update', { method: 'GET' });
+        
+        // Verifica si la respuesta es exitosa antes de parsear JSON
+        if (!response.ok) {
+            updateTitle.textContent = "Última Actualización: Desconocida";
+            updateImage.src = '/resources/icons/sections/report_icon2.png';
+            serverVersion.innerHTML = "Versión del Servidor: **N/A**";
+            return;
+        }
+
+        const data = await response.json(); 
+
+        if (data && data.versionName) {
+            updateTitle.textContent = `Última Actualización: ${data.versionName}`;
+            updateImage.src = data.imageUrl || '/resources/icons/default_update.png';
+            updateDesc.textContent = data.description || ""
+            serverVersion.innerHTML = `Versión del Servidor: **${data.serverVersion || 'Desconocida'}**`;
+        } else {
+            updateTitle.textContent = "Última Actualización: Información no disponible";
+            serverVersion.innerHTML = "Versión del Servidor: **N/A**";
+        }
+    } catch (e) {
+        console.error("Error fetching latest update:", e);
+        updateTitle.textContent = "Error de conexión";
+    }
+}
+
+async function getActiveEvents() {
+    const eventList = document.querySelector('.event-list');
+    eventList.innerHTML = ''; // Limpiar la lista existente
+
+    try {
+        const response = await fetch('/api/get_active_events', { method: 'GET' });
+        
+        if (!response.ok) {
+             eventList.innerHTML = '<li class="error-text">Error al cargar eventos.</li>';
+             return;
+        }
+
+        const data = await response.json(); 
+
+        if (data.events && Array.isArray(data.events) && data.events.length > 0) {
+            data.events.forEach(event => {
+                const li = document.createElement('li');
+                
+                switch (event.rank) {
+                    case 'epic':
+                        li.classList.add("epic")
+                        break;
+                    case 'legendary':
+                        li.classList.add("legendary")
+                        break;
+                    case 'christmas':
+                        li.classList.add("christmas")
+                        break;
+                    default: break; 
+                }
+
+                // Formateo simple del tiempo
+                const endTime = new Date(event.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const endDate = new Date(event.endTime);
+                const endDay = endDate.toLocaleDateString('es-ES', {day: "numeric", weekday: 'long' }); // Ej: lun, mar, mié, etc.
+
+                li.innerHTML = `<strong>${event.title}</strong> <p class='description'>${event.description ?? ''}</p> <p class=date>[Finaliza: ${endTime} ${endDay}] </p>`;
+                li.title = `${event.description || "Evento"} - Ubicación: ${event.location}`; // Tooltip
+                eventList.appendChild(li);
+            });
+        } else {
+            eventList.innerHTML = '<li class="no-events">No hay eventos programados.</li>';
+        }
+
+    } catch (e) {
+        console.error("Error fetching active events:", e);
+        eventList.innerHTML = '<li class="error-text">Fallo al conectar con el servidor de eventos.</li>';
+    }
 }
