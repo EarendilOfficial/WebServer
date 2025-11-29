@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eärendil - Admin Blogs</title>
+    <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
+    
+    <link rel="stylesheet" href="../pages/dashboard/style.css"> 
+    <link rel="stylesheet" href="pages/admin_blogs/admin_styles.css"> 
+    <link rel="stylesheet" href="/plantilla.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Nuevo blog</h1>
+
+        <form action="/articles" method="POST">
+            <%- include('_form_fields') %>
+
+        </form>
+    </div>
+    
+</body>
+</html>

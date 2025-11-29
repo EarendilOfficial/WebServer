@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eärendil - Admin Blogs</title>
+    <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
+    
+    <link rel="stylesheet" href="../pages/dashboard/style.css"> 
+    <link rel="stylesheet" href="pages/admin_blogs/admin_styles.css"> 
+    <link rel="stylesheet" href="/plantilla.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4"> Blog Articles</h1>
+        <a href="articles/new" class="btn btn-success mb-3">Create New Article</a>
+
+        <% articles.forEach(article => { %>
+            <div class="card mb-4">
+            <div class="card-body">
+                    <h5 class="card-title"><%= article.title %></h5>
+                    <div class = "card-subtitle text-muted mb-2"> 
+                        <%= article.createdAt.toLocaleDateString() %>
+                    </div>
+                    <div class="card-text mb-2"><%= article.description %></div>
+                    <a href="articles/<%= article.id &>" class="btn btn-primary">Leer mas</a>
+                </div>
+                </div>
+        <% }) %> 
+    </div>
+    
+</body>
+</html>
