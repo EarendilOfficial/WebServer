@@ -15,10 +15,10 @@
         <h1 class="mb-4"><%= article.title %> </h1>
         <div class="text-muted mb-2"><%=article.createdAt.toLocaleDateString() %></div>
         <a href="/articles" class="btn btn-secondary">Todos los blogs</a>
-        <a href="/articles/edit" class="btn btn-info">Editar</a>
+        <a href="/articles/edit/<%= article.slug %>" class="btn btn-info">Editar</a>
 
-        <div><&= article.markdown &></div>
-        </form>
+        <div><%= article.markdown %></div>
+        
     </div>
     
 </body>

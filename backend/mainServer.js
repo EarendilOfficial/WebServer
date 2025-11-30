@@ -5,10 +5,9 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-const Article = require('./models/article')
-
 // --- IMPORTANTE: Aquí importamos las rutas del blog (Si articles.js está en la misma carpeta que este archivo) ---
 const articleRouter = require('./articles'); 
+
 
 // Configuración de EJS
 app.set('view engine', 'ejs');
@@ -51,7 +50,8 @@ const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
 
-// ------------------------ ADMIN BLOGS (Integrado) ---------------------- //
+// ------------------------ ADMIN BLOGS (Integrado) -----------
+const Article = require('./models/article');
 
 
 app.use('/articles', articleRouter);

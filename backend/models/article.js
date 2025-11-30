@@ -31,6 +31,7 @@ articleSchema.pre('validate', function(){
     if (this.title){
         this.slug = slugify(this.title, {lower:true, strict: true})
     }
-}) 
+})
+
 
 module.exports = mongoose.model('Article', articleSchema);
