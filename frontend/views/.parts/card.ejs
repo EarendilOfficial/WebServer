@@ -1,0 +1,46 @@
+<%# 
+    Esta plantilla requiere los siguientes datos (vars):
+    - cardTitle: Título principal de la tarjeta.
+    - iconUrl: URL del ícono principal de la tarjeta.
+    - name: Nombre principal/etiqueta grande (ej: Nombre del Jugador).
+    - stats: Array de objetos { label, value, cssClass (opcional) } para las filas de estadísticas.
+    
+    Ejemplo de stats:
+    [{ label: 'Nivel', value: 55, cssClass: '' }, { label: 'Ringcoins', value: '536🪙', cssClass: 'money-yellow' }]
+%>
+
+<div class="status-card player-info-card">
+    
+    <!-- CABECERA PRINCIPAL (Ícono y Nombre) -->
+    <div class="player-header">
+        <!-- Ícono principal de la tarjeta -->
+        <img class="player-icon" src="<%= iconUrl %>" alt="<%= cardTitle %> Icono">
+        
+        <!-- Nombre/Título principal -->
+        <span class="player-name value"><%= name %></span>
+    </div>
+
+    <!-- TÍTULO DE LA SECCIÓN (Si es necesario) -->
+    <h3 class="card-title"><%= cardTitle %></h3>
+
+    <!-- CUERPO DE ESTADÍSTICAS -->
+    <div class="player-stats">
+        
+        <% if (stats && stats.length > 0) { %>
+            <% stats.forEach(stat => { %>
+                <div class="stat-row">
+                    <!-- Etiqueta (Ej: "Nivel:") -->
+                    <span class="stat-label"><%= stat.label %>:</span>
+                    
+                    <!-- Valor con clase condicional para color (Ej: money-yellow) -->
+                    <span class="stat-value <%= stat.cssClass || '' %>"><%= stat.value %></span>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <div class="stat-row">
+                <span class="stat-label">Estado:</span>
+                <span class="stat-value reputation-good">Datos no disponibles.</span>
+            </div>
+        <% } %>
+    </div>
+</div>

@@ -6,8 +6,6 @@
 #page-logo-container {
     position: absolute;
     top: -12rem; /* Separación inicial del header */
-    left: 50%;
-    transform: translateX(-50%); /* Centrado horizontal */
     z-index: 15; /* Asegura que esté por encima del header y el grid */
     transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
@@ -22,6 +20,8 @@
     height: 140px; /* Tamaño GRANDE */
     image-rendering: pixelated;
     filter: drop-shadow(0 0 10px #000000c0); /* Sombra para que flote */
+    max-width: 100%;
+    max-height: fit-content;
 }
 
 
@@ -40,11 +40,6 @@
 .header.scrolled #page-logo {
     height: 60px; /* Tamaño MINI, igual al que era antes */
     filter: none; /* Removemos la sombra flotante */
-}
-
-.header.scrolled {
-    justify-content: flex-end;
-    font-size: 0rem;
 }
 
 .space {
@@ -73,4 +68,121 @@
     display: flex;
     flex-direction: row;
     place-content: center;
+}
+
+.menu-icon {
+    display: none;
+}
+
+
+
+/* ----------------------------------
+ * ESTILOS DE MÓVILES (Max-Width 768px)
+ * ---------------------------------- */
+@media only screen and (max-width: 832px) {
+    /* --- HEADER PRINCIPAL --- */
+    .header {
+        /* Fuerza la barra a ser la única en la parte superior */
+        width: auto;
+        padding: 24px 20px;
+        flex-wrap: wrap; /* Permite que los elementos salten de línea */
+        justify-content: flex-end; /* Mantiene el logo/botón separados */
+    }
+
+    .header #page-logo-container {
+        /* 🔑 Mueve el logo a la esquina superior izquierda */
+        top: 10px; /* Posición vertical final en el header */
+        left: 20px; /* Posición horizontal final */
+        transform: translateX(0); /* Desactivamos el centrado */
+
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+
+        border: none;
+    }
+
+
+    /* --- BOTÓN HAMBURGUESA --- */
+    .menu-icon {
+        display: flex; /* Mostrar en móvil */
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 50;
+    }
+    
+    .menu-icon span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        image-rendering: pixelated;
+    }
+    
+    /* --- NAVEGACIÓN (UL) --- */
+    .nav_links {
+        /* 🔑 CLAVE: Transformar en menú desplegable (Off-Canvas) */
+        position: fixed;
+        top: 0; /* Empieza en la parte superior */
+        left: -100%; /* Inicialmente fuera de la pantalla (oculto) */
+        width: 100%;
+        height: 100%;
+        background-color: rgba(13, 13, 13, 0.95); /* Fondo oscuro semitransparente */
+        z-index: 40; /* Debe estar detrás del botón hamburguesa */
+        flex-direction: column; /* Apilar enlaces verticalmente */
+        padding-top: 70px; /* Deja espacio para el logo y botón de cerrar */
+        transition: left 0.5s ease-in-out;
+        gap: 0;
+    }
+
+    .nav_links.open {
+        left: 0; 
+    }
+  
+    .nav_links li {
+        width: 100%;
+        border-bottom: 1px dashed #333;
+    }
+    
+    .nav_links li a {
+        padding: 15px 30px;
+        justify-content: flex-start;
+        font-size: 1.2rem;
+    }
+
+    .dropdown {
+        margin: 0;
+        position: absolute;
+        bottom: 8%;
+    }
+
+    .dropdown-menu {
+        position: relative; 
+        width: auto;
+        margin: 0px 0px;
+        left: auto;
+        transform: none;
+        border: none;
+        border-radius: 0;
+
+    }
+    
+    .dropdown-toggle {
+        justify-content: flex-start;
+    }
+
+    .header #page-logo {
+        height: 50px; 
+        filter: none;
+    }
+
+    .upper_coating {
+        display: none;
+    }
 }

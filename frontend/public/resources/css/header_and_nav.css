@@ -9,7 +9,6 @@
     padding-top: 16px;
     border-top: 5px solid hsl(0, 0%, 14%); /* Línea de luz Diamante/Cian */
     border-bottom: 2px solid #1b1b1b; /* Línea de luz Diamante/Cian */
-    position: relative; /* Necesario para z-index si hay fixed/absolute en el body */
     z-index: 10;
     margin-top: 0rem;
 
@@ -22,8 +21,15 @@
     background-color: rgba(0, 0, 0, 0.7);
     background-blend-mode: darken;
 
-    position: sticky; /* Hacemos el header pegajoso */
     top: 0;
+    left: 0;
+    right: 0;
+    position: sticky; /* Hacemos el header pegajoso */
+}
+
+.header.scrolled {
+    justify-content: flex-end;
+    font-size: 0rem;
 }
 
 .nav_links {
@@ -142,4 +148,34 @@
 
 .dropdown-menu li a:hover {
     background-color: rgba(0, 252, 84, 0.2); /* Fondo verde semitransparente al pasar el ratón */
+}
+
+
+@media only screen and (max-width: 832px) {
+    .dashboard-grid {
+        display: block;
+        grid-template-columns: 1fr; /* Stack columns vertically on mobile */
+        max-width: 100%; /* Ensure full container width */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .nav_links {
+        display: block;
+        align-items: end;
+        flex: auto;
+    }
+
+    .nav_links_text a {
+        font-size: 1rem;
+    }
+
+    .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0px) translateY(0); /* Vuelve a la posición normal */
+    }
+
+    .dropdown:hover .dropdown-menu {
+        transform: translate(0px);
+    }
 }

@@ -20,6 +20,15 @@ router.get('/dashboard', (req, res) => {
     res.render('app/dashboard')
 });
 
+router.get("/card", ({res}) => {
+    res.render('.parts/card.ejs', {
+        iconUrl: 'LOl',
+        name: "Ultratumba",
+        cardTitle: "Carta",
+        stats: {}
+    })
+})
+
 
 
 

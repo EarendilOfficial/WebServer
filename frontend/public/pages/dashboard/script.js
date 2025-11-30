@@ -13,6 +13,8 @@ logout_link.addEventListener('click', async ()=>{
     window.location.href = '/';
 })
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.header');
     const loading_overlay = document.getElementById('loading-overlay');

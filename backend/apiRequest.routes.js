@@ -17,6 +17,7 @@ const { reportValidationRules, validateReport } = require('./security/reportVali
 const { reportLimiter } = require('./security/rateLimiter.js');
 const { getActiveEvents } = require('./dataGetters/get_activeEvents.js');
 const createEventsHandler = require('./apiControllers/dashboard/eventsController.js');
+const getLatestUpdate = require('./dataGetters/get_lastUpdate.js');
 
 
 // El chequeo de autenticacion se aplica a todas las rutas
@@ -66,7 +67,9 @@ router.get('/get_latest_update', async (req, res) => {
             timestamp: new Date()
         };
 
-        return res.json(latestUpdate || {});
+        
+
+        return res.json(await getLatestUpdate() || latestUpdate);
     } catch (e) {
         return res.status(500).json({ error: 'Fallo al obtener actualización' });
     }
@@ -80,6 +83,7 @@ router.get('/get_active_events', async (req, res) => {
 
         return res.json({ events: activeEvents });
     } catch (e) {
+        console.log(e)
         return res.status(500).json({ error: 'Fallo al obtener eventos' });
     }
 });

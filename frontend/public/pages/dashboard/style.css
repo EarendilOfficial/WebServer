@@ -3,12 +3,12 @@
 
 
 /* ----------------------------------
- * GRID DEL TABLERO (MAIN)
- * ---------------------------------- */
+* GRID DEL TABLERO (MAIN)
+* ---------------------------------- */
 .dashboard-grid {
     display: grid;
     /* Divide el espacio en dos columnas: 2/3 para el mensaje, 1/3 para el estado */
-    grid-template-columns: 2fr 1fr; 
+    grid-template-columns: 2fr 1fr;  
     gap: 4%;
     padding: 60px;
     max-width: fit-content;
@@ -192,4 +192,15 @@
     flex-direction: column;
     gap: 2rem;
     box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .dashboard-grid {
+        display: block;
+        grid-template-columns: 1fr; /* Stack columns vertically on mobile */
+        max-width: 100%; /* Ensure full container width */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
 }

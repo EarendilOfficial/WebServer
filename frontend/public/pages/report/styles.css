@@ -196,3 +196,24 @@ body {
     color: #aa9bff;
     transform: scale(0.95);
 }
+
+@media only screen and (max-width: 832px) {
+    .dashboard-grid {
+        display: block;
+        grid-template-columns: 1fr; /* Stack columns vertically on mobile */
+        max-width: 100%; /* Ensure full container width */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .report-main-grid {
+        display: block;
+        /* Divide el espacio en dos columnas iguales */
+        grid-template-columns: 1fr 2fr; 
+        gap: 40px;
+        padding: 50px 20px;
+        margin: auto; /* Centrar debajo del header */
+        min-height: 70vh;
+        max-width: fit-content;
+    }
+
+}
