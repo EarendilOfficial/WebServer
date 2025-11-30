@@ -20,5 +20,10 @@ router.get('/report', (req, res) => {
     res.render('user/report')
 });
 
+router.get('/profile', (req, res) => {
+    console.log(`User ${req.user.username} accessed profile.`);
+    res.render('user/profile')
+});
+
 
 module.exports = router
