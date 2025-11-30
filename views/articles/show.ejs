@@ -17,7 +17,7 @@
         <a href="/articles" class="btn btn-secondary">Todos los blogs</a>
         <a href="/articles/edit/<%= article.slug %>" class="btn btn-info">Editar</a>
 
-        <div><%= article.markdown %></div>
+        <div><%- article.sanitizeHtml %></div>
         
     </div>
     
