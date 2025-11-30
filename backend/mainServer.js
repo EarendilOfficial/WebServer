@@ -7,7 +7,6 @@ const path = require("path");
 
 // --- IMPORTANTE: Aquí importamos las rutas del blog (Si articles.js está en la misma carpeta que este archivo) ---
 const articleRouter = require('./articles'); 
-const methodOverride = require('method-override');
 
 // Configuración de EJS
 app.set('view engine', 'ejs');
@@ -53,16 +52,7 @@ const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
 
 // ------------------------ ADMIN BLOGS (Integrado) -----------
-const Article = require('./models/article');
-
-app.use(methodOverride('_method'));
-app.use('/articles', articleRouter);    
-
-app.get('/admin-blogs', async(req, res) => {
-    const articles = await Article.find().sort({createdAt: 'desc'});
-    
-    res.render('articles/admin-blogs', { articles: articles });
-});
+app.use('/articles', articleRouter);
 
 // ------------------------ OTRAS RUTAS ---------------------- //
 

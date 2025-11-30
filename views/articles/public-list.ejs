@@ -6,32 +6,34 @@
         <title>Eärendil - Admin Anuncios</title>
         <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
         
-        <link rel="stylesheet" href="/pages/dashboard/style.css"> 
+        <link rel="stylesheet" href="../pages/dashboard/style.css"> 
         <link rel="stylesheet" href="pages/edit_announcements/admin_styles.css"> 
         <link rel="stylesheet" href="/plantilla.css"> 
     </head>
 
     <body id="body">
         <div id="loading-overlay" class="shown">
-            <img src="/resources/icons/start_terminator.png" alt="[">
-            <img src="/resources/icons/middle_terminator.png" alt="O">
-            <img src="/resources/icons/end_terminator.png" alt="]">
+            <img src="../resources/icons/start_terminator.png" alt="[">
+            <img src="../resources/icons/middle_terminator.png" alt="O">
+            <img src="../resources/icons/end_terminator.png" alt="]">
         </div>
         
         <div class="header scrolled">
             <div id="page-logo-container">
-                <img id="page-logo" src="/resources/icons/logo/earendil_Logo.png" alt="Earendil Logo Grande">
+                <img id="page-logo" src="../resources/icons/logo/earendil_Logo.png" alt="Earendil Logo Grande">
             </div>
             <div>
                 <legend class="legend">Admin Tools</legend>
             </div>
             <ul class="nav_links">
-                <li class="nav_links_text"><a href="/admin/news"><img src="/resources/icons/sections/news_icon.png" alt="Dashboard">Noticias</a></li>
-                <li class="nav_links_text"><a href="/admin/users"><img src="/resources/icons/sections/social_icon.png" alt="Usuarios">Usuarios</a></li>
-                <li class="nav_links_text"><a href="/admin/settings"><img src="/resources/icons/sections/discord_icon.png" alt="Ajustes">Ajustes</a></li>
-                <li class="nav_links_text"><a id="logout_link" href="/app/dashboard"><img src="/resources/icons/sections/logout_icon.png" alt="Salir de las herramientas">Salir</a></li>
+                <li class="nav_links_text"><a href="/admin/news"><img src="../resources/icons/sections/news_icon.png" alt="Dashboard">Noticias</a></li>
+                <li class="nav_links_text"><a href="/admin/users"><img src="../resources/icons/sections/social_icon.png" alt="Usuarios">Usuarios</a></li>
+                <li class="nav_links_text"><a href="/admin/settings"><img src="../resources/icons/sections/discord_icon.png" alt="Ajustes">Ajustes</a></li>
+                <li class="nav_links_text"><a id="logout_link" href="/app/dashboard"><img src="../resources/icons/sections/logout_icon.png" alt="Salir de las herramientas">Salir</a></li>
             </ul>
         </div>
+<body>
+
     <div class="container">
         <h1 class="mb-4"> Blog Articles</h1>
         <a href="/articles/new" class="btn btn-success mb-3">Nuevo blog</a>
@@ -45,16 +47,14 @@
                     </div>
                     <div class="card-text mb-2"><%= article.description %></div>
                     <a href="/articles/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
-                    <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Editar</a>
-                    <form action="/articles/<%= article.id%>?_method=DELETE" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Borrar</button>
-                    </form>
+
                 </div>
                 </div>
         <% }) %> 
     </div>
     
-    <footer class="site-footer">
+    
+        <footer class="site-footer">
             <div class="footer-grid">
                 
                 <div class="footer-section">
@@ -85,15 +85,15 @@
                 </div>
 
                 <div class="footer-section footer-copyright">
-                    <img src="/resources/icons/logo/earendil_logo_mini.png" alt="Earendil Logo" class="footer-logo">
+                    <img src="../resources/icons/logo/earendil_logo_mini.png" alt="Earendil Logo" class="footer-logo">
                     <p>&copy; 2025 Eärendil MC. Todos los derechos reservados.</p>
                     <p class="trademark">No afiliado a Mojang Studios.</p>
                 </div>
             </div>
 
             <div class="footer-social">
-                <a><img src="/resources/icons/sections/mail_icon.png" alt="Correo">earendil.official@gmail.com</a>
-                <a href="https://www.youtube.com/@EarendilOfficial" target="_blank"><img src="/resources/icons/yt_icon.png" alt="Discord"> Youtube</a>
+                <a><img src="../resources/icons/sections/mail_icon.png" alt="Correo">earendil.official@gmail.com</a>
+                <a href="https://www.youtube.com/@EarendilOfficial" target="_blank"><img src="../resources/icons/yt_icon.png" alt="Discord"> Youtube</a>
                 <!-- <a href="https://twitter.com/yourserver" target="_blank"><img src="../resources/icons/twitter_icon.png" alt="Twitter"> Twitter</a> -->
                 </div>
         </footer>

@@ -5,7 +5,7 @@ const Article = require("./models/article");
 // LISTA ADMIN
 router.get("/", async (req, res) => {
     const articles = await Article.find().sort({ createdAt: "desc" });
-    res.render("articles/admin-blogs", { articles : articles });
+    res.render("articles/admin-blogs", { articles });
 });
 
 // FORM NUEVO
