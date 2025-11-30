@@ -7,7 +7,7 @@ const path = require("path");
 
 // --- IMPORTANTE: Aquí importamos las rutas del blog (Si articles.js está en la misma carpeta que este archivo) ---
 const articleRouter = require('./articles'); 
-
+const methodOverride = require('method-override');
 
 // Configuración de EJS
 app.set('view engine', 'ejs');
@@ -40,6 +40,8 @@ const playerCodesDB = mongoose.createConnection('mongodb://localhost:27017/Playe
 playerCodesDB.on('connected', () => {
     console.log('MongoDB connected to PlayerCodes DB');
 });
+
+
 // ---- Fin de header ---- //
 
 
@@ -53,8 +55,8 @@ const apiRequestRoutes = require("./apiRequest.routes.js");
 // ------------------------ ADMIN BLOGS (Integrado) -----------
 const Article = require('./models/article');
 
-
-app.use('/articles', articleRouter);
+app.use(methodOverride('_method'));
+app.use('/articles', articleRouter);    
 
 app.get('/admin-blogs', async(req, res) => {
     const articles = await Article.find().sort({createdAt: 'desc'});

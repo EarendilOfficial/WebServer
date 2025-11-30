@@ -2,6 +2,8 @@ const express = require('express');
 const Article = require('./models/article')
 const router = express.Router()
 
+
+
 router.get('/new', (req, res) => {
     res.render('articles/new', { article: new Article() })
 })
@@ -20,7 +22,6 @@ router.get('/:slug', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
-    // 1. Chismoso para ver si llegan datos
     console.log("--- INTENTANDO GUARDAR ARTÍCULO ---");
     console.log("Datos recibidos:", req.body); 
 
@@ -31,15 +32,20 @@ router.post('/', async (req, res) => {
     })
     try {
         article = await article.save()
-        console.log("¡Guardado con éxito! ID:", article.id); // 2. Éxito
+        console.log("¡Guardado con éxito! ID:", article.id);
         res.redirect(`/articles/${article.slug}`)
     } catch (e) {
-        console.log("--- ERROR AL GUARDAR ---"); // 3. Error
-        console.log(e.message); // Muestra solo el mensaje corto del error
+        console.log("--- ERROR AL GUARDAR ---"); 
+        console.log(e.message); 
         res.render('articles/new', {article: article})
     }
 })
 
+
+router.delete('/:id', async (req, res) => {
+    await Article.findByIdAndDelete(req.params.id);
+    res.redirect('/admin-blogs');
+});
 
 module.exports = router;
 

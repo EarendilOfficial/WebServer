@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const marked = require('marked')
 const slugify = require('slugify')
 
+const blogDB = mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
 const articleSchema= new mongoose.Schema({
     title: {
         type: String, 
@@ -27,11 +28,11 @@ const articleSchema= new mongoose.Schema({
     }
 })
 
-articleSchema.pre('validate', function(){
+articleSchema.pre('validate', function(next){
     if (this.title){
         this.slug = slugify(this.title, {lower:true, strict: true})
     }
+    next();
 })
 
-
-module.exports = mongoose.model('Article', articleSchema);
+module.exports = blogDB.model('Article', articleSchema);
