@@ -10,8 +10,7 @@ const articleRouter = require('./articles');
 
 // Configuración de EJS
 app.set('view engine', 'ejs');
-// Tu carpeta de vistas está un nivel arriba, en 'views'
-app.set('views', path.join(__dirname, '..', 'views'));
+app.set('views', path.join(__dirname, '..', 'frontend', 'views'));
 app.set('trust proxy', 1); 
 
 const { apiLimiter, generalLimiter, loginLimiter } = require("./security/rateLimiter.js");
@@ -52,7 +51,7 @@ const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
 
 // ------------------------ ADMIN BLOGS (Integrado) -----------
-app.use('/articles', articleRouter);
+//app.use('/articles', articleRouter);
 
 // ------------------------ OTRAS RUTAS ---------------------- //
 

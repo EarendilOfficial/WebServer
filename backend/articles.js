@@ -31,10 +31,19 @@ router.put("/:id", async (req, res, next) => {
     next();
 }, saveArticleAndRedirect("edit"));
 
+//mostar blog por slug
+router.get("/view/:slug", async (req, res) => {
+    const article = await Article.findOne({ slug: req.params.slug });
+    
+    if (article == null) return res.redirect('/admin/admin-blogs');
+    
+    res.render('articles/show', { article: article });
+});
+
 // BORRAR
 router.delete("/:id", async (req, res) => {
     await Article.findByIdAndDelete(req.params.id);
-    res.redirect("/admin-blogs");
+    res.redirect("/admin/admin-blogs");
 });
 
 function saveArticleAndRedirect(path) {
@@ -46,10 +55,10 @@ function saveArticleAndRedirect(path) {
 
         try {
             await article.save();
-            res.redirect(`/articles/${article.slug}`);
+            res.redirect(`/admin/admin-blogs/view/${article.slug}`);
         } catch (e) {
             console.log(e.message);
-            res.render(`articles/${path}`, { article });
+            res.render(`/admin/admin-blogs/${path}`, { article });
         }
     };
 }

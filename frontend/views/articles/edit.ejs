@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Eärendil - Admin Anuncios</title>
-        <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
+        <link rel="icon" type="image/x-icon" href="/resources/icons/logo/icon_A_mini.png">
         
         <link rel="stylesheet" href="/pages/dashboard/style.css"> 
         <link rel="stylesheet" href="pages/edit_announcements/admin_styles.css"> 
@@ -33,25 +33,11 @@
             </ul>
         </div>
     <div class="container">
-        <h1 class="mb-4"> Blog Articles</h1>
-        <a href="/articles/new" class="btn btn-success mb-3">Nuevo blog</a>
+        <h2 class="mb-4">Editar blog</h2>
+        <form action="/articles/<%= article.id %>?_method=PUT" method="POST">
+            <%- include("articles/_form_fields") %>
+        </form>
 
-        <% articles.forEach(article => { %>
-            <div class="card mb-4">
-            <div class="card-body">
-                    <h5 class="card-title"><%= article.title %></h5>
-                    <div class = "card-subtitle text-muted mb-2"> 
-                        <%= article.createdAt.toLocaleDateString() %>
-                    </div>
-                    <div class="card-text mb-2"><%= article.description %></div>
-                    <a href="/articles/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
-                    <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Editar</a>
-                    <form action="/articles/<%= article.id%>?_method=DELETE" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Borrar</button>
-                    </form>
-                </div>
-                </div>
-        <% }) %> 
     </div>
     
     <footer class="site-footer">
@@ -94,11 +80,11 @@
             <div class="footer-social">
                 <a><img src="/resources/icons/sections/mail_icon.png" alt="Correo">earendil.official@gmail.com</a>
                 <a href="https://www.youtube.com/@EarendilOfficial" target="_blank"><img src="/resources/icons/yt_icon.png" alt="Discord"> Youtube</a>
-                <!-- <a href="https://twitter.com/yourserver" target="_blank"><img src="../resources/icons/twitter_icon.png" alt="Twitter"> Twitter</a> -->
+                <!-- <a href="https://twitter.com/yourserver" target="_blank"><img src="/resources/icons/twitter_icon.png" alt="Twitter"> Twitter</a> -->
                 </div>
         </footer>
 
-        <div id="custom-alert" class="alert-modal">...</div>
+        <div id="custom-alert" class="alert-modal">.</div>
         <script src="pages/edit_announcements/admin_styles.js"></script> 
         <script src="/resources/js/announcement_Render.js"></script> 
 </body>
