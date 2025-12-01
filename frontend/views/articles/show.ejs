@@ -38,7 +38,9 @@
         <a href="/admin/admin-blogs/" class="btn btn-secondary">Todos los blogs</a>
         <a href="/admin/admin-blogs/edit/<%= article.id %>" class="btn btn-info">Editar</a>
 
-        <div><%- article.sanitizeHtml %></div>
+        <div class="article-content">
+        <%- article.sanitizeHtml %>
+        </div>
         
     </div>
     
