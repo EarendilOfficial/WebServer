@@ -49,10 +49,11 @@ const PORT = 3001;
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
+const publicBlogRouter = require('./publicBlog.routes');
 
-// ------------------------ ADMIN BLOGS (Integrado) -----------
+// ------------------------ BLOGS -----------
 //app.use('/articles', articleRouter);
-
+app.use('/articles', publicBlogRouter);
 // ------------------------ OTRAS RUTAS ---------------------- //
 
 app.use('/app', protectedRoutes);

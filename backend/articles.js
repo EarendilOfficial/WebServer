@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
 
 // FORM NUEVO
 router.get("/new", (req, res) => {
-    console.log("--> INTENTO ENTRAR A RUTA NEW <--"); // Agrega esto
     res.render("articles/new", { article: new Article() });
 });
 
