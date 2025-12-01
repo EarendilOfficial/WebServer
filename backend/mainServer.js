@@ -6,8 +6,7 @@ const app = express();
 const path = require("path");
 
 // --- IMPORTANTE: Aquí importamos las rutas del blog (Si articles.js está en la misma carpeta que este archivo) ---
-const articleRouter = require('./articles'); 
-
+const methodOverride = require('method-override');
 // Configuración de EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '..', 'frontend', 'views'));
@@ -22,8 +21,9 @@ const { registerValidationRules, validate } = require("./security/userRegistrati
 const cookieParser = require("cookie-parser");
 
 // Cookies & JWT 
-app.use(express.json({ limit: '5kb' }));
 app.use(express.urlencoded({ extended: false })); // Agregado para que funcionen los formularios del blog
+app.use(methodOverride('_method'));
+app.use(express.json({ limit: '5kb' }));
 app.use(cookieParser());
 app.use(generalLimiter);
 

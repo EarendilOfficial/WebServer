@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
 
 // FORM NUEVO
 router.get("/new", (req, res) => {
+    console.log("--> INTENTO ENTRAR A RUTA NEW <--"); // Agrega esto
     res.render("articles/new", { article: new Article() });
 });
 
@@ -34,9 +35,7 @@ router.put("/:id", async (req, res, next) => {
 //mostar blog por slug
 router.get("/view/:slug", async (req, res) => {
     const article = await Article.findOne({ slug: req.params.slug });
-    
     if (article == null) return res.redirect('/admin/admin-blogs');
-    
     res.render('articles/show', { article: article });
 });
 
@@ -58,7 +57,7 @@ function saveArticleAndRedirect(path) {
             res.redirect(`/admin/admin-blogs/view/${article.slug}`);
         } catch (e) {
             console.log(e.message);
-            res.render(`/admin/admin-blogs/${path}`, { article });
+            res.render(`/admin/admin-blogs/${path}`, { article: article } );
         }
     };
 }
