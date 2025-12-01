@@ -121,55 +121,57 @@
                         <% } %>
                     </div>
 
-                    <!-- TARJETA 4: ACTIVIDAD Y NOTIFICACIONES -->
-                    <div class="profile-card activity-card">
-                        <h3 class="card-title">Actividad Reciente</h3>
-                        
-                        <p class="section-subtitle">Actividad de Inicio de Sesión:</p>
+                    <!-- NOTIFICACIONES -->
+                    <div class="profile-card notifications-card">
+                        <h3 class="card-title">Notificaciones (3 Nuevas)</h3>
+                        <p class="section-subtitle">Tu UIT fue utilizado con éxito. ¡Revisa tu correo!</p>
+                        <p class="section-subtitle debt-warning">Tienes un reporte en revisión.</p>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- TARJETA 4: ACTIVIDAD -->
+                <div class="profile-card activity-card">
+                    <h3 class="card-title">Actividad Reciente</h3>
+                    
+                    <p class="section-subtitle">Actividad de Inicio de Sesión:</p>
 
-                        <div class="weekly-activity-graph">
-                            <% weeklyActivity.forEach((percentage, index) => { %>
-                                <div class="day-bar-wrapper">
-                                    <!-- Etiqueta del Día -->
-                                    <p class="day-label"><%= daysOfWeek[index] %></p>
-                                    
-                                    <!-- Contenedor de la Barra y Valor -->
-                                    <div class="bar-container-vertical" title="<%= percentage %>% Jugado">
-                                        <div class="bar-fill" style="height: <%= percentage %>px;"></div>
-                                    </div>
+                    <div class="weekly-activity-graph">
+                        <% weeklyActivity.forEach((percentage, index) => { %>
+                            <div class="day-bar-wrapper">
+                                <!-- Etiqueta del Día -->
+                                <p class="day-label"><%= daysOfWeek[index] %></p>
+                                
+                                <!-- Contenedor de la Barra y Valor -->
+                                <div class="bar-container-vertical" title="<%= percentage %>% Jugado">
+                                    <div class="bar-fill" style="height: <%= percentage %>px;"></div>
                                 </div>
-                            <% }); %>
-                        </div>
-
-                        <div class="activity-line">
-                            <p class="graph-label">Frecuencia Semanal (80%)</p>
-                            <div class="graph-bar-container">
-                                <div class="graph-bar" style="width: 80%;"></div>
                             </div>
-                        </div>
-
-                        <p class="section-subtitle">Ultimos Logros/Trofeos:</p>
-                        <div class="section-row">
-                            <ul class="achievement-list">
-                                <% user.achievements.forEach(ach => { %>
-                                    <li class="achievement-item <%= ach.rank %>">
-                                        <%= ach.name %>
-                                    </li>
-                                <% }); %>
-                            </ul>
-                            <button class="show-all-achievements-btn">Todos tus logros</button>
-                        </div>
-                        
+                        <% }); %>
                     </div>
 
+                    <div class="activity-line">
+                        <p class="graph-label">Frecuencia Semanal (80%)</p>
+                        <div class="graph-bar-container">
+                            <div class="graph-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <p class="section-subtitle">Ultimos Logros/Trofeos:</p>
+                    <div class="section-row">
+                        <ul class="achievement-list">
+                            <% user.achievements.forEach(ach => { %>
+                                <li class="achievement-item <%= ach.rank %>">
+                                    <%= ach.name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                        <button class="show-all-achievements-btn">Todos tus logros</button>
+                    </div>
+                    
                 </div>
 
-                <!-- NOTIFICACIONES -->
-                <div class="profile-card notifications-card">
-                    <h3 class="card-title">Notificaciones (3 Nuevas)</h3>
-                    <p class="section-subtitle">Tu UIT fue utilizado con éxito. ¡Revisa tu correo!</p>
-                    <p class="section-subtitle debt-warning">Tienes un reporte en revisión.</p>
-                </div>
 
                 <!-- Columna Derecha: Estadísticas MC y Actividad/Logros -->
                 <div class="activity-achievements-row">

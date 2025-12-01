@@ -38,8 +38,6 @@ body {
  * ---------------------------------- */
 .profile-layout-grid {
     display: grid;
-    /* Dos columnas: 1.2fr para info personal, 1fr para actividad */
-    grid-template-rows: 1.2fr 1fr; 
     gap: 30px;
     max-width: 1400px;
     width: 100%;
@@ -82,7 +80,9 @@ body {
 
 .user-info-card {
     flex-grow: 1;
-    flex-shrink: 0;
+    /* flex-shrink: 0; */
+    border-color: darkblue;
+    border-width: thick;
 }
 
 .profile-avatar {
@@ -380,10 +380,20 @@ body {
 /* ----------------------------------
  * RESPONSIVIDAD (Móviles)
  * ---------------------------------- */
-@media (max-width: 768px) {
+@media (max-width: 832px) {
     .profile-layout-grid {
-        grid-template-columns: 1fr; /* Apilamiento vertical */
-        padding: 20px;
+        grid-template-rows: 1fr; /* Apilamiento vertical */
+        padding-top: 20px;
+        transform: scale(0.9) translate(0, -70px);
+        place-content: center;
+    }
+
+    .main-info-row, .activity-achievements-row {
+        flex-direction: column;
+    }
+
+    #content {
+        padding: 0px;
     }
 }
 
