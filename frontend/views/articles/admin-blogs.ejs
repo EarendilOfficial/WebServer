@@ -34,7 +34,7 @@
         </div>
     <div class="container">
         <h1 class="mb-4">Blogs</h1>
-        <a href="/articles/new" class="btn btn-success mb-3">Nuevo blog</a>
+        <a href="/admin/admin-blogs/new" class="btn btn-success mb-3">Nuevo blog</a>
 
         <% articles.forEach(article => { %>
             <div class="card mb-4">
@@ -45,8 +45,8 @@
                     </div>
                     <div class="card-text mb-2"><%= article.description %></div>
                     <a href="/admin/admin-blogs/view/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
-                    <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Editar</a>
-                    <form action="/articles/<%= article.id%>?_method=DELETE" method="POST" class="d-inline">
+                    <a href="/admin/admin-blogs/edit/<%= article.id %>" class="btn btn-info">Editar</a>
+                    <form action="/admin/admin-blogs/<%= article.id%>?_method=DELETE" method="POST" class="d-inline">
                         <button type="submit" class="btn btn-danger">Borrar</button>
                     </form>
                 </div>
