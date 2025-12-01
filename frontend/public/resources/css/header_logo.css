@@ -182,6 +182,11 @@
         filter: none;
     }
 
+    .header.scrolled #page-logo {
+        height: 50px;
+        filter: none;
+    }
+
     .upper_coating {
         display: none;
     }

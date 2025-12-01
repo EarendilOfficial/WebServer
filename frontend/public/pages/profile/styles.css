@@ -9,7 +9,7 @@
 /* No funciono lo del fondo, pero asi esta bien no lo cambies */
 body {
     background-attachment: scroll; 
-    background-image: url("/resources/backgrounds/dirt.png");
+    background-image: url("/resources/backgrounds/stonebrick.png");
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -39,16 +39,16 @@ body {
 .profile-layout-grid {
     display: grid;
     /* Dos columnas: 1.2fr para info personal, 1fr para actividad */
-    grid-template-columns: 1.2fr 1fr; 
+    grid-template-rows: 1.2fr 1fr; 
     gap: 30px;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
 }
 
 /* Columna Izquierda: Stacking */
-.main-info-column, .activity-achievements-column {
+.main-info-row, .activity-achievements-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
 }
 
@@ -57,12 +57,13 @@ body {
  * ---------------------------------- */
 .profile-card {
     background-color: #2c2c2c; /* Fondo de ventana GUI */
-    border: 4px solid #8f8f8f; 
+    border: 1px solid #8f8f8f; 
     border-style: ridge; /* Borde 3D */
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: left;
+    flex-grow: 1;
 }
 
 .card-header {
@@ -74,9 +75,14 @@ body {
 }
 
 .username-title {
-    color: #55FFFF; /* Cian Diamante */
+    color: #ffffff; /* Cian Diamante */
     font-size: 1.8rem;
     margin: 0;
+}
+
+.user-info-card {
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 
 .profile-avatar {
@@ -98,6 +104,35 @@ body {
     color: #AAAAAA;
     font-size: 1rem;
     margin: 15px 0 10px;
+}
+
+.section-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ----------------------------------
+ * ESTILOS DE BOTÓN DE LOGROS
+ * ---------------------------------- */
+.show-all-achievements-btn {
+    /* 🔑 Estilo de botón temático */
+    background-color: #000; /* Azul para "Más" #004a99 o "Información" */
+    color: white;
+    font-family: 'Monocraft', monospace;
+    padding: 8px 15px;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    
+    /* Asegurar que se alinee a la izquierda (debajo de los logros) */
+    align-self: flex-end;
+}
+
+.show-all-achievements-btn:hover {
+    background-color: #004a9e;
+    transform: translateY(-1px);
 }
 
 /* --- ESTADÍSTICAS (REUTILIZACIÓN) --- */
@@ -161,8 +196,8 @@ body {
     margin-top: 0;
 }
 
-/* --- ACTIVIDAD (SIMULADA) --- */
-.activity-line {
+/* --- ACTIVIDAD (SIMULADA) ---  (REEMPLAZADO POR BARRAS) */
+/* .activity-line {
     padding-bottom: 10px;
 }
 .activity-graph-simulated {
@@ -182,18 +217,21 @@ body {
 }
 .graph-bar {
     height: 100%;
-    background-color: #7CFC00; /* Color de actividad */
+    background-color: #7CFC00;
     transition: width 0.5s;
-}
+} */
 
 /* --- LOGROS --- */
 .achievement-list {
     list-style: none;
-    padding: 0;
     margin: 10px 0 0 0;
     display: flex; /* 🔑 CLAVE: Contenedor para que las etiquetas fluyan */
     flex-wrap: wrap; 
     gap: 10px; /* Espacio entre etiquetas */
+
+    /* Borde para el boton de todos los logros */
+    padding: 0 0 20px 0;
+    border-bottom: solid gray 2px;
 }
 
 .achievement-item {
@@ -286,7 +324,8 @@ body {
         0 2px 5px rgba(0, 0, 0, 0.8); /* Sombra base oscura */
 
     /* Pequeña animación para que destaque */
-    animation: gold-pulse-glow 2s infinite alternate;
+    animation: gold-pulse-glow 1.5s infinite alternate;
+    animation-timing-function: ease-in-out;
 }
 
 .achievement-item.gold::before {
@@ -331,10 +370,10 @@ body {
 /* Animación de pulso para logros legendarios */
 @keyframes legendary-pulse-glow {
     0% {
-        box-shadow: 0 0 5px 0px #2658ff;
+        box-shadow: 0 0 5px 0px #001f85;
     }
     100% {
-        box-shadow: 0 0 10px 2px #3493ff;
+        box-shadow: 0 0 10px 2px #0066ff;
     }
 }
 
@@ -348,3 +387,59 @@ body {
     }
 }
 
+/* ----------------------------------
+ * GRÁFICO DE ACTIVIDAD SEMANAL
+ * ---------------------------------- */
+
+.weekly-activity-graph {
+    display: flex;
+    justify-content: space-between; /* Espacio uniforme entre las barras */
+    align-items: flex-end; /* 🔑 CLAVE: Las barras crecen desde la base */
+    height: 150px; /* Altura máxima del gráfico */
+    padding: 10px 20px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.day-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12%; /* Ancho para 7 barras con espacio */
+}
+
+.day-label {
+    font-size: 0.8rem;
+    color: #AAAAAA;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+
+.bar-container-vertical {
+    width: 100%;
+    height: 100%; /* Ocupa el espacio vertical restante */
+    background-color: #3d3d3d; /* Fondo de la barra vacía */
+    border-radius: 3px;
+    overflow: hidden;
+    
+    /* 🔑 CLAVE: Alineación para que el relleno crezca desde abajo */
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-end; 
+}
+
+.bar-fill {
+    width: 100%;
+    background-color: #006eff; /* Verde Slime (Activo) */
+    transition: height 0.5s ease-out;
+    min-height: 2px; /* Asegura que se vea incluso al 0% */
+}
+
+/* Ajuste de responsividad para que el gráfico no se rompa */
+@media (max-width: 768px) {
+    .weekly-activity-graph {
+        height: 100px; /* Reducir la altura en móvil */
+        padding: 5px;
+    }
+}
