@@ -1,0 +1,455 @@
+@import url('/resources/css/monocraft.css');
+
+
+.header {
+    background-color: #0d0d0d;
+}
+
+
+/* No funciono lo del fondo, pero asi esta bien no lo cambies */
+body {
+    background-attachment: scroll; 
+    background-image: url("/resources/backgrounds/stonebrick.png");
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#content {
+    /* Mantiene el espacio del main */
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+/* Título de la página */
+#title-profile {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: #0d0d0d;
+    border-bottom: 2px solid #55FFFF;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------------
+ * LAYOUT DE PERFIL (GRID)
+ * ---------------------------------- */
+.profile-layout-grid {
+    display: grid;
+    gap: 30px;
+    max-width: 1400px;
+    width: 100%;
+}
+
+/* Columna Izquierda: Stacking */
+.main-info-row, .activity-achievements-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+/* ----------------------------------
+ * ESTILO DE TARJETA (CARD)
+ * ---------------------------------- */
+.profile-card {
+    background-color: #2c2c2c; /* Fondo de ventana GUI */
+    border: 1px solid #8f8f8f; 
+    border-style: ridge; /* Borde 3D */
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    flex-grow: 1;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px dashed #444;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.username-title {
+    color: #ffffff; /* Cian Diamante */
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.user-info-card {
+    flex-grow: 1;
+    /* flex-shrink: 0; */
+    border-color: darkblue;
+    border-width: thick;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 5px rgba(85, 255, 255, 0.5));
+}
+
+.card-title {
+    color: #FF8C00; /* Naranja Lava */
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    color: #AAAAAA;
+    font-size: 1rem;
+    margin: 15px 0 10px;
+}
+
+.section-row {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ----------------------------------
+ * ESTILOS DE BOTÓN DE LOGROS
+ * ---------------------------------- */
+.show-all-achievements-btn {
+    /* 🔑 Estilo de botón temático */
+    background-color: #000; /* Azul para "Más" #004a99 o "Información" */
+    color: white;
+    font-family: 'Monocraft', monospace;
+    padding: 8px 15px;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    
+    /* Asegurar que se alinee a la izquierda (debajo de los logros) */
+    align-self: flex-end;
+}
+
+.show-all-achievements-btn:hover {
+    background-color: #004a9e;
+    transform: translateY(-1px);
+}
+
+/* --- ESTADÍSTICAS (REUTILIZACIÓN) --- */
+.profile-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px dotted #444;
+}
+.stat-label {
+    color: #AAAAAA;
+}
+.stat-value {
+    font-weight: bold;
+}
+
+/* --- BOTONES DE EDICIÓN --- */
+.action-button {
+    background-color: #444;
+    color: white;
+    font-family: 'Monocraft', monospace;
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: 2px solid #555;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.action-button:hover {
+    background-color: #555;
+}
+
+
+/* --- COLORES DE VALOR --- */
+.group-mod { color: gold; }
+.mc-account-tag { color: #7CFC00; }
+.status-active { color: #7CFC00; }
+.debt-warning { color: #FF4500; }
+.money-balance { color: gold; }
+.missions { color: #00A6FF; } /* Azul brillante para misiones/logros */
+.rank-color { color: #AAAAAA; } /* Default rank color */
+
+
+/* --- MODERACIÓN --- */
+.moderation-status {
+    border: 2px solid #FF4500;
+    padding: 10px;
+    background-color: rgba(255, 0, 0, 0.1);
+    margin-top: 15px;
+    color: #FF4500;
+    text-align: center;
+}
+.block-reason-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0;
+}
+
+/* --- ACTIVIDAD (SIMULADA) ---  (REEMPLAZADO POR BARRAS) */
+/* .activity-line {
+    padding-bottom: 10px;
+}
+.activity-graph-simulated {
+    margin-top: 15px;
+    text-align: center;
+}
+.graph-label {
+    font-size: 0.9rem;
+    color: #AAAAAA;
+}
+.graph-bar-container {
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+.graph-bar {
+    height: 100%;
+    background-color: #7CFC00;
+    transition: width 0.5s;
+} */
+
+/* --- LOGROS --- */
+.achievement-list {
+    list-style: none;
+    margin: 10px 0 0 0;
+    display: flex; /* 🔑 CLAVE: Contenedor para que las etiquetas fluyan */
+    flex-wrap: wrap; 
+    gap: 10px; /* Espacio entre etiquetas */
+
+    /* Borde para el boton de todos los logros */
+    padding: 0 0 20px 0;
+    border-bottom: solid gray 2px;
+}
+
+.achievement-item {
+    font-size: 0.95rem;
+    display: inline-flex; /* 🔑 CLAVE: Para que actúe como etiqueta (sobresalido) */
+    align-items: center;
+    
+    /* Estilo de la etiqueta */
+    padding: 6px 10px; 
+    border-radius: 4px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Efecto de sobresalido/elevación */
+    
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+    
+    /* Se elimina el border-bottom: 1px dotted #333; */
+    border-bottom: none;
+}
+
+.achievement-item:hover {
+    transform: translateY(-1px) scale(1.1); /* Efecto de levantamiento al pasar el ratón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos de estado */
+
+.achievement-item.normal {
+    background-color: #3d3d3d; /* Gris oscuro para pendiente */
+    color: #FF8C00; /* Naranja Lava para el texto */
+}
+
+
+.achievement-item.secret {
+    background-color: #4f4f4f; /* Gris más oscuro */
+    color: #ffffff;
+    font-style: italic;
+}
+
+/* RANGO EPIC (Para logros de nivel medio/destacados) */
+.achievement-item.epic {
+    background-color: #6a0dad; /* Púrpura épico */
+    color: white;
+}
+    
+
+.achievement-item.historia {
+    background-color: #001677; /* Verde oscuro, sólido */
+    color: white;
+    box-shadow: 0 2px 5px rgba(137, 94, 255, 0.4); /* Efecto de sobresalido/elevación */
+    /* Pequeña animación para que destaque */
+    animation: legendary-pulse-glow 2s infinite alternate;
+}
+/* Ajustar los iconos/emojis */
+.achievement-item.historia::before {
+    content: "[Historia]";
+    margin-right: 8px;
+    font-size: 1em;
+    filter: none;
+
+    background-image: linear-gradient(
+        45deg, 
+        #6ae9ff 10%,     /* Rojo */
+        #3f32ff 30%,     /* Verde */
+        #3fd2ff 50%,     /* Blanco Brillante */
+        #0b1cff 100%
+    );
+    
+    /* 2. Recortar el degradado al texto */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Hacer que el texto sea transparente */
+    color: transparent !important;
+    
+    /* 4. Añadir sombras (Mantenemos la corrección de legibilidad) */
+    text-shadow: 
+        /* Contorno Nítido para Legibilidad */
+        /* Resplandor Temático */
+        1px 2px 0px rgba(0, 91, 134, 0.5);
+}
+
+.achievement-item.gold {
+    /* Fondo dorado vibrante */
+    background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%); 
+    color: black; /* Texto oscuro sobre el oro */
+    font-weight: bold;
+    /* 🔑 CLAVE: Efecto de sobresalido (Gold Glow) */
+    box-shadow: 
+        0 0 15px 1px #FFD700, /* Resplandor dorado fuerte */
+        0 2px 5px rgba(0, 0, 0, 0.8); /* Sombra base oscura */
+
+    /* Pequeña animación para que destaque */
+    animation: gold-pulse-glow 1.5s infinite alternate;
+    animation-timing-function: ease-in-out;
+}
+
+.achievement-item.gold::before {
+    content: "[Oro]";
+    margin-right: 8px;
+    font-size: 1em;
+    filter: none;
+
+    background-image: linear-gradient(
+        45deg, 
+        #ff9900 10%,     /* Rojo */
+        #fff9e7 30%,     /* Verde */
+        #ffe23f 50%,     /* Blanco Brillante */
+        #dda200 100%
+    );
+    
+    /* 2. Recortar el degradado al texto */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Hacer que el texto sea transparente */
+    color: transparent !important;
+    
+    /* 4. Añadir sombras (Mantenemos la corrección de legibilidad) */
+    text-shadow: 
+        /* Contorno Nítido para Legibilidad */
+        /* Resplandor Temático */
+        1px 2px 0px rgba(255, 135, 37, 0.5);
+}
+
+
+/* Animación de pulso para logros legendarios */
+@keyframes gold-pulse-glow {
+    0% {
+        box-shadow: 0 0 5px 0px #FFD700;
+    }
+    100% {
+        box-shadow: 0 0 10px 1px #FFD700;
+    }
+}
+
+/* Animación de pulso para logros legendarios */
+@keyframes legendary-pulse-glow {
+    0% {
+        box-shadow: 0 0 5px 0px #001f85;
+    }
+    100% {
+        box-shadow: 0 0 10px 2px #0066ff;
+    }
+}
+
+/* ----------------------------------
+ * RESPONSIVIDAD (Móviles)
+ * ---------------------------------- */
+@media (max-width: 832px) {
+    .profile-layout-grid {
+        grid-template-rows: 1fr; /* Apilamiento vertical */
+        padding-top: 20px;
+        transform: scale(0.9) translate(0, -70px);
+        place-content: center;
+    }
+
+    .main-info-row, .activity-achievements-row {
+        flex-direction: column;
+    }
+
+    #content {
+        padding: 0px;
+    }
+}
+
+/* ----------------------------------
+ * GRÁFICO DE ACTIVIDAD SEMANAL
+ * ---------------------------------- */
+
+.weekly-activity-graph {
+    display: flex;
+    justify-content: space-between; /* Espacio uniforme entre las barras */
+    align-items: flex-end; /* 🔑 CLAVE: Las barras crecen desde la base */
+    height: 150px; /* Altura máxima del gráfico */
+    padding: 10px 20px;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.day-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12%; /* Ancho para 7 barras con espacio */
+}
+
+.day-label {
+    font-size: 0.8rem;
+    color: #AAAAAA;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+
+.bar-container-vertical {
+    width: 100%;
+    height: 100%; /* Ocupa el espacio vertical restante */
+    background-color: #3d3d3d; /* Fondo de la barra vacía */
+    border-radius: 3px;
+    overflow: hidden;
+    
+    /* 🔑 CLAVE: Alineación para que el relleno crezca desde abajo */
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-end; 
+}
+
+.bar-fill {
+    width: 100%;
+    background-color: #006eff; /* Verde Slime (Activo) */
+    transition: height 0.5s ease-out;
+    min-height: 2px; /* Asegura que se vea incluso al 0% */
+}
+
+/* Ajuste de responsividad para que el gráfico no se rompa */
+@media (max-width: 768px) {
+    .weekly-activity-graph {
+        height: 100px; /* Reducir la altura en móvil */
+        padding: 5px;
+    }
+}

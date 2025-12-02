@@ -42,6 +42,10 @@ async function getLatestAnnouncementsHandler(req, res) {
             succesful: false,
             reason: "Error interno del servidor al obtener el anuncio." 
         });
+
+    } finally {
+        // Just to check connection is down
+        await HtmlContent.close();
     }
 }
 
