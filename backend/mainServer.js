@@ -53,7 +53,7 @@ const publicBlogRouter = require('./publicBlog.routes');
 
 // ------------------------ BLOGS -----------
 //app.use('/articles', articleRouter);
-app.use('/articles', publicBlogRouter);
+app.use('/news', publicBlogRouter);
 // ------------------------ OTRAS RUTAS ---------------------- //
 
 app.use('/user', userRoutes);
@@ -101,8 +101,7 @@ app.use(express.static(path.join(__dirname, "..", 'frontend/public')));
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server Started at: http://localhost:${PORT}`);
     console.log(`Access the unprotected root: http://localhost:${PORT}`);
-    console.log(`Test protected route: http://localhost:${PORT}/protected`);
-    console.log(`Blog Admin: http://localhost:${PORT}/admin-blogs`); // Agregué esto para que tengas el link a mano
+    console.log(`Blog Admin: http://localhost:${PORT}/admin/admin-blogs`); // Agregué esto para que tengas el link a mano
     console.log('-------------------------------------------------------')
 });
 
