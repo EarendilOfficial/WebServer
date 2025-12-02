@@ -148,3 +148,9 @@
     color: #AAAAAA;
     margin-top: 20px;
 }
+
+@media only screen and (max-width: 832px) {
+    .default {
+        margin-bottom: 60px;
+    }
+}
