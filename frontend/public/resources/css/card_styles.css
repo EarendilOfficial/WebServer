@@ -1,0 +1,37 @@
+.gui-window {
+    /* 🔑 Base de ventana de menú con bordes duros */
+    background-color: #2c2c2c; /* Fondo de ventana oscuro */
+    border: 1px solid #444; 
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 20px 20px 15px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.section-title {
+    margin: 50px auto 2rem;
+    align-self: center;
+    padding: 20px 10%;
+    max-width: max-content;
+
+    max-height: fit-content;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 10px;
+}
+
+.section-title h1 {
+    color: #ffffff; /* Cian Diamante */
+    font-size: 1.2rem;
+}
+
+/* Para el titulo de ventana */
+.window-title {
+    color: #aa9bff; /* Cian Diamante */
+    font-size: 1.2rem;
+    border-bottom: 1px solid #aa9bff;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <link rel="icon" href="/resources/icons/logo/icon_A_mini.png">
+        <link rel="stylesheet" href="/plantilla.css">
+        <link rel="stylesheet" href="/pages/profile/styles.css">
+    </head>
+
+    <body id="body">
+        <%- include("../.parts/headerMini") %>
+
+        <%
+            // --- SIMULACIÓN DE DATOS DE ACTIVIDAD (EJS) ---
+            // 7 días de la semana (Lunes a Domingo), valor de 0 a 100
+            const weeklyActivity = [80, 60, 95, 20, 100, 75, 40]; 
+            const daysOfWeek = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+        %>
+
+        <%
+        // --- SIMULACIÓN DE DATOS EJS ---
+        const user = {
+            username: "SamloGamer",
+            mail: "samlogamer@mail.com",
+            phoneNumber: "55-1234-5678",
+            mcAccount: "SamloGamer_MC",
+            balance: 1500,
+            groups: ["MOD", "VETERAN"],
+            registration_date: new Date("2024-01-15"),
+            // Suspendido
+            moderation: {
+                is_blocked: false,
+                block_reason: "Uso de exploits en la arena PvP.",
+                from_what: ["2025-11-20"]
+            },
+            // Datos de Minecraft (simulados)
+            minecraftStats: {
+                playerlevel: 55,
+                ringcoins: 536,
+                reputation: "Excepcional (+300)",
+                missionsDone: 42,
+                kills: 987,
+                playtimeHours: 250
+            },
+            // Logros (simulados)
+            achievements: [
+                { name: "Cavar un pozo", rank: 'normal' },
+                { name: "Primer Viaje al Nether", rank: 'epic' },
+                { name: "Maestro Constructor", rank: 'historia' },
+                { name: "Derrota al Wither", rank: 'gold' }
+
+            ],
+            // Deudas (simuladas)
+            payement: {
+                debtMonths: ['Nov 2025']
+            }
+        };
+
+        const isBlocked = user.moderation.is_blocked;
+        %>
+
+        <div id="title-profile">
+            <!-- El título principal se mantiene simple -->
+            <h1 class="username-title">
+                Perfil de <%= user.username %> 
+                <% if (isBlocked) { %>
+                    <span class="debt-warning">[DESHABILITADO]</span>
+                <% } %>
+            </h1>
+        </div>
+
+        <main id="content" class="profile-main">
+
+            <div class="profile-layout-grid">
+                
+                <!-- Columna Izquierda: Información Personal y Contacto -->
+                <div class="main-info-row">
+                    
+                    <!-- TARJETA 1: INFO BÁSICA Y MODERACIÓN -->
+                    <div class="profile-card user-info-card">
+                        <div class="card-header">
+                            <img class="profile-avatar" src="/resources/icons/sections/user_icon.png" alt="Avatar">
+                            <h2 class="username-title"><%= user.username %></h2>
+                            <span class="group-mod" style="margin-left: 10px;">[<%= user.groups.join(', ') %>]</span>
+                        </div>
+                        
+                        <% if (isBlocked) { %>
+                            <!-- Panel de Moderación -->
+                            <div class="moderation-status">
+                                <h4 class="block-reason-title">CUENTA BLOQUEADA TEMPORALMENTE</h4>
+                                <p><strong>Motivo:</strong> <%= user.moderation.block_reason %></p>
+                                <p>Bloqueado desde: <%= user.moderation.from_what[0] %></p>
+                            </div>
+                        <% } %>
+
+                        <% if (!isBlocked) { %>
+                            <h3 class="card-title" style="margin-top: 20px;"> Datos de Contacto</h3>
+                            <div class="profile-stats">
+                                <div class="stat-row">
+                                    <span class="stat-label">Correo:</span>
+                                    <span class="stat-value"><%= user.mail %></span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Teléfono:</span>
+                                    <span class="stat-value"><%= user.phoneNumber || 'N/A' %></span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Cuenta MC:</span>
+                                    <span class="stat-value mc-account-tag"><%= user.mcAccount %></span>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">Registro:</span>
+                                    <span class="stat-value"><%= user.registration_date.toLocaleDateString() %></span>
+                                </div>
+                            </div>
+                            <div class="edit-buttons" style="margin-top: 20px; text-align: center;">
+                                <button class="action-button">Editar Perfil</button>
+                                <button class="action-button">Cambiar Contraseña</button>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <!-- NOTIFICACIONES -->
+                    <div class="profile-card notifications-card">
+                        <h3 class="card-title">Notificaciones (3 Nuevas)</h3>
+                        <p class="section-subtitle">Tu UIT fue utilizado con éxito. ¡Revisa tu correo!</p>
+                        <p class="section-subtitle debt-warning">Tienes un reporte en revisión.</p>
+                    </div>
+                    
+                </div>
+                
+                
+                <!-- TARJETA 4: ACTIVIDAD -->
+                <div class="profile-card activity-card">
+                    <h3 class="card-title">Actividad Reciente</h3>
+                    
+                    <p class="section-subtitle">Actividad de Inicio de Sesión:</p>
+
+                    <div class="weekly-activity-graph">
+                        <% weeklyActivity.forEach((percentage, index) => { %>
+                            <div class="day-bar-wrapper">
+                                <!-- Etiqueta del Día -->
+                                <p class="day-label"><%= daysOfWeek[index] %></p>
+                                
+                                <!-- Contenedor de la Barra y Valor -->
+                                <div class="bar-container-vertical" title="<%= percentage %>% Jugado">
+                                    <div class="bar-fill" style="height: <%= percentage %>px;"></div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <div class="activity-line">
+                        <p class="graph-label">Frecuencia Semanal (80%)</p>
+                        <div class="graph-bar-container">
+                            <div class="graph-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <p class="section-subtitle">Ultimos Logros/Trofeos:</p>
+                    <div class="section-row">
+                        <ul class="achievement-list">
+                            <% user.achievements.forEach(ach => { %>
+                                <li class="achievement-item <%= ach.rank %>">
+                                    <%= ach.name %>
+                                </li>
+                            <% }); %>
+                        </ul>
+                        <button class="show-all-achievements-btn">Todos tus logros</button>
+                    </div>
+                    
+                </div>
+
+
+                <!-- Columna Derecha: Estadísticas MC y Actividad/Logros -->
+                <div class="activity-achievements-row">
+                    <!-- TARJETA 3: ESTADÍSTICAS MC -->
+                    <div class="profile-card mc-stats-card">
+                        <h3 class="card-title">Estadísticas de Minecraft</h3>
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Nivel Jugador:</span>
+                                <span class="stat-value"><%= user.minecraftStats.playerlevel %></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Kills Totales:</span>
+                                <span class="stat-value kill-count"><%= user.minecraftStats.kills %></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Reputación Global:</span>
+                                <span class="stat-value reputation-good"><%= user.minecraftStats.reputation %></span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Horas Jugadas:</span>
+                                <span class="stat-value"><%= user.minecraftStats.playtimeHours %>h</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Misiones Completadas:</span>
+                                <span class="stat-value missions"><%= user.minecraftStats.missionsDone %></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA 2: ESTADO DE PAGO -->
+                    <div class="profile-card financial-card">
+                        <h3 class="card-title">Finanzas y Pagos</h3>
+                        <div class="profile-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Balance (Ringcoins):</span>
+                                <span class="stat-value money-balance"><%= user.balance %> 🪙</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Estado de Cuenta:</span>
+                                <span class="stat-value status-active">Al Corriente</span>
+                            </div>
+                            <% if (user.payement.debtMonths.length > 0) { %>
+                                <div class="stat-row">
+                                    <span class="stat-label">DEUDA PENDIENTE:</span>
+                                    <span class="stat-value debt-warning">¡<%= user.payement.debtMonths.length %> Meses!</span>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clan-payement-info">
+
+                </div>
+
+            </div>
+        </main>
+
+        <%- include("../.parts/footer") %>
+        <script src="/pages/profile/user.js"></script> 
+        <script src="/resources/js/announcement_Render.js"></script> 
+    </body>
+</html>

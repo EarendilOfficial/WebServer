@@ -5,9 +5,14 @@ const { reportSchema } = require('../../schema/reportSchema')
 
 // reportController.js
 async function sendReportHandler(req, res) {
+    // Datos del reporte
     const { selectedPlayer, reason, details } = req.body; // <-- ¡Ya sanitizados!
-    const ReportsDB = await mongoose.createConnection('mongodb://localhost:27017/PlayerReports')
+    //Conexion a la DB
+    const ReportsDB = await mongoose.createConnection('mongodb://localhost:27017/Feedback')
     const PlayerReports = ReportsDB.model("Report", reportSchema)
+
+    // TODO: Mandar mensaje a los moderadores
+    // TODO: Tomar accion inmediata en caso 4, o en caso de ofensas repetidas
 
     try {
         // Lógica para guardar en la base de datos

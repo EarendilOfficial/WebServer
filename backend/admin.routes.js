@@ -17,7 +17,7 @@ router.use(isAuthCheck, isAdminCheck);
 router.get('/edit_anounncements', (req, res) => {
     // Como el middleware ya corrió, podemos asumir que req.user existe.
     console.log(`User ${req.user.username} accessed announcements.`);
-    res.sendFile(path.join(__dirname, "..", "frontend/admin-edit-announcements.html"));
+    res.render('admin/edit-announcements')
 });
 
 router.get('/reports', (req, res) => {

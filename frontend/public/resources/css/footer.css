@@ -9,6 +9,7 @@
     margin-top: 50px;
     font-family: 'Monocraft', monospace;
     color: #f0f0f0;
+    flex-shrink: 0;
 }
 
 .footer-grid {
@@ -99,6 +100,10 @@
     margin: 0 15px;
     font-size: 1rem;
     transition: color 0.2s;
+    cursor: pointer;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .footer-social a img {
@@ -114,7 +119,7 @@
 }
 
 /* Responsividad básica para móviles */
-@media (max-width: 768px) {
+@media (max-width: 832px) {
     .footer-grid {
         grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
         gap: 20px;
@@ -123,5 +128,18 @@
         grid-column: span 2; /* Ocupa ambas columnas */
         align-items: center;
         text-align: center;
+    }
+    
+    .footer-social {
+        flex-direction: column; /* 🔑 Apilar verticalmente */
+        align-items: flex-start; /* Alinear a la izquierda para mejor lectura */
+        padding-left: 20px;
+    }
+    
+    .footer-social a {
+        /* Aseguramos que el enlace tome todo el ancho disponible para que el texto ajuste */
+        width: 100%; 
+        /* Quitar el margin lateral que puede causar problemas */
+        margin: 5px 0; 
     }
 }

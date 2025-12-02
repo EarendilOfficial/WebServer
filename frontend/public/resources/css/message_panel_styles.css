@@ -4,7 +4,7 @@
 /* -------------------------------------------------- */
 /* Contenido Default  */
 .default {
-    background-color: #1e1e1ee6;
+    background-color: #1e1e1ed8;
     padding: 5px;
     border-radius: 0; /* Bordes duros */
     box-shadow: none; /* Eliminar la sombra para ver la imagen de borde */
@@ -59,7 +59,7 @@
 /* Estilo de Evento (event) */
 .green {
     border-left: 5px solid #28a745; /* Verde */
-    background-color: #153315;
+    background-color: #1a4e1a;
     color: #FFF;
     padding: 20px;
     margin-left: 10px;

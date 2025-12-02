@@ -153,7 +153,22 @@ async function sendReport(payload) {
         }
         
         showAlert("Los administradores revisaran tu reporte de inmediato!", "Reporte enviado", true)
+        limpiarCamposSeleccionados()
     } catch (err) {
         showAlert("No se pudo enviar tu reporte", "Error Del Servidor")
     }
+}
+
+function limpiarCamposSeleccionados() {
+    const lastSelectedItem = document.querySelector('.reason-choose-list .selected');
+    if (lastSelectedItem) lastSelectedItem.classList.remove('selected')
+    reason = null;
+
+    const selPlayer = document.querySelector('#player-list .selected');
+    if (selPlayer) selPlayer.classList.remove('selected');
+    selectedPlayer = null;
+
+    const detallesReporte = document.getElementById('report-details')
+    detallesReporte.value = "";
+    details = null;
 }

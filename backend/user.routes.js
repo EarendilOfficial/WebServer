@@ -15,9 +15,14 @@ router.use(isAuthCheck)
 // const { getMyUserData } = require("./dataGetters/get_UserData");
 // router.use(getMyUserData) // res.userdata = username mail mcAccount payement groups friends achievements uit balance registration_date
 
-router.get('/reports', (req, res) => {
+router.get('/report', (req, res) => {
     console.log(`User ${req.user.username} accessed reports.`);
-    res.sendFile(path.join(__dirname, "..", "frontend/reports.html"));
+    res.render('user/report')
+});
+
+router.get('/profile', (req, res) => {
+    console.log(`User ${req.user.username} accessed profile.`);
+    res.render('user/profile')
 });
 
 
