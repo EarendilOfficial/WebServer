@@ -1,0 +1,46 @@
+<div class="input-group">
+    <label for="title">Título</label>
+    <input required value="<%= article.title %>" type="text" name="title" id="title" class="form-control" placeholder="Escribe el título aquí...">
+</div>
+
+<div class="input-group">
+    <label for="description">Descripción</label>
+    <textarea name="description" id="description" class="form-control" rows="3" placeholder="Un breve resumen..."><%= article.description %></textarea> 
+</div> 
+
+<div class="input-group">
+    <label for="markdown">Contenido (Markdown)</label>
+    <textarea required name="markdown" id="markdown" class="form-control" rows="15" placeholder="Escribe tu artículo aquí..."><%= article.markdown %></textarea> 
+</div> 
+
+<div style="margin-top: 20px; display: flex; gap: 15px;">
+    <a href="/admin/admin-blogs" class="btn btn-cancel" style="text-decoration: none; text-align: center;">Cancelar</a>
+    <button type="submit" class="btn btn-save" style="text-decoration: none; text-align: center;"> Guardar Blog</button>
+</div>
+
+<details style="background: #252525; border: 1px solid #444; border-radius: 4px; margin-bottom: 10px; padding: 5px;">
+        <summary style="cursor: pointer; color: #00FFFF; padding: 5px; font-weight: bold; outline: none;">
+            📜 Ver Guía Rápida de Markdown (Clic aquí)
+        </summary>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; color: #ccc; font-size: 0.9em;">
+            <div>
+                <strong style="color: #fff;">Texto:</strong><br>
+                **Negrita** &rarr; <code>**Texto**</code><br>
+                *Cursiva* &rarr; <code>*Texto*</code><br>
+                ~~Tachado~~ &rarr; <code>~~Texto~~</code>
+            </div>
+            <div>
+                <strong style="color: #fff;">Estructura:</strong><br>
+                # Título Grande &rarr; <code># Texto</code><br>
+                ## Subtítulo &rarr; <code>## Texto</code><br>
+                - Lista &rarr; <code>- Item</code>
+            </div>
+            <div style="grid-column: span 2; border-top: 1px solid #444; padding-top: 10px;">
+                <strong style="color: #fff;">Multimedia:</strong><br>
+                🔗 Enlace: <code>[Texto](https://google.com)</code><br>
+                🖼️ Imagen: <code>![Descripción](https://link-imagen.png)</code><br>
+                💻 Código: Usar tres tildes invertidas (```)
+            </div>
+        </div>
+    </details>

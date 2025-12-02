@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 const path = require ("path");
@@ -5,6 +6,7 @@ const path = require ("path");
 // Importar auth check
 const { isAuthCheck, isAdminCheck } = require("./auth/Auth_Middleware.js");
 
+const articleRouter = require('./articles');
 // El chequeo de autenticacion se aplica a todas las rutas
 router.use(isAuthCheck, isAdminCheck);
 
@@ -25,8 +27,8 @@ router.get('/reports', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/handleReports.html"));
 });
 
+router.use('/admin-blogs', articleRouter);
 
 router.use(express.static(path.join(__dirname, "..", 'frontend/private')));
-
 
 module.exports = router;

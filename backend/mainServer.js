@@ -5,41 +5,42 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-// Activar EJS como renderizador de las paginas, para reciclar el encabezado y el footer
+// --- IMPORTANTE: Aquí importamos las rutas del blog (Si articles.js está en la misma carpeta que este archivo) ---
+const methodOverride = require('method-override');
+// Configuración de EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '../frontend/views'));
+app.set('views', path.join(__dirname, '..', 'frontend', 'views'));
+app.set('trust proxy', 1); 
 
-app.set('trust proxy', 1); //Get the actual ip from the client
 const { apiLimiter, generalLimiter, loginLimiter } = require("./security/rateLimiter.js");
-const { isAuthCheck } = require("./auth/Auth_Middleware.js"); // Middleware
-const { loginUser, logoutUser, registerNewUser } = require("./auth/User_Authentication.js"); // Controlador
+const { isAuthCheck } = require("./auth/Auth_Middleware.js"); 
+const { loginUser, logoutUser, registerNewUser } = require("./auth/User_Authentication.js"); 
 const { registerValidationRules, validate } = require("./security/userRegistrationValidation.js");
 
-// Creacion de la cookie (Para login)
+// Creacion de la cookie
 const cookieParser = require("cookie-parser");
 
-// Cookies & JWT 😋🍪🥛😋
-app.use(express.json({
-    // Limit in case of trash reqs 
-    limit: '5kb' 
-}));
+// Cookies & JWT 
+app.use(express.urlencoded({ extended: false })); // Agregado para que funcionen los formularios del blog
+app.use(methodOverride('_method'));
+app.use(express.json({ limit: '5kb' }));
 app.use(cookieParser());
 app.use(generalLimiter);
 
 // Conexion a la BD
 const mongoose = require("mongoose");
-mongoose.set('sanitizeFilter', true); // IMPORTANTE: Sanitizar la entrada para prevenir ataques de inyeccion
+mongoose.set('sanitizeFilter', true); 
 mongoose.connect('mongodb://localhost:27017/UserData')
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.log(err));
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
 
 const playerCodesDB = mongoose.createConnection('mongodb://localhost:27017/PlayerCodes')
 playerCodesDB.on('connected', () => {
     console.log('MongoDB connected to PlayerCodes DB');
 });
+
+
 // ---- Fin de header ---- //
-
-
 
 
 // ---- Routes ---- //
@@ -48,6 +49,12 @@ const userRoutes = require("./user.routes.js");
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
+const publicBlogRouter = require('./publicBlog.routes');
+
+// ------------------------ BLOGS -----------
+//app.use('/articles', articleRouter);
+app.use('/articles', publicBlogRouter);
+// ------------------------ OTRAS RUTAS ---------------------- //
 
 app.use('/user', userRoutes);
 app.use('/app', protectedRoutes);
@@ -56,10 +63,8 @@ app.use('/api', apiRequestRoutes);
 
 
 // ------------------------- USER AUTH API --------------------- //
-// Public route for login
 app.post('/login', loginLimiter, async (req, res)=>{
     const result = await loginUser(req, res);
-
     if (!result.succesful) return res.status(401).json(result);
     return res.json(result);
 });
@@ -70,7 +75,6 @@ app.post('/logout', loginLimiter, isAuthCheck, async (req, res)=>{
     return res.json(result);
 });
 
-// Public route for registering new users
 app.post('/usr-new-register', loginLimiter, registerValidationRules(), validate, async (req, res)=>{
     console.log("[Register] - Procesando solicitud...");
     const result = await registerNewUser(req);
@@ -80,7 +84,6 @@ app.post('/usr-new-register', loginLimiter, registerValidationRules(), validate,
 
 
 // ------------------------ EXPOSED PAGES ---------------------- //
-// Login
 app.get('/', apiLimiter, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
 });
@@ -99,20 +102,16 @@ app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server Started at: http://localhost:${PORT}`);
     console.log(`Access the unprotected root: http://localhost:${PORT}`);
     console.log(`Test protected route: http://localhost:${PORT}/protected`);
+    console.log(`Blog Admin: http://localhost:${PORT}/admin-blogs`); // Agregué esto para que tengas el link a mano
     console.log('-------------------------------------------------------')
 });
 
 
-// // Manejo de requests malformados
-// app.use((err, req, res, next) => {
-//     // Si el error es una instancia de SyntaxError y tiene el tipo 'entity.parse.failed',
-//     // significa que el JSON estaba malformado.
-//     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-//         // Log solo el evento de error, no el cuerpo malicioso.
-//         console.error('ERROR: Malformed JSON received from IP:', req.ip); 
-//         return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
-//     }
-
-//     // Para cualquier otro error no manejado, déjalo pasar.
-//     next(); 
-// });
+// Manejo de requests malformados
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.error('ERROR: Malformed JSON received from IP:', req.ip); 
+        return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
+    }
+    next(); 
+});
