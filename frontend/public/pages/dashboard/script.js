@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     getLatestContent();
     getPlayerData();
+    getPlayerCount()
 });
 
 async function getLatestContent() {
@@ -46,7 +47,7 @@ async function getLatestContent() {
     announcementContainer.innerHTML = '';
 
     const response = await fetch('/api/get_content_latest', {
-        method: 'POST'
+        method: 'GET'
     });
 
     let data = await response.json()
@@ -74,7 +75,7 @@ async function getPlayerData() {
     const player_killcount = document.getElementById('player-killcount');
 
     const response = await fetch('/api/get_minecraft_data', {
-        method: 'POST'
+        method: 'GET'
     });
     const data = await response.json(); 
 
@@ -93,4 +94,16 @@ async function getPlayerData() {
     player_reputation.innerHTML = stats.reputation.title;
     player_killcount.innerHTML = stats.kills;
     player_finished_missions.innerHTML = stats.missionsDone;
+}
+
+async function getPlayerCount() {
+    active_players = document.getElementById('active_players');
+
+    const response = await fetch('/api/get_user_count', {
+        method: 'GET'
+    });
+
+    const data = await response.json();
+    console.log("Active players:", data.number)
+    active_players.innerHTML = data.number
 }

@@ -29,5 +29,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EarendilOfficial/WebServer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EarendilOfficial/WebServer/issues"
+  },
+  "homepage": "https://github.com/EarendilOfficial/WebServer#readme"
 }

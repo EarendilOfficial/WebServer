@@ -44,8 +44,8 @@ playerCodesDB.on('connected', () => {
 
 
 // ---- Routes ---- //
-const PORT = 3001;
-
+const PORT = 6294;
+const userRoutes = require("./user.routes.js");
 const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
@@ -56,6 +56,7 @@ const publicBlogRouter = require('./publicBlog.routes');
 app.use('/articles', publicBlogRouter);
 // ------------------------ OTRAS RUTAS ---------------------- //
 
+app.use('/user', userRoutes);
 app.use('/app', protectedRoutes);
 app.use('/admin', adminRoutes);
 app.use('/api', apiRequestRoutes);
@@ -87,15 +88,17 @@ app.get('/', apiLimiter, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
 });
 
+// Registration
 app.get('/register-user', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "frontend/register-user.html"));
 });
 
+// Static files
 app.use(express.static(path.join(__dirname, "..", 'frontend/public')));
 
 
 // ---- Server Start ---- //
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server Started at: http://localhost:${PORT}`);
     console.log(`Access the unprotected root: http://localhost:${PORT}`);
     console.log(`Test protected route: http://localhost:${PORT}/protected`);

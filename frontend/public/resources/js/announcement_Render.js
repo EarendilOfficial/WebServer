@@ -49,7 +49,7 @@ function textToHtml(text) {
     // Escapa HTML básico para prevenir XSS simple
     let escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     
-    // Simula Markdown básico: Negrita (**) y saltos de línea
+    // Simula Markdown básico: Negrita (**) y saltos de línea, tambien imagenes y links
     escapedText = escapedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     escapedText = escapedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
     escapedText = escapedText.replace(/\^\^(.*?)\^\^/g, '<img src="$1" alt="$1"></img>');

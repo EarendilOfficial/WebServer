@@ -21,7 +21,7 @@ async function loginUser(req, res) {
         const {username, password} = req.body;
         console.log(`Login attempt: {username: ${username}}, password: secret`);
 
-        const user = await Users.findOne({username: username});
+        const user = await Users.findOne({username: "Khalid", $nor: [{deletedAccount: true}]});
         if (!user) return { succesful: false, reason: "Usuario o contraseña incorrectos, intentelo de nuevo porfavor 😅"}
         
         const match = await user.comparePassword(password);
