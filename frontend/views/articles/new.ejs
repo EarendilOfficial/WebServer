@@ -8,88 +8,25 @@
         
         <link rel="stylesheet" href="/pages/dashboard/style.css"> 
 
-        <link rel="stylesheet" href="/pages/dashboard/style.css"> 
         <link rel="stylesheet" href="/pages/dashboard/11blog_styles.css"> 
         <link rel="stylesheet" href="/plantilla.css"> 
     </head>
 
     <body id="body">
-        <div id="loading-overlay" class="shown">
-            <img src="../resources/icons/start_terminator.png" alt="[">
-            <img src="../resources/icons/middle_terminator.png" alt="O">
-            <img src="../resources/icons/end_terminator.png" alt="]">
+        <%- include('../.parts/headerAdmin.ejs'); %>
+
+        <div class="container">
+            <h1 class="mb-4">Nuevo blog</h1>
+
+            <form action="/admin/admin-blogs" method="POST">
+                <%- include("_form_fields") %>
+
+
+            </form>
         </div>
-        
-        <div class="header scrolled">
-            <div id="page-logo-container">
-                <img id="page-logo" src="/resources/icons/logo/earendil_Logo.png" alt="Earendil Logo Grande">
-            </div>
-            <div>
-                <legend class="legend">Admin Tools</legend>
-            </div>
-            <ul class="nav_links">
-                <li class="nav_links_text"><a href="/admin/news"><img src="/resources/icons/sections/news_icon.png" alt="Dashboard">Noticias</a></li>
-                <li class="nav_links_text"><a href="/admin/users"><img src="/resources/icons/sections/social_icon.png" alt="Usuarios">Usuarios</a></li>
-                <li class="nav_links_text"><a href="/admin/settings"><img src="/resources/icons/sections/discord_icon.png" alt="Ajustes">Ajustes</a></li>
-                <li class="nav_links_text"><a id="logout_link" href="/app/dashboard"><img src="/resources/icons/sections/logout_icon.png" alt="Salir de las herramientas">Salir</a></li>
-            </ul>
-        </div>
-    <div class="container">
-        <h1 class="mb-4">Nuevo blog</h1>
-
-        <form action="/admin/admin-blogs" method="POST">
-            <%- include("_form_fields") %>
-
-
-        </form>
-    </div>
     
-    <footer class="site-footer">
-            <div class="footer-grid">
-                
-                <div class="footer-section">
-                    <h4 class="footer-title">Explorar</h4>
-                    <ul class="footer-links">
-                        <li><a href="/news">Noticias</a></li>
-                        <li><a href="/social">Comunidad Social</a></li>
-                        <li><a href="/clans">Ranking de Clanes</a></li>
-                        <li><a href="/wiki">Wiki & Guías</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4 class="footer-title">Soporte</h4>
-                    <ul class="footer-links">
-                        <li><a href="/report">Reportar un Jugador</a></li>
-                        <li><a href="/faq">Preguntas Frecuentes (FAQ)</a></li>
-                        <li><a href="/contact">Contacto de Soporte</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4 class="footer-title">Legal</h4>
-                    <ul class="footer-links">
-                        <li><a href="/terms">Términos de Servicio</a></li>
-                        <li><a href="/privacy">Política de Privacidad</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section footer-copyright">
-                    <img src="/resources/icons/logo/earendil_logo_mini.png" alt="Earendil Logo" class="footer-logo">
-                    <p>&copy; 2025 Eärendil MC. Todos los derechos reservados.</p>
-                    <p class="trademark">No afiliado a Mojang Studios.</p>
-                </div>
-            </div>
-
-            <div class="footer-social">
-                <a><img src="/resources/icons/sections/mail_icon.png" alt="Correo">earendil.official@gmail.com</a>
-                <a href="https://www.youtube.com/@EarendilOfficial" target="_blank"><img src="/resources/icons/yt_icon.png" alt="Discord"> Youtube</a>
-                <!-- <a href="https://twitter.com/yourserver" target="_blank"><img src="/resources/icons/twitter_icon.png" alt="Twitter"> Twitter</a> -->
-                </div>
-        </footer>
-
-        <div id="custom-alert" class="alert-modal">.</div>
-        <script src="pages/edit_announcements/admin_styles.js"></script> 
+        <%- include('../.parts/footer.ejs'); %>
+        <script src="/pages/edit_announcements/admin_styles.js"></script> 
         <script src="/resources/js/announcement_Render.js"></script> 
-</body>
+    </body>
 </html>

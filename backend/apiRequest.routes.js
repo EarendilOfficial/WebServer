@@ -55,20 +55,6 @@ router.get('/get_player_names', async ({res}) => {
 // Endpoint para la Última Actualización
 router.get('/get_latest_update', async (req, res) => {
     try {
-        // En un escenario real, buscarías el documento más reciente:
-        // const latestUpdate = await UpdateModel.findOne().sort({ timestamp: -1 });
-        
-        // Simulación de datos:
-        const latestUpdate = {
-            versionName: 'The Eärendil Conquer',
-            serverVersion: '1.20.1',
-            imageUrl: '/resources/icons/logo/earendil_conquer.png',
-            description: 'Grandes cambios en el sistema de clanes y nuevos biomas.',
-            timestamp: new Date()
-        };
-
-        
-
         return res.json(await getLatestUpdate() || latestUpdate);
     } catch (e) {
         return res.status(500).json({ error: 'Fallo al obtener actualización' });
