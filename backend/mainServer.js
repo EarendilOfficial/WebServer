@@ -107,10 +107,10 @@ app.listen(PORT, "0.0.0.0", () => {
 
 
 // Manejo de requests malformados
-app.use((err, req, res, next) => {
-    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-        console.error('ERROR: Malformed JSON received from IP:', req.ip); 
-        return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
-    }
-    next(); 
-});
+// app.use((err, req, res, next) => {
+//     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+//         console.error('ERROR: Malformed JSON received from IP:', req.ip); 
+//         return res.status(400).send({ message: 'Bad Request: Malformed JSON' });
+//     }
+//     next(); 
+// });

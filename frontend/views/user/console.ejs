@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <link rel="icon" href="/resources/icons/logo/icon_A_mini.png">
+        <link rel="stylesheet" href="/plantilla.css">
+        <link rel="stylesheet" href="/pages/profile/styles.css">
+    </head>
+
+    <body id="body">
+        <%- include("../.parts/headerMini") %>
+
+
+        <div id="title-profile">
+            <!-- El título principal se mantiene simple -->
+            <h1 class="username-title">
+                Perfil de <%= user.username %> 
+                <% if (user.isBlocked) { %>
+                    <span class="debt-warning">[DESHABILITADO]</span>
+                <% } %>
+            </h1>
+        </div>
+
+        <main id="content" class="profile-main">
+
+            <div class="profile-layout-grid">
+                
+                <!-- Columna Izquierda: Información Personal y Contacto -->
+                <div class="main-info-row">
+                    <!-- TARJETA 2: ESTADO DE PAGO -->
+                    <div class="profile-card financial-card">
+                        <h3 class="card-title">Consola de servidor</h3>
+                        <div class="console-screen">
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <%- include("../.parts/footer") %>
+        <script src="/pages/profile/user.js"></script> 
+        <script src="/resources/js/announcement_Render.js"></script> 
+    </body>
+</html>

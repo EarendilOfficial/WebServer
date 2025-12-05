@@ -14,48 +14,14 @@
         <%
             // --- SIMULACIÓN DE DATOS DE ACTIVIDAD (EJS) ---
             // 7 días de la semana (Lunes a Domingo), valor de 0 a 100
-            const weeklyActivity = [80, 60, 95, 20, 100, 75, 40]; 
+            // const weeklyActivity = activity.weeklyActivity
+            const weeklyActivity = [0, 100, 0, 23, 23, 34, 56]
             const daysOfWeek = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
         %>
 
         <%
         // --- SIMULACIÓN DE DATOS EJS ---
-        const user = {
-            username: "SamloGamer",
-            mail: "samlogamer@mail.com",
-            phoneNumber: "55-1234-5678",
-            mcAccount: "SamloGamer_MC",
-            balance: 1500,
-            groups: ["MOD", "VETERAN"],
-            registration_date: new Date("2024-01-15"),
-            // Suspendido
-            moderation: {
-                is_blocked: false,
-                block_reason: "Uso de exploits en la arena PvP.",
-                from_what: ["2025-11-20"]
-            },
-            // Datos de Minecraft (simulados)
-            minecraftStats: {
-                playerlevel: 55,
-                ringcoins: 536,
-                reputation: "Excepcional (+300)",
-                missionsDone: 42,
-                kills: 987,
-                playtimeHours: 250
-            },
-            // Logros (simulados)
-            achievements: [
-                { name: "Cavar un pozo", rank: 'normal' },
-                { name: "Primer Viaje al Nether", rank: 'epic' },
-                { name: "Maestro Constructor", rank: 'historia' },
-                { name: "Derrota al Wither", rank: 'gold' }
-
-            ],
-            // Deudas (simuladas)
-            payement: {
-                debtMonths: ['Nov 2025']
-            }
-        };
+        const minecraftStats = minecraftData.stats;
 
         const isBlocked = user.moderation.is_blocked;
         %>
@@ -124,8 +90,10 @@
                     <!-- NOTIFICACIONES -->
                     <div class="profile-card notifications-card">
                         <h3 class="card-title">Notificaciones (3 Nuevas)</h3>
-                        <p class="section-subtitle">Tu UIT fue utilizado con éxito. ¡Revisa tu correo!</p>
-                        <p class="section-subtitle debt-warning">Tienes un reporte en revisión.</p>
+                        <div class="notifications">
+                            <p class="section-subtitle">Tu UIT fue utilizado con éxito. ¡Revisa tu correo!</p>
+                            <p class="section-subtitle debt-warning">Tienes un reporte en revisión.</p>
+                        </div>
                     </div>
                     
                 </div>
@@ -138,7 +106,7 @@
                     <p class="section-subtitle">Actividad de Inicio de Sesión:</p>
 
                     <div class="weekly-activity-graph">
-                        <% weeklyActivity.forEach((percentage, index) => { %>
+                        <% if (weeklyActivity) { weeklyActivity.forEach((percentage, index) => { %>
                             <div class="day-bar-wrapper">
                                 <!-- Etiqueta del Día -->
                                 <p class="day-label"><%= daysOfWeek[index] %></p>
@@ -148,7 +116,7 @@
                                     <div class="bar-fill" style="height: <%= percentage %>px;"></div>
                                 </div>
                             </div>
-                        <% }); %>
+                        <% })}; %>
                     </div>
 
                     <div class="activity-line">
@@ -181,23 +149,23 @@
                         <div class="profile-stats">
                             <div class="stat-row">
                                 <span class="stat-label">Nivel Jugador:</span>
-                                <span class="stat-value"><%= user.minecraftStats.playerlevel %></span>
+                                <span class="stat-value"><%= minecraftStats.playerlevel %></span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Kills Totales:</span>
-                                <span class="stat-value kill-count"><%= user.minecraftStats.kills %></span>
+                                <span class="stat-value kill-count"><%= minecraftStats.kills %></span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Reputación Global:</span>
-                                <span class="stat-value reputation-good"><%= user.minecraftStats.reputation %></span>
+                                <span class="stat-value reputation-good"><%= minecraftStats.reputation.title %>, <%= minecraftStats.reputation.value %> REP</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Horas Jugadas:</span>
-                                <span class="stat-value"><%= user.minecraftStats.playtimeHours %>h</span>
+                                <span class="stat-value"><%= minecraftStats.playtimeHours %>h</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Misiones Completadas:</span>
-                                <span class="stat-value missions"><%= user.minecraftStats.missionsDone %></span>
+                                <span class="stat-value missions"><%= minecraftStats.missionsDone %></span>
                             </div>
                         </div>
                     </div>
