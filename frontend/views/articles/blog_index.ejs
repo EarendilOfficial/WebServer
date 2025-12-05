@@ -17,23 +17,23 @@
         <%- include('../.parts/header.ejs'); %>
 
 
-    <div class="container">
-        <h1 class="mb-4">Blogs</h1>
+            <div class="container">
+                <h1 class="mb-4">Blogs</h1>
 
-        <% articles.forEach(article => { %>
-            <div class="card mb-4">
-            <div class="card-body">
-                    <h5 class="card-title"><%= article.title %></h5>
-                    <div class = "card-subtitle text-muted mb-2"> 
-                        <%= article.createdAt.toLocaleDateString() %>
-                    </div>
-                    <div class="card-text mb-2"><%= article.description %></div>
-                    <a href="news/view/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
-                    </form>
-                </div>
-                </div>
-        <% }) %> 
-    </div>
+                <% articles.forEach(article => { %>
+                    <div class="card mb-4">
+                    <div class="card-body">
+                            <h5 class="card-title"><%= article.title %></h5>
+                            <div class = "card-subtitle text-muted mb-2"> 
+                                <%= article.createdAt.toLocaleDateString() %>
+                            </div>
+                            <div class="card-text mb-2"><%= article.description %></div>
+                            <a href="news/view/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
+                            </form>
+                        </div>
+                        </div>
+                <% }) %> 
+            </div>
     
         <%- include("../.parts/footer") %>
         <script src="../pages/dashboard/script.js"></script> 
