@@ -20,10 +20,9 @@
         %>
 
         <%
-        // --- SIMULACIÓN DE DATOS EJS ---
-        const minecraftStats = minecraftData.stats;
-
-        const isBlocked = user.moderation.is_blocked;
+            // --- SIMULACIÓN DE DATOS EJS ---
+            const minecraftStats = minecraftData.stats;
+            const isBlocked = user.moderation.is_blocked;
         %>
 
         <div id="title-profile">
@@ -161,7 +160,7 @@
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Horas Jugadas:</span>
-                                <span class="stat-value"><%= minecraftStats.playtimeHours %>h</span>
+                                <span class="stat-value"><%= minecraftStats.playtime_hours %>h</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Misiones Completadas:</span>
@@ -180,7 +179,7 @@
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Estado de Cuenta:</span>
-                                <span class="stat-value status-active">Al Corriente</span>
+                                <span id="account-state" class="stat-value status-active">Al Corriente</span>
                             </div>
                             <% if (user.payement.debtMonths.length > 0) { %>
                                 <div class="stat-row">

@@ -20,6 +20,7 @@ const minecraftDataSchema = new mongoose.Schema(
             },
             kills: {type: Number, default: 0},
             missionsDone: {type: Number, default: 0},
+            playtimeHours: {type: Number, default: 0}
         }
     }
 );

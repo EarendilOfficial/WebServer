@@ -5,7 +5,7 @@ const Users = require('../models/userModel.js')
 async function getMyUserData(req, res, next) {
     const username_ = req.user.username;
 
-    const userData = await Users.findOne({username: username_}).select('-password');
+    const userData = await Users.findOne({username: username_}).select('-password -__v -_id');
 
     if (userData) {
         req.userData = userData;

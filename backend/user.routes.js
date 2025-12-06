@@ -25,7 +25,6 @@ router.get('/profile', getMyUserData, async (req, res) => {
         minecraftData: mcData,
         activity:  await fgetMyActivity(req)
     })
-    console.log(mcData, req.userData)
 });
 
 router.get('/report', (req, res) => {

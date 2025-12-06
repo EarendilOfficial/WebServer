@@ -1,7 +1,6 @@
 //CODE for database seeding
 
 const mongoose = require('mongoose');
-const Attendance = require('../old/attendanceModel'); 
 const uitSchema = require('../schema/uit');
 
 const sampleAttendance = [
@@ -10,7 +9,7 @@ const sampleAttendance = [
     { studentId: 'student123', date: new Date('2025-09-24T12:00:00Z'), status: 'present' }
 ];
 
-const uitSample = { uit_code: "ED54-BF3E-6CX9", mcAccount: "Khalid"};
+const uitSample = { uit_code: "7777-7777-7777", mcAccount: "Khalid"};
 
 
 async function seedUIT() {

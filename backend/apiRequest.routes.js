@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 
 // Importar auth check
 const { isAuthCheck, isAdminCheck } = require("./auth/Auth_Middleware.js");
-const { getMinecraftData } = require("./dataGetters/get_UserData.js")
+const { getMinecraftData, getMyUserData } = require("./dataGetters/get_UserData.js")
 
 // Importar controladores y funciones
 const { saveAnnouncementHandler, getLatestAnnouncementsHandler } = require('./apiControllers/dashboard/anouncementsController.js');
@@ -34,6 +34,10 @@ router.get('/get_content_latest', getLatestAnnouncementsHandler)
 // Get all the minecraft data
 router.get('/get_minecraft_data', getMinecraftData, (req, res) => {
     return res.status(200).json(req.minecraftData);
+})
+
+router.get('/get_my_data', getMyUserData, (req, res) => {
+    return res.status(200).json(req.userData);
 })
 
 // Get user count
