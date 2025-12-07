@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 
 // Importar auth check
 const { isAuthCheck, isAdminCheck } = require("./auth/Auth_Middleware.js");
-const { getMinecraftData, getMyUserData } = require("./dataGetters/get_UserData.js")
+const { getMinecraftData, getMyUserData, getMyActivity } = require("./dataGetters/get_UserData.js")
 
 // Importar controladores y funciones
 const { saveAnnouncementHandler, getLatestAnnouncementsHandler } = require('./apiControllers/dashboard/anouncementsController.js');
@@ -18,6 +18,7 @@ const { reportLimiter } = require('./security/rateLimiter.js');
 const { getActiveEvents } = require('./dataGetters/get_activeEvents.js');
 const createEventsHandler = require('./apiControllers/dashboard/eventsController.js');
 const getLatestUpdate = require('./dataGetters/get_lastUpdate.js');
+const { setNotificationRead, getMyNotifications, removeNotification } = require('./apiControllers/notificationController.js');
 
 
 // El chequeo de autenticacion se aplica a todas las rutas
@@ -39,6 +40,17 @@ router.get('/get_minecraft_data', getMinecraftData, (req, res) => {
 router.get('/get_my_data', getMyUserData, (req, res) => {
     return res.status(200).json(req.userData);
 })
+
+router.get('/get_my_activity', getMyActivity, (req, res) => {
+    return res.status(200).json(req.activity);
+})
+
+
+router.get("/get_my_notifications", getMyNotifications)
+
+router.put("/set_notification_read", setNotificationRead)
+
+router.post("/delete_notification", removeNotification)
 
 // Get user count
 router.get('/get_user_count', async ({res}) => {

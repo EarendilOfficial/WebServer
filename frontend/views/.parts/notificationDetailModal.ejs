@@ -1,0 +1,131 @@
+<!-- Modal para mostrar el texto completo de la notificación -->
+<style>
+    .alert-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .alert-modal.visible-modal {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .hidden-modal {
+        display: none;
+    }
+
+    .visible-modal {
+        transform: scale(100%);
+    }
+
+    .notification-detail-content {
+        max-width: 500px;
+    }
+
+    #notif-modal-message {
+        /* Permitir salto de línea para texto largo */
+        white-space: pre-wrap; 
+        text-align: left;
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+</style>
+<div id="notification-detail-modal" class="alert-modal hidden-modal">
+    <div class="alert-content visible-modal notification-detail-content">
+        <h3 id="notif-modal-title">Título de la Notificación</h3>
+        <p id="notif-modal-date" class="section-subtitle"></p>
+        <div class="notif-modal-body">
+            <p id="notif-modal-message"></p>
+        </div>
+        <button id="notif-modal-delete" class="action-button red-button">Eliminar</button>
+        <button id="notif-modal-close" class="action-button">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    // --- Nuevas referencias globales para el modal ---
+    const detailModal = document.getElementById('notification-detail-modal');
+    const modalTitle = document.getElementById('notif-modal-title');
+    const modalDate = document.getElementById('notif-modal-date');
+    const modalMessage = document.getElementById('notif-modal-message');
+    const modalCloseButton = document.getElementById('notif-modal-close');
+    const modalDeleteNotificationButton = document.getElementById('notif-modal-delete');
+
+    // -----------------------------------------------------
+
+    /**
+     * Muestra el modal con los detalles completos de la notificación.
+     * @param {object} notif - El objeto completo de la notificación.
+     */
+    function showNotificationDetail(notif, item) {
+        
+        const formattedDate = new Date(notif.timestamp).toLocaleDateString('es-ES', { 
+            month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' 
+        });
+
+        modalTitle.textContent = notif.title || `Detalle de ${notif.type}`;
+        modalDate.textContent = `Fecha: ${formattedDate} | Tipo: ${notif.type}`;
+        modalMessage.textContent = notif.message; // Usamos notif.message para el texto completo
+
+        // Eliminar antiguo evento
+
+        modalDeleteNotificationButton.addEventListener('click', ()=> {
+            deleteNotification(item, notif._id)
+        });
+        
+        // Mostrar el modal
+        detailModal.classList.remove('hidden-modal');
+        // Forzar un pequeño delay para asegurar que la transición de opacidad funcione
+        setTimeout(() => {
+            detailModal.classList.add('visible-modal');
+        }, 10);
+    }
+
+    /**
+     * Cierra la ventana modal de detalles.
+     */
+    function closeNotificationDetail() {
+        detailModal.classList.remove('visible-modal');
+        
+        // Ocultar completamente del DOM después de la transición
+        setTimeout(() => {
+            detailModal.classList.add('hidden-modal');
+        }, 300);
+    }
+
+    async function deleteNotification(item, id) {
+        const response = await fetch('/api/delete_notification', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({notificationId: id})
+        })
+        
+        if (response.ok) {
+            item.remove()
+            closeNotificationDetail()
+        }
+    }
+
+    // Asignar el listener de cierre
+    modalCloseButton.addEventListener('click', closeNotificationDetail);
+    // Opcional: Cerrar al hacer clic en el fondo oscuro
+    detailModal.addEventListener('click', (e) => {
+        if (e.target.id === 'notification-detail-modal') {
+            closeNotificationDetail();
+        }
+    });
+</script>

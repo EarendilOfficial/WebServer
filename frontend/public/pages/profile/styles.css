@@ -62,6 +62,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: left;
     flex-grow: 1;
+    min-width: 35%;
 }
 
 .card-header {
@@ -94,10 +95,14 @@ body {
 }
 
 .card-title {
-    color: #FF8C00; /* Naranja Lava */
+    color: #FF8C00;
     font-size: 1.2rem;
     margin-top: 0;
-    margin-bottom: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: #585858;
+    border-bottom-style: ridge;
+    border-bottom-width: 6px;
 }
 
 .section-subtitle {
@@ -164,15 +169,29 @@ body {
     border: 2px solid #555;
     border-radius: 3px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, rotate 1s;
 }
 .action-button:hover {
     background-color: #555;
 }
+.red-button {
+    background-color: #af0000;
+}
+.red-button:hover {
+    background-color: #ff0000;
+    /* transform: rotate(5deg); */
+    animation: shake-quick 0.2s linear infinite;
+}
+
+@keyframes shake-quick {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px) rotate(1deg); }
+    75% { transform: translateX(2px) rotate(-1deg); }
+}
 
 
 /* --- COLORES DE VALOR --- */
-.group-mod { color: gold; }
+.group-mod { color: rgb(255, 217, 0); font-size: 1.5rem; }
 .mc-account-tag { color: #7CFC00; }
 .status-active { color: #7CFC00; }
 .debt-warning { color: #FF4500; }
@@ -417,6 +436,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 12%; /* Ancho para 7 barras con espacio */
+    height: 100%;
 }
 
 .day-label {
@@ -429,7 +449,7 @@ body {
 .bar-container-vertical {
     width: 100%;
     height: 100%; /* Ocupa el espacio vertical restante */
-    background-color: #3d3d3d; /* Fondo de la barra vacía */
+    background-color: #272727; /* Fondo de la barra vacía */
     border-radius: 3px;
     overflow: hidden;
     

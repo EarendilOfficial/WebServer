@@ -1,0 +1,53 @@
+/* --- ESTILOS DE LISTA DE NOTIFICACIONES --- */
+
+.notification-list-scroll {
+    max-height: 250px; /* Altura máxima para permitir scroll */
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.notification-item {
+    border: 1px solid #444;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #333;
+    border-radius: 4px;
+    transition: background-color 0.2s, border-color 0.2s;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background-color: #383838;
+}
+
+/* Estado NO LEÍDO */
+.notification-item.unread {
+    background-color: rgba(0, 166, 255, 0.1); /* Fondo Azul Cian claro */
+    border-color: #00a6ff; /* Borde Cian */
+}
+
+.notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.notif-status {
+    font-weight: bold;
+    color: #7CFC00; /* Verde Slime */
+}
+.notification-item.unread .notif-status {
+    color: #FF8C00; /* Naranja Lava para destacar el 'NUEVO' */
+}
+
+.notif-date {
+    color: #AAAAAA;
+}
+
+.notif-message {
+    margin: 0;
+    line-height: 1.4;
+}

@@ -1,19 +1,6 @@
 const mongoose = require('mongoose')
 
 const activitySchema = new mongoose.Schema({
-    // Arreglo para almacenar las notificaciones. 
-    // Por defecto, Mongoose asume un tipo de datos mixto si está vacío ([]).
-    notifications: {
-        type: [
-            {
-                type: String, // Podrías definir un esquema más complejo aquí
-                message: String,
-                timestamp: { type: Date, default: Date.now },
-                read: { type: Boolean, default: false }
-            }
-        ],
-        default: [] // Inicializa siempre como un arreglo vacío
-    },
     
     // Arreglo para almacenar la actividad semanal (ej: horas jugadas por día).
     // Debe ser un arreglo de números (Array of Number constructor).
