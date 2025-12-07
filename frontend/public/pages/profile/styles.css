@@ -193,6 +193,7 @@ body {
 /* --- COLORES DE VALOR --- */
 .group-mod { color: rgb(255, 217, 0); font-size: 1.5rem; }
 .mc-account-tag { color: #7CFC00; }
+.uit-color { color: #6b948f; }
 .status-active { color: #7CFC00; }
 .debt-warning { color: #FF4500; }
 .money-balance { color: gold; }
@@ -464,6 +465,25 @@ body {
     background-color: #006eff; /* Verde Slime (Activo) */
     transition: height 0.5s ease-out;
     min-height: 2px; /* Asegura que se vea incluso al 0% */
+}
+
+/* --- CSS de Soporte para Edición de campos de usuario --- */
+.editing-input {
+    /* Mismo estilo temático que los inputs de login */
+    background-color: #444; 
+    color: white;
+    border: 1px solid #55FFFF; /* Borde cian para indicar interactividad */
+    font-family: 'Monocraft', monospace;
+    padding: 2px 5px;
+    width: 50%; /* No ocupe el 100% de la fila */
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.action-button.save-mode {
+    background-color: #7CFC00; /* Verde Slime para Guardar */
+    color: black;
+    font-weight: bold;
 }
 
 /* Ajuste de responsividad para que el gráfico no se rompa */

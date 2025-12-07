@@ -27,6 +27,15 @@ router.get('/profile', getMyUserData, async (req, res) => {
     })
 });
 
+router.get('/edit-profile', getMyUserData, async (req, res) => {
+    console.log(`User ${req.user.username} accessed profile.`);
+    const mcData = await fgetMinecraftData(req)
+    res.render('user/edit-profile', {
+        user: req.userData,
+        minecraftData: mcData
+    })
+});
+
 router.get('/report', (req, res) => {
     console.log(`User ${req.user.username} accessed reports.`);
     res.render('user/report')

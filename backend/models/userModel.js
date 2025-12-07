@@ -27,6 +27,7 @@ const userModelSchema = new mongoose.Schema(
 
         uit: {type: String},
         isAdmin: {type: Boolean, required: false},
+        permissionLevel: { type: String, required: true, default: "Usuario"},
         deletedAccount: {type: Boolean, default: false},
         registration_date: {type: Date, default: Date.now}
     }
