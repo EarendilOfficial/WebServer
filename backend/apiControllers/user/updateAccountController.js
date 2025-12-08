@@ -11,11 +11,22 @@ const MinecraftData = require("../../models/minecraftData.js");
 async function updateMyProfile(req, res) {
     const { username, mail, phoneNumber, mcAccount }= req.body
 
-    // Checar si el nombre de usuario ya esta ocupado
     try {
-        const result = await Users.findOne({ username: username})
-        console.log(result)
-        if (result) res.status(500).json({reason: "Ese nombre de usuario ya esta ocupado"})
+        // Checar si el nombre de usuario ya esta ocupado
+        const usernameMatches = await Users.find({ username });
+
+        if (usernameMatches.length === 1 && usernameMatches[0].username !== req.user.username) {
+            return res.status(400).json({ reason: "Ese nombre de usuario ya está ocupado" });
+        }
+
+        // Checar si el nombre de cuenta minecraft ya esta ocupado
+        const mcMatches = await MinecraftData.find({ mcAccount });
+    
+        if (mcMatches.length === 1 && mcMatches[0].mcAccount !== req.user.mcAccount) {
+            return res.status(400).json({ reason: "Ese nombre de cuenta minecraft ya está ocupado" });
+        }
+
+
     } catch (error) {
         res.status(500).json({reason: err})
     }
@@ -53,6 +64,7 @@ async function updateMyProfile(req, res) {
 
         res.status(200).json({successful: true})
     } catch (err) {
+        console.log("[ERROR] - Error al actualizar el perfil de: " + req.user.username)
         res.status(500).json({reason: err})
     }
 

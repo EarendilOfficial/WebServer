@@ -48,7 +48,7 @@ async function saveProfileChanges() {
 
         if (response.ok && result.successful) {
             // Éxito:
-            showAlert("Cambios exitosos!!", "Exito", true, false)
+            showAlert("Cambios exitosos!! *Recuerde usar sus nuevas credenciales al iniciar sesion!", "Exito", true, false)
             setTimeout(()=> {
                 window.location.href = '/'; 
             }, 2000)
