@@ -45,6 +45,7 @@ router.get('/console', getMyUserData, (req, res) => {
     console.log(`User ${req.user.username} accessed console.`);
     res.render('user/console', {
         user: req.userData
+        
     })
 });
 

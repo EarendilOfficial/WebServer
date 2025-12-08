@@ -1,0 +1,194 @@
+body {
+    background-attachment: scroll;
+    background-image: url(/resources/backgrounds/stonebrick.png);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#content {
+    /* Mantiene el espacio del main */
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.profile-avatar {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 5px rgba(85, 255, 255, 0.5));
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.username {
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.profile-card.console-row {
+    /* 🔑 CLAVE 1: Activar Flexbox en el contenedor */
+    display: flex;
+    /* 🔑 CLAVE 2: Apilar elementos verticalmente (Header, Screen) */
+    flex-direction: column; 
+    
+    /* 🔑 CLAVE 3: Darle una altura fija o mínima para que la pantalla pueda crecer. 
+       Ajusta 450px a la altura que deseas que tenga la ventana de la consola. */
+    height: 80vh; /* Usa vh (viewport height) para una altura predecible */
+    min-height: 550px; 
+    max-width: 1200px;
+
+    
+    padding: 0; /* Quitamos el padding para que la pantalla toque los bordes del marco 3D */
+}
+
+
+
+
+/* ------- CONSOLE STYLE -------- */
+/* --- ESTILOS DE LA CONSOLA --- */
+
+/* El encabezado (Header, Título, Estado) de la consola*/
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* Padding interno solo para el header */
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #444;
+    
+    /* Para que el header no crezca verticalmente, solo ocupe su contenido */
+    flex-shrink: 0; 
+}
+
+/* PANTALLA (de la consola)*/
+.console-screen {
+    flex-grow: 1; 
+
+    /* 🔑 CORRECCIÓN 3: Reemplazar width: 90% con margin auto para centrar */
+    margin: 0 auto; /* Centrar el bloque */
+    max-width: 90%; /* Limitar el ancho interno al 90% */
+    
+    width: 100%; 
+    height: 100%;
+    padding: 10px;
+    overflow-y: auto;
+
+    background: #131313;
+    color: #00FF00;
+    font-family: monospace;
+    align-self: center;
+    
+
+
+    /* Estilos del Terminal */
+    font-family: 'Monocraft', monospace; /* Fuente de ancho fijo */
+    font-size: 0.9rem;
+    line-height: 1.4;
+    
+    /* Opcional: Borde de la consola */
+    border-top: 4px dashed #333;
+}
+
+.username {
+    font-size: 1.2rem;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.connection-status {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.green {
+    color: #7CFC00; /* Verde Slime para indicar conexión activa */
+}
+
+.red {
+    color: #fc0000; /* Verde Slime para indicar conexión activa */
+}
+
+
+/* Estilo para los mensajes de la consola */
+.console-message {
+    white-space: pre-wrap; /* Respeta saltos de línea */
+    margin: 0;
+    padding: 2px 0;
+}
+
+/* Estilos de mensajes específicos (simulando logs de servidor) */
+.console-message.log-input { color: #ffffff; } /* Verde - Info */
+.console-message.log-info { color: #a3a3a3; } /* Verde - Info */
+.console-message.log-warn { color: #FFD700; } /* Dorado - Advertencia */
+.console-message.log-error { color: #FF4500; } /* Rojo - Error */
+.console-message.log-admin { color: #55FFFF; font-weight: bold; } /* Cian - Admin */
+
+
+
+/* ----------------------------------
+ * BARRA DE COMANDOS
+ * ---------------------------------- */
+
+.command-bar {
+    /* 🔑 CLAVE: Asegura que la barra de comandos NO crezca verticalmente */
+    flex-shrink: 0; 
+    
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: #1a1a1a; /* Un color ligeramente diferente al fondo del log */
+    border-top: 1px solid #444;
+}
+
+.prompt-symbol {
+    color: #00FF00; /* Verde neón */
+    font-family: monospace;
+    font-size: 1rem;
+    margin-right: 8px;
+    font-weight: bold;
+}
+
+#command-input {
+    flex-grow: 1; /* 🔑 CLAVE: Ocupa todo el espacio horizontal restante */
+    background: none;
+    border: none;
+    outline: none; /* Quita el borde de enfoque feo */
+    color: #00FF00;
+    font-family: 'Monocraft', monospace;
+    font-size: 0.9rem;
+    padding: 5px 0;
+}
+
+#command-input::placeholder {
+    color: #008800; /* Verde más oscuro para el placeholder */
+}
+
+.command-send-btn {
+    /* Estilo del botón de terminal/consola */
+    background-color: #004d00;
+    color: white;
+    border: 1px solid #00FF00;
+    font-family: 'Monocraft', monospace;
+    padding: 5px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.command-send-btn:hover {
+    background-color: #006600;
+}
+
+.connected-users {
+    margin-top: 1px;
+}

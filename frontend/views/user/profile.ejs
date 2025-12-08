@@ -15,7 +15,7 @@
 
         <%
             // Datos de minecraft
-            const minecraftStats = minecraftData.stats;
+            const minecraftStats = minecraftData.stats || [];
             const isBlocked = user.moderation.is_blocked;
         %>
 
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Correo:</span>
-                                    <span id="mail-value" class="stat-value"><%= user.mail %></span>
+                                    <span id="mail-value" class="stat-value"><%= user.mail || "N/A"%></span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Teléfono:</span>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Cuenta MC:</span>
-                                    <span class="stat-value mc-account-tag"><%= user.mcAccount %></span>
+                                    <span class="stat-value mc-account-tag"><%= user.mcAccount || "No registrado"%></span>
                                 </div>
                                 <div class="stat-row">
                                     <span class="stat-label">Codigo UIT:</span>
@@ -136,19 +136,19 @@
                             <div class="profile-stats">
                                 <div class="stat-row">
                                 <span class="stat-label">Nivel:</span>
-                                <span id="player-level" class="stat-value"><%- minecraftStats.playerlevel %></span>
+                                <span id="player-level" class="stat-value">0</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Rango:</span>
-                                <span id="player-rank" class="stat-value rank-color"></span>
+                                <span id="player-rank" class="stat-value rank-color">0</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Ringcoins:</span>
-                                <span id="player-ringcoins" class="stat-value money-yellow"><%- minecraftData.ringcoins %> 🪙</span>
+                                <span id="player-ringcoins" class="stat-value money-yellow">0 🪙</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Reputación:</span>
-                                <span id="player-reputation" class="stat-value reputation-good"></span>
+                                <span id="player-reputation" class="stat-value reputation-good">0</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Clan:</span>
@@ -156,15 +156,15 @@
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Misiones Completadas:</span>
-                                <span id="player-finishedMissions" class="stat-value missions">42</span>
+                                <span id="player-finishedMissions" class="stat-value missions">0</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Kills:</span>
-                                <span id="player-killcount" class="stat-value kill-count">987</span>
+                                <span id="player-killcount" class="stat-value kill-count">0</span>
                             </div>
                             <div class="stat-row">
                                 <span class="stat-label">Horas Jugadas:</span>
-                                <span class="stat-value"><%= minecraftStats.playtimeHours %>h</span>
+                                <span class="stat-value"><%= minecraftStats.playtimeHours || "0"%>h</span>
                             </div>
                         </div>
                     </div>

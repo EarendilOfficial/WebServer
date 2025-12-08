@@ -1,112 +1,38 @@
 // --- Elementos de Botón ---
-const editProfileButton = document.getElementById('edit-profile');
-const changePasswordButton = document.getElementById('change-password');
-
-// --- Campos a Editar (Simulados para el ejemplo) ---
-const editableFields = [
-    { id: 'user-mail', selector: '.user-info-card .stat-value:nth-child(2)' }, // Ejemplo de selección, mejor usar IDs directos
-    { id: 'user-phone', selector: '.user-info-card .stat-value:nth-child(4)' }
-    // Asumiendo que has puesto IDs únicos en los <span> de stat-value que quieres editar
-];
-
-// --- Contenedores del Formulario ---
-const userInfoCard = document.querySelector('.user-info-card');
-let isEditing = false; // Estado para rastrear si estamos en modo edición
-
-function toggleEditMode() {
-    isEditing = !isEditing;
-    
-    // 1. Alternar texto del botón principal
-    editProfileButton.textContent = isEditing ? 'Guardar Cambios' : 'Editar Perfil';
-    editProfileButton.classList.toggle('save-mode', isEditing);
-    
-    const fieldsToModify = [
-        document.getElementById("mail-value"), // Mail
-        document.getElementById('phone-value')  // Phone Number
-    ];
-
-    fieldsToModify.forEach(span => {
-        if (!span) return;
-        
-        if (isEditing) {
-            // CONVERTIR A INPUT
-            const currentValue = span.textContent.trim();
-            const input = document.createElement('input');
-            
-            input.type = span.classList.contains('mc-account-tag') ? 'text' : 
-                         (span.textContent.includes('@') ? 'email' : 'text');
-            
-            input.value = currentValue;
-            input.classList.add('editing-input');
-            input.setAttribute('data-original-value', currentValue); // Guardar valor original
-            
-            span.parentNode.replaceChild(input, span);
-            
-        } else {
-            // CONVERTIR DE NUEVO A SPAN (Lógica de guardado)
-            const input = span;
-            const newValue = input.value.trim();
-            const originalSpan = document.createElement('span');
-            
-            originalSpan.classList.add('stat-value');
-            // Mantener las clases de color originales
-            originalSpan.classList.add(...input.className.split(' ').filter(cls => cls !== 'editing-input')); 
-            
-            originalSpan.textContent = newValue;
-            
-            input.parentNode.replaceChild(originalSpan, input);
-        }
-    });
-}
+const saveChangesButton = document.getElementById('save-changes');
+const username = document.getElementById('username');
+const mail = document.getElementById('mail');
+const phoneNumber = document.getElementById('phoneNumber');
+const mcAccount = document.getElementById('mcAccount');
 
 // --- Event Listeners ---
-
-editProfileButton.addEventListener('click', () => {
-    console.log("Navegando a la página de editar perfil...");
-    window.location.href = '/user/edit-profile'; 
+saveChangesButton.addEventListener('click', () => {
+    console.log("Guardando cambios...");
+    saveProfileChanges(); 
 });
-
-
-changePasswordButton.addEventListener('click', () => {
-    console.log("Navegando a la página de cambio de contraseña...");
-    window.location.href = '/user/change-password'; 
-});
-
 
 /**
  * Recolecta y envía los datos editados al servidor.
  */
 async function saveProfileChanges() {
-    // 1. Recolectar datos
-    const inputs = userInfoCard.querySelectorAll('input.editing-input');
-    const updates = {};
-    let shouldProceed = true;
+    // Recolectar los datos de los campos
+    const updates = {
+        username: username.value.trim(),
+        mail: mail.value.trim(),
+        phoneNumber: phoneNumber.value.trim(),
+        mcAccount: mcAccount.value.trim()
+    };
+    
+    // Validación de los datos
+    if (!updates.username || !updates.mcAccount) {
+        showAlert("Por favor, complete el usuario y la cuenta de minecraft.");
+        return;
+    }
 
-    inputs.forEach(input => {
-        const fieldName = input.getAttribute('name') || (input.type === 'email' ? 'mail' : 
-                                                          input.type === 'tel' ? 'phoneNumber' : 
-                                                          'username'); // Asignar nombres de schema
-        
-        const newValue = input.value.trim();
-        const originalValue = input.getAttribute('data-original-value');
-        
-        // Solo enviar si el valor ha cambiado
-        if (newValue !== originalValue) {
-            updates[fieldName] = newValue;
-        }
-        
-        // Validación básica
-        if (fieldName === 'mail' && newValue && !newValue.includes('@')) {
-            alert("Por favor, introduce un correo electrónico válido.");
-            shouldProceed = false;
-        }
-    });
-
-    if (!shouldProceed || Object.keys(updates).length === 0) {
-        if (shouldProceed) {
-            console.log("No hay cambios para guardar.");
-        }
-        toggleEditMode(); // Volver al modo visual si no hay cambios
+    // Validación de correo electrónico
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(updates.mail)) {
+        showAlert("Por favor, ingrese un correo electrónico válido.");
         return;
     }
 
@@ -120,24 +46,19 @@ async function saveProfileChanges() {
 
         const result = await response.json();
 
-        if (response.ok && result.succesful) {
+        if (response.ok && result.successful) {
             // Éxito:
-            console.log("Perfil actualizado con éxito!");
-            // Volver al modo visual (se recargará con los nuevos datos si es necesario)
-            toggleEditMode(); 
+            showAlert("Cambios exitosos!!", "Exito", true, false)
+            setTimeout(()=> {
+                window.location.href = '/'; 
+            }, 2000)
         } else {
             // Fallo:
-            alert(`Error al actualizar: ${result.reason}`);
+            showAlert(`Error al actualizar: ${result.reason}`, "Error", false);
         }
 
     } catch (e) {
         alert("Error de red al conectar con el servidor.");
-    }
-    
-    // 3. Volver al modo visual si el envío falló o tuvo éxito
-    if (isEditing) {
-        // Si el servidor falla, es mejor mantenerlo en modo edición para que no pierda los datos
-        // Pero para simplificar, lo regresaremos:
-        toggleEditMode(); 
+        console.error("Detalles del error:", e);
     }
 }

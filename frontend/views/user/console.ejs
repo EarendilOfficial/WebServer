@@ -5,43 +5,53 @@
         <title>User Profile</title>
         <link rel="icon" href="/resources/icons/logo/icon_A_mini.png">
         <link rel="stylesheet" href="/plantilla.css">
-        <link rel="stylesheet" href="/pages/profile/styles.css">
+        <link rel="stylesheet" href="/resources/css/new_card_styles.css">
+        <link rel="stylesheet" href="/pages/console/console-styles.css">
     </head>
 
     <body id="body">
         <%- include("../.parts/headerMini") %>
 
-
-        <div id="title-profile">
-            <!-- El título principal se mantiene simple -->
-            <h1 class="username-title">
-                Perfil de <%= user.username %> 
-                <% if (user.isBlocked) { %>
-                    <span class="debt-warning">[DESHABILITADO]</span>
-                <% } %>
-            </h1>
-        </div>
+        <% 
+        const isBlocked = user.moderation.is_blocked;        
+        %>
 
         <main id="content" class="profile-main">
 
-            <div class="profile-layout-grid">
+            <!-- TARJETA 1: Consola -->
+            <div class="profile-card console-row">
+                <div class="stat-row console-header">
+                    <span class="player-info">
+                        <img class="profile-avatar" src="/resources/icons/sections/user_icon.png" alt="Avatar">
+                        <h2 class="username"><%= user.username %></h2>
+                    </span>
+                    <h3 class="card-title">Consola de servidor</h3>
+                    <span class="connection-status green">
+                        Conectado
+                    </span>
+                </div>
                 
-                <!-- Columna Izquierda: Información Personal y Contacto -->
-                <div class="main-info-row">
-                    <!-- TARJETA 2: ESTADO DE PAGO -->
-                    <div class="profile-card financial-card">
-                        <h3 class="card-title">Consola de servidor</h3>
-                        <div class="console-screen">
-                            
-                        </div>
-                    </div>
+                <div class="console-screen">
+                    <p>Inicializando consola</p>
                 </div>
 
+                <div id="command-bar" class="command-bar">
+                    <span class="prompt-symbol">&gt;</span>
+                    <input type="text" id="command-input" placeholder="Escribe un mensaje!..." />
+                    <button id="send-command-btn" class="command-send-btn">Enviar</button>
+                </div>
+                
+                <div class="profile-card connected-users">
+    
+                </div>
             </div>
+            
+
+
         </main>
 
         <%- include("../.parts/footer") %>
-        <script src="/pages/profile/user.js"></script> 
+        <script src="/pages/console/console.js"></script> 
         <script src="/resources/js/announcement_Render.js"></script> 
     </body>
 </html>

@@ -1,4 +1,5 @@
 @import url('/resources/css/monocraft.css');
+@import url('/resources/css/new_card_styles.css');
 
 
 .header {
@@ -49,156 +50,6 @@ body {
     flex-direction: row;
     gap: 20px;
 }
-
-/* ----------------------------------
- * ESTILO DE TARJETA (CARD)
- * ---------------------------------- */
-.profile-card {
-    background-color: #2c2c2c; /* Fondo de ventana GUI */
-    border: 1px solid #8f8f8f; 
-    border-style: ridge; /* Borde 3D */
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    text-align: left;
-    flex-grow: 1;
-    min-width: 35%;
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px dashed #444;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-}
-
-.username-title {
-    color: #ffffff; /* Cian Diamante */
-    font-size: 1.8rem;
-    margin: 0;
-}
-
-.user-info-card {
-    flex-grow: 1;
-    /* flex-shrink: 0; */
-    border-color: darkblue;
-    border-width: thick;
-}
-
-.profile-avatar {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-    image-rendering: pixelated;
-    filter: drop-shadow(0 0 5px rgba(85, 255, 255, 0.5));
-}
-
-.card-title {
-    color: #FF8C00;
-    font-size: 1.2rem;
-    margin-top: 0;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: #585858;
-    border-bottom-style: ridge;
-    border-bottom-width: 6px;
-}
-
-.section-subtitle {
-    color: #AAAAAA;
-    font-size: 1rem;
-    margin: 15px 0 10px;
-}
-
-.section-row {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* ----------------------------------
- * ESTILOS DE BOTÓN DE LOGROS
- * ---------------------------------- */
-.show-all-achievements-btn {
-    /* 🔑 Estilo de botón temático */
-    background-color: #000; /* Azul para "Más" #004a99 o "Información" */
-    color: white;
-    font-family: 'Monocraft', monospace;
-    padding: 8px 15px;
-    border: 2px solid #ffffff;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    
-    /* Asegurar que se alinee a la izquierda (debajo de los logros) */
-    align-self: flex-end;
-}
-
-.show-all-achievements-btn:hover {
-    background-color: #004a9e;
-    transform: translateY(-1px);
-}
-
-/* --- ESTADÍSTICAS (REUTILIZACIÓN) --- */
-.profile-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0;
-    border-bottom: 1px dotted #444;
-}
-.stat-label {
-    color: #AAAAAA;
-}
-.stat-value {
-    font-weight: bold;
-}
-
-/* --- BOTONES DE EDICIÓN --- */
-.action-button {
-    background-color: #444;
-    color: white;
-    font-family: 'Monocraft', monospace;
-    padding: 8px 15px;
-    margin: 0 5px;
-    border: 2px solid #555;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.2s, rotate 1s;
-}
-.action-button:hover {
-    background-color: #555;
-}
-.red-button {
-    background-color: #af0000;
-}
-.red-button:hover {
-    background-color: #ff0000;
-    /* transform: rotate(5deg); */
-    animation: shake-quick 0.2s linear infinite;
-}
-
-@keyframes shake-quick {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-2px) rotate(1deg); }
-    75% { transform: translateX(2px) rotate(-1deg); }
-}
-
-
-/* --- COLORES DE VALOR --- */
-.group-mod { color: rgb(255, 217, 0); font-size: 1.5rem; }
-.mc-account-tag { color: #7CFC00; }
-.uit-color { color: #6b948f; }
-.status-active { color: #7CFC00; }
-.debt-warning { color: #FF4500; }
-.money-balance { color: gold; }
-.missions { color: #00A6FF; } /* Azul brillante para misiones/logros */
-.rank-color { color: #AAAAAA; } /* Default rank color */
 
 
 /* --- MODERACIÓN --- */
@@ -493,3 +344,4 @@ body {
         padding: 5px;
     }
 }
+

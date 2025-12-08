@@ -1,0 +1,29 @@
+@import url("/resources/css/new_card_styles.css");
+
+textarea {
+    resize: none;
+    border-color: #ffffff;
+    border-block-end: #bebebe;
+    border-style: outset;
+    border-width: thick;
+    border-radius: 10px;
+    font-style: normal;
+}
+
+.important {
+    border-color: rgb(0, 240, 168);
+}
+
+.medium-text-area {
+    width: 294px;
+    height: 15px;
+}
+
+.big-text-area {
+    width: 294px;
+    height: 38px;
+    margin-bottom: 10px;
+    font-size: 35px;
+    font-family: "Monocraft";
+    color: rgb(0, 0, 0);
+}
