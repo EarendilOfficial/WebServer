@@ -10,6 +10,16 @@ textarea {
     font-style: normal;
 }
 
+input {
+    resize: none;
+    border-color: #ffffff;
+    border-block-end: #bebebe;
+    border-style: outset;
+    border-width: thick;
+    border-radius: 10px;
+    font-style: normal;
+}
+
 .important {
     border-color: rgb(0, 240, 168);
 }
@@ -26,4 +36,13 @@ textarea {
     font-size: 35px;
     font-family: "Monocraft";
     color: rgb(0, 0, 0);
+}
+
+@media (max-width: 832px) {
+    .profile-layout-grid {
+        grid-template-rows: 1fr;
+        padding-top: 100px;
+        transform: scale(0.9) translate(0, -70px);
+        place-content: center;
+    }
 }

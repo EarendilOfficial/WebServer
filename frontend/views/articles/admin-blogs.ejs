@@ -4,40 +4,39 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Eärendil - Admin Blogs</title>
-        <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
+        <link rel="icon" type="image/x-icon" href="/resources/icons/logo/icon_A_mini.png">
         
         <link rel="stylesheet" href="/pages/dashboard/style.css"> 
-        <link rel="stylesheet" href="pages/edit_announcements/admin_styles.css"> 
         <link rel="stylesheet" href="/plantilla.css"> 
+        <link rel="stylesheet" href="/resources/css/new_card_styles.css">
+        <link rel="stylesheet" href="/resources/css/blogs.css">
+
     </head>
 
     <body id="body">
-        <div id="loading-overlay" class="shown">
-            <img src="/resources/icons/start_terminator.png" alt="[">
-            <img src="/resources/icons/middle_terminator.png" alt="O">
-            <img src="/resources/icons/end_terminator.png" alt="]">
-        </div>
         
         <%- include('../.parts/headerAdmin'); %>
         
 
         <!-- Contenido de admin-blogs (sirve para elegir los blogs que se va a editar) -->
-        <div class="container">
-            <h1 class="mb-4">Blogs</h1>
-            <a href="/admin/admin-blogs/new" class="btn btn-success mb-3">Nuevo blog</a>
+        <div class="blog-container">
+            <h1 class="page-title">Noticias del Servidor</h1>
+            <a href="/admin/admin-blogs/new" class="btn btn-primary green-button">Nuevo blog</a>
 
             <% articles.forEach(article => { %>
-                <div class="card mb-4">
+                <div class="blog-card blog-item-panel">
                 <div class="card-body">
-                        <h5 class="card-title"><%= article.title %></h5>
-                        <div class = "card-subtitle text-muted mb-2"> 
+                        <h5 class="card-title blog-title"><%= article.title %></h5>
+                        
+
+                        <div class = "card-subtitle text-muted blog-date">
                             <%= article.createdAt.toLocaleDateString() %>
                         </div>
-                        <div class="card-text mb-2"><%= article.description %></div>
+                        <div class="card-text mb-2 blog-summary"><%= article.description %></div>
                         <a href="/admin/admin-blogs/view/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
                         <a href="/admin/admin-blogs/edit/<%= article.id %>" class="btn btn-info">Editar</a>
                         <form action="/admin/admin-blogs/<%= article.id%>?_method=DELETE" method="POST" class="d-inline">
-                            <button type="submit" class="btn btn-danger">Borrar</button>
+                            <button type="submit" class="action-button red-button">Borrar</button>
                         </form>
                     </div>
                     </div>

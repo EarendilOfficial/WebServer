@@ -19,7 +19,7 @@ const { getActiveEvents } = require('./dataGetters/get_activeEvents.js');
 const createEventsHandler = require('./apiControllers/dashboard/eventsController.js');
 const getLatestUpdate = require('./dataGetters/get_lastUpdate.js');
 const { setNotificationRead, getMyNotifications, removeNotification } = require('./apiControllers/notificationController.js');
-const { updateMyProfile } = require('./apiControllers/user/updateAccountController.js');
+const { updateMyProfile, changePassword } = require('./apiControllers/user/updateAccountController.js');
 
 
 // El chequeo de autenticacion se aplica a todas las rutas
@@ -56,6 +56,7 @@ router.post("/delete_notification", removeNotification)
 
 // Update user profile
 router.post("/user/update_profile", updateMyProfile)
+router.post("/user/change_password", changePassword)
 
 // Get user count
 router.get('/get_user_count', async ({res}) => {

@@ -8,7 +8,8 @@
         
         <link rel="stylesheet" href="/plantilla.css"> 
         <link rel="stylesheet" href="/pages/dashboard/style.css"> 
-        <link rel="stylesheet" href="pages/edit_announcements/admin_styles.css">
+        <link rel="stylesheet" href="/resources/css/blogs.css">
+
     </head>
 
     <body id="body">
@@ -17,13 +18,16 @@
 
 
         <!-- Contenido del sitio web para los administradores -->
-        <div class="container">
-            <h1 class="mb-4"><%= article.title %> </h1>
-            <div class="text-muted mb-2"><%=article.createdAt.toLocaleDateString() %></div>
-            <a href="/admin/admin-blogs/" class="btn btn-secondary">Todos los blogs</a>
-            <a href="/admin/admin-blogs/edit/<%= article.id %>" class="btn btn-info">Editar</a>
+        <div class="article-view-container">
 
-            <div class="article-content">
+            <!-- Titulo del articulo -->
+            <h1 class="article-title"><%= article.title %> </h1>
+            
+            <div class="article-date"><%=article.createdAt.toLocaleDateString() %></div>
+            <a href="/admin/admin-blogs/" class="btn btn-secondary back-button">Todos los blogs</a>
+            <a href="/admin/admin-blogs/edit/<%= article.id %>" class="green-button">Editar</a>
+
+            <div class="article-content-panel gui-window">
             <%- article.sanitizeHtml %>
             </div>
             

@@ -6,6 +6,8 @@
         <title>Eärendil</title>
         <link rel="icon" type="image/x-icon" href="/resources/icons/logo/icon_A_mini.png">
         <link rel="stylesheet" href="/plantilla.css">
+        <link rel="stylesheet" href="/resources/css/blogs.css">
+
 
     </head>
 
@@ -18,20 +20,30 @@
         <%- include('../.parts/headerMini.ejs'); %>
 
 
-        <div class="container">
-            <h1 class="mb-4">Blogs</h1>
-        </div>
+        <div class="article-view-container">
+    
+            <!-- Título Principal -->
+            <h1 class="article-title"><%= article.title %> </h1>
             
-        <div class="container">
-            <h1 class="mb-4"><%= article.title %> </h1>
-            <div class="text-muted mb-2"><%=article.createdAt.toLocaleDateString() %></div>
-            <a href="/news" class="btn btn-secondary">Todos los blogs</a>
+            <!-- Metadatos y Enlace -->
+            <div class="article-meta-bar">
+                <div class="article-date">
+                    Publicado el <%= article.createdAt.toLocaleDateString() %>
+                </div>
+                
+                <a href="/news" class="btn btn-secondary green-button back-button">
+                    Todos los Blogs
+                </a>
+            </div>
 
-            <div><%- article.sanitizeHtml %></div>
+            <!-- Contenido Principal -->
+            <div class="article-content-panel gui-window">
+                <%- article.sanitizeHtml %>
+            </div>
             
         </div>
         
-        <!-- <%- include('../.parts/footer.ejs'); %> -->
+        <%- include('../.parts/footer.ejs'); %>
         <script src="/pages/dashboard/script.js"></script> 
         <script src="/resources/js/announcement_Render.js"></script> 
     </body>

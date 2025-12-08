@@ -8,6 +8,7 @@
         
         <link rel="stylesheet" href="/pages/dashboard/style.css"> 
         <link rel="stylesheet" href="/pages/dashboard/11blog_styles.css"> 
+        <link rel="stylesheet" href="/resources/css/blogs.css">
         <link rel="stylesheet" href="/plantilla.css"> 
     </head>
 
@@ -15,7 +16,7 @@
         <%- include('../.parts/headerAdmin') %>
 
         <!-- Cuerpo de la pagina -->
-        <div class="container">
+        <div class="article-view-container">
             <h2 class="mb-4">Editar blog</h2>
             <form action="/admin/admin-blogs/<%= article.id %>?_method=PUT" method="POST">
                 <%- include("_form_fields") %>

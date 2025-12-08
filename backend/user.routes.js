@@ -29,10 +29,15 @@ router.get('/profile', getMyUserData, async (req, res) => {
 
 router.get('/edit-profile', getMyUserData, async (req, res) => {
     console.log(`User ${req.user.username} accessed profile.`);
-    const mcData = await fgetMinecraftData(req)
     res.render('user/edit-profile', {
+        user: req.userData
+    })
+});
+
+router.get('/change-password', getMyUserData, async (req, res) => {
+    console.log(`User ${req.user.username} accessed profile.`);
+    res.render('user/change-password', {
         user: req.userData,
-        minecraftData: mcData
     })
 });
 

@@ -14,9 +14,13 @@ async function updateMyProfile(req, res) {
     try {
         // Checar si el nombre de usuario ya esta ocupado
         const usernameMatches = await Users.find({ username });
-
+        
         if (usernameMatches.length === 1 && usernameMatches[0].username !== req.user.username) {
             return res.status(400).json({ reason: "Ese nombre de usuario ya está ocupado" });
+        }
+
+        if (usernameMatches[0].moderation.is_blocked) {
+            return res.status(400).json({ reason: "Tu cuenta esta bloqueada" });
         }
 
         // Checar si el nombre de cuenta minecraft ya esta ocupado
@@ -70,4 +74,34 @@ async function updateMyProfile(req, res) {
 
 }
 
-module.exports = {updateMyProfile }
+async function changePassword(req, res) {
+    const {password, newPassword} = req.body
+
+    try {
+        // Encontrar su usuario por nombre de usuario
+        const user = await Users.findOne({ username: req.user.username });
+
+        // Rebotar intento si el usuario esta bloqueado
+        if (user.moderation.is_blocked) {
+            return res.status(400).json({ reason: "Tu cuenta esta bloqueada" });
+        }
+        
+        // Compara su password para verificar su identidad
+        const match = await user.comparePassword(password);
+        if (!match) return res.status(500).json({ reason: "Contraseña incorrecta, intentelo de nuevo porfavor 😅"});
+
+        // Checar longitud adecuada
+        if (!newPassword || newPassword.length <= 5) return res.status(500).json({succesful: false, reason: "Contraseña nueva muy pequeña"});
+
+        // Si todo esta bien:
+        user.password = newPassword;
+        await user.save();
+
+        return res.status(200).json({reason: "Exito"})
+
+    } catch (error) {
+        res.status(500).json({reason: error})
+    }
+}
+
+module.exports = {updateMyProfile, changePassword}

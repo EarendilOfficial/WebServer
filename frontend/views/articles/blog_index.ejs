@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Eärendil</title>
-        <link rel="icon" type="image/x-icon" href="../resources/icons/logo/icon_A_mini.png">
-        <link rel="stylesheet" href="../pages/dashboard/style.css">
-        <link rel="stylesheet" href="../pages/dashboard/playerdata.css">
+        <link rel="icon" type="image/x-icon" href="/resources/icons/logo/icon_A_mini.png">
         <link rel="stylesheet" href="/plantilla.css">
+        <link rel="stylesheet" href="/resources/css/new_card_styles.css">
+        <link rel="stylesheet" href="/resources/css/blogs.css">
     </head>
 
     <!-- /_ -->
@@ -17,26 +17,28 @@
         <%- include('../.parts/header.ejs'); %>
 
 
-            <div class="container">
-                <h1 class="mb-4">Blogs</h1>
+            <div class="blog-container">
+                <div class="title-row">
+                    <h1 class="page-title">Noticias del Servidor </h1>
+                    <a href="/app/dashboard" class="btn btn-primary action-button">Volver al tablero</a>
+                </div>
 
                 <% articles.forEach(article => { %>
-                    <div class="card mb-4">
+                    <div class="blog-card blog-item-panel">
                     <div class="card-body">
-                            <h5 class="card-title"><%= article.title %></h5>
-                            <div class = "card-subtitle text-muted mb-2"> 
-                                <%= article.createdAt.toLocaleDateString() %>
-                            </div>
-                            <div class="card-text mb-2"><%= article.description %></div>
-                            <a href="news/view/<%= article.slug %>" class="btn btn-primary">Leer mas</a>
-                            </form>
+                        <h5 class="card-title blog-title"><%= article.title %></h5>
+
+                        <div class = "card-subtitle text-muted blog-date"> 
+                            <%= article.createdAt.toLocaleDateString() %>
                         </div>
+                        <div class="card-text mb-2 blog-summary"><%= article.description %></div>
+                            <a href="news/view/<%= article.slug %>" class="btn btn-primary green-button">Leer mas</a>
                         </div>
+                    </div>
                 <% }) %> 
             </div>
     
         <%- include("../.parts/footer") %>
-        <script src="../pages/dashboard/script.js"></script> 
         <script src="/resources/js/announcement_Render.js"></script> 
     </body>
 </html>
