@@ -40,8 +40,8 @@ async function fgetMinecraftData(req) {
 }
 
 async function getMyActivity(req, res, next) {
-    const accountName = req.user.mcAccount;
-    const data = await Activity.findOne({player: accountName});
+    const accountName = req.user.username;
+    const data = await Activity.findOne({username: accountName});
 
     if (data) {
         req.activity = data;
@@ -52,8 +52,8 @@ async function getMyActivity(req, res, next) {
 }
 
 async function fgetMyActivity(req) {
-    const accountName = req.user.mcAccount;
-    const data = await Activity.findOne({player: accountName});
+    const accountName = req.user.username;
+    const data = await Activity.findOne({username: accountName});
 
     if (data) {
         return data;

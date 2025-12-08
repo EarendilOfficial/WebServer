@@ -6,9 +6,10 @@ const Notifications = NotificationDB.model("notification", notificationSchema)
 
 
 async function getMyNotifications(req, res) {
-    const jugador = req.user.userName;
+    const jugador = req.user.username;
+    console.log(jugador)
     try {
-        const notificaciones = await Notifications.find({playername: jugador})
+        const notificaciones = await Notifications.find({username: jugador})
         res.status(200).json(notificaciones)
 
     } catch (err) {

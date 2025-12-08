@@ -15,7 +15,7 @@ const activitySchema = new mongoose.Schema({
     },
     
     // Campo que enlaza esta actividad con el jugador (su nombre o ID).
-    player: { 
+    username: { 
         type: String, 
         required: true, 
         unique: true, // Asumimos que cada jugador solo tiene un documento de actividad

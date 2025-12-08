@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../models/userModel.js"); // Asume que userModel.js está en el mismo nivel
 const MinecraftData = require("../models/minecraftData.js"); // Asume que userModel.js está en el mismo nivel
+const Activity  = require("../models/activityModel.js");
 const uitSchema = require("../schema/uit.js");
 const mongoose = require("mongoose"); 
 
@@ -87,6 +88,10 @@ async function registerNewUser(req) {
             uit: uit,
             mcAccount: uitDataBase.mcAccount,
             archievements: ["Joined the server!"]
+        });
+
+        await Activity.create({
+            username: username
         });
 
         // Save a mcData entry for people with a minecraft account
