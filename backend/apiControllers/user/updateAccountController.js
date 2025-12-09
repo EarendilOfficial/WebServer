@@ -32,7 +32,7 @@ async function updateMyProfile(req, res) {
 
 
     } catch (error) {
-        res.status(500).json({reason: err})
+        res.status(500).json({reason: error})
     }
 
 

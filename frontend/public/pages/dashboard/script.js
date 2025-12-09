@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('isFirstLogin', 'false')
     } else {
         loading_overlay.innerHTML = ''
+        loading_overlay.classList.remove("shown");
     }
 
 

@@ -10,10 +10,6 @@ const articleRouter = require('./articles');
 // El chequeo de autenticacion se aplica a todas las rutas
 router.use(isAuthCheck, isAdminCheck);
 
-// router.use(express.json({ // TODO: Probablemente innecesario (quitar en produccion)
-//     limit: '5kb'
-// })); 
-
 // ------------------------ RUTAS PROTEGIDAS ----------------------- //
 
 router.get('/edit_anounncements', (req, res) => {
