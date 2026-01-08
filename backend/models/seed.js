@@ -109,5 +109,5 @@ async function seedDatabase() {
 }
 
 // seedDatabase();
-seedNotifications();
-//seedUIT();
+// seedNotifications();
+seedUIT();

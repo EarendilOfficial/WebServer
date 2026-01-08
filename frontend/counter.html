@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bienvenido a MineServer</title>
+    <link href="/plantilla.css" rel="stylesheet">
+    
+    <style>
+        /* --- ESTILOS BASE --- */
+        :root {
+            --mc-green: #5fcd48;
+            --mc-dark: #111;
+            --mc-gray: #333;
+            --text-shadow: 2px 2px 0px #000;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Monocraft', monospace; /* Fallback a monospace por si falla la carga */
+            background-color: var(--mc-dark);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1587573088697-b4f22cd8550e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            /* Usamos min-height para permitir scroll en móviles pequeños */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Evita el scroll horizontal */
+            overflow-x: hidden; 
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            /* Padding responsive: Arriba/Abajo 2rem, Lados 2rem (escritorio) */
+            padding: 2rem; 
+            border: 4px solid var(--mc-gray);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 90%;
+            /* Margen seguro para que no pegue con los bordes del cel */
+            margin: 20px 0; 
+            box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        h1, h2 {
+            margin: 0;
+            color: var(--mc-green);
+            text-shadow: var(--text-shadow);
+            text-transform: uppercase;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* Caja de la IP */
+        .ip-box {
+            background: #222;
+            border: 2px dashed var(--mc-green);
+            padding: 1rem;
+            /* Tamaño de fuente fluido para evitar desbordes */
+            font-size: clamp(1.2rem, 5vw, 2rem); 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-bottom: 2rem;
+            word-break: break-all; /* Si la IP es muy larga, la corta */
+            user-select: none; /* Mejor experiencia en tactil */
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ip-box:active {
+            transform: scale(0.98);
+            background: var(--mc-green);
+            color: black;
+        }
+
+        .ip-box:hover {
+            border-style: solid;
+        }
+
+        /* En móvil quitamos el hover effect complejo y usamos active */
+        @media (hover: hover) {
+            .ip-box:hover {
+                background: var(--mc-green);
+                color: black;
+            }
+            .ip-box:hover::after {
+                opacity: 1;
+            }
+        }
+
+        .ip-box::after {
+            content: "¡Toca para copiar!";
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: white;
+            width: 100%;
+        }
+
+        /* Estilos del Temporizador */
+        .timer-container {
+            margin-top: 1.5rem;
+            border-top: 2px solid #444;
+            padding-top: 1rem;
+        }
+
+        .timer-title {
+            font-size: 1.2rem;
+            color: #f1c40f;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 10px; /* Reducido gap */
+            font-size: clamp(1.8rem, 8vw, 2.5rem); /* Fuente responsiva */
+            color: white;
+            text-shadow: var(--text-shadow);
+            flex-wrap: wrap; /* Permite envolver si es necesario (seguridad) */
+        }
+
+        .time-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 45px; /* Ancho mínimo para que no baile */
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        
+        /* Evento Actual Estilo */
+        h2 {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            color: #ff5555; /* Rojo Minecraft */
+        }
+
+        /* --- OPTIMIZACIÓN MÓVIL (Media Queries) --- */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1rem; /* Menos padding lateral */
+                width: 95%;
+            }
+
+            p.subtitle {
+                font-size: 1rem;
+            }
+
+            /* Ajustes finos para el timer en pantallas muy pequeñas */
+            #timer {
+                gap: 5px;
+            }
+            
+            .time-segment {
+                min-width: 35px;
+            }
+        }
+
+        /* --- WIDGET DE MÚSICA --- */
+        .music-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--mc-gray);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .music-widget:hover {
+            border-color: var(--mc-green);
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .music-icon {
+            font-size: 1.5rem;
+            animation: none; /* Quieto por defecto */
+        }
+
+        .music-text {
+            font-family: 'Monocraft', monospace;
+            color: white;
+            font-size: 1rem;
+        }
+
+        /* Animación de "bailar" cuando suena la música */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .playing .music-icon {
+            animation: bounce 1s infinite;
+        }
+
+        .playing {
+            border-color: var(--mc-green); /* Borde verde si suena */
+        }
+
+        /* Ajuste para móviles */
+        @media (max-width: 480px) {
+            .music-widget {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            .music-text {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="/resources/icons/logo/earendil_Logo.png" alt="Logo Earendil">
+        
+        <p class="subtitle">La noche de los elfos durmientes</p>
+
+        <div class="ip-box" onclick="copiarIP()" id="server-ip">
+            chamiserv77.ddns.net
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-title">GRAN ACTUALIZACIÓN EN:</div>
+            
+            <div id="timer">
+                <div class="time-segment">
+                    <span id="dias">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                :
+                <div class="time-segment">
+                    <span id="horas">00</span>
+                    <span class="time-label">Hrs</span>
+                </div>
+                :
+                <div class="time-segment">
+                    <span id="minutos">00</span>
+                    <span class="time-label">Min</span>
+                </div>
+                :
+                <div class="time-segment">
+                    <span id="segundos">00</span>
+                    <span class="time-label">Seg</span>
+                </div>
+            </div>
+            
+            <div class="timer-container">
+                <div class="timer-title">EVENTO ACTUAL:</div>
+                <h2>Bombardeo INSANO</h2>
+
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        /* --- LÓGICA JAVASCRIPT --- */
+
+        const f = localStorage.getItem('maintenenceDate');
+        let fechaObjetivo;
+        
+        // Validación básica por si localStorage está vacío
+        if(f) {
+            fechaObjetivo = new Date(f); 
+        } else {
+            // Fallback por si acaso
+            fechaObjetivo = new Date();
+            fechaObjetivo.setDate(fechaObjetivo.getDate() + 1);
+        }
+
+        function actualizarTemporizador() {
+            const ahora = new Date().getTime();
+            const distancia = fechaObjetivo - ahora;
+
+            if (distancia < 0) {
+                document.getElementById("timer").innerHTML = "¡ONLINE!";
+                // Ocultamos el título si ya abrió
+                const titles = document.getElementsByClassName("timer-title");
+                if(titles.length > 0) titles[0].style.display = 'none';
+                return;
+            }
+
+            // Cálculos
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+            
+            // DOM
+            const elDias = document.getElementById("dias");
+            if(elDias) elDias.innerText = dias < 10 ? "0" + dias : dias;
+            
+            const elHoras = document.getElementById("horas");
+            if(elHoras) elHoras.innerText = horas < 10 ? "0" + horas : horas;
+            
+            const elMinutos = document.getElementById("minutos");
+            if(elMinutos) elMinutos.innerText = minutos < 10 ? "0" + minutos : minutos;
+            
+            const elSegundos = document.getElementById("segundos");
+            if(elSegundos) elSegundos.innerText = segundos < 10 ? "0" + segundos : segundos;
+        }
+
+        setInterval(actualizarTemporizador, 1000);
+        actualizarTemporizador(); 
+
+        function copiarIP() {
+            const ipElement = document.getElementById("server-ip");
+            const ipTexto = ipElement.innerText.trim(); // Trim quita espacios en blanco extra
+            
+            // Feedback visual inmediato
+            const originalText = ipTexto;
+            const originalColor = ipElement.style.color;
+            const originalBg = ipElement.style.background;
+
+            navigator.clipboard.writeText(ipTexto).then(() => {
+                // Cambiar estilo temporalmente para confirmar
+                ipElement.style.background = "#5fcd48";
+                ipElement.style.color = "#000";
+                ipElement.innerText = "¡COPIADA!";
+                
+                setTimeout(() => {
+                    ipElement.style.background = originalBg; // Regresar a original (clase css)
+                    ipElement.style.color = originalColor;
+                    ipElement.innerText = originalText;
+                    // Limpiar estilos inline para que el CSS vuelva a mandar
+                    ipElement.style = ""; 
+                }, 1500);
+
+            }).catch(err => {
+                console.error('Error al copiar: ', err);
+                alert("No se pudo copiar automáticamente. La IP es: " + ipTexto);
+            });
+        }
+
+        /* --- LÓGICA DE MÚSICA --- */
+        const audio = document.getElementById('bg-music');
+        const musicWidget = document.querySelector('.music-widget');
+        const musicStatus = document.getElementById('music-status');
+        let isPlaying = false;
+
+        // Configuración inicial
+        audio.volume = 0.4; // 40% de volumen (para no dejar sordo a nadie)
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicStatus.innerText = "Música: OFF";
+                musicWidget.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicStatus.innerText = "Música: ON";
+                    musicWidget.classList.add('playing');
+                    isPlaying = true;
+                }).catch(error => {
+                    console.log("El navegador bloqueó el audio automático: ", error);
+                });
+            }
+        }
+        
+        // TRUCO PRO: Intentar reproducir al primer clic en cualquier lado
+        // (Porque los usuarios suelen hacer clic rápido en la pantalla)
+        document.body.addEventListener('click', function() {
+            // Solo si no está sonando ya y si el usuario no lo ha apagado manualmente
+            if (!isPlaying && audio.paused) {
+                toggleMusic();
+            }
+        }, { once: true }); // 'once: true' significa que este evento solo ocurre una vez
+    </script>
+    <audio id="bg-music" loop>
+        <source src="/resources/music/theme.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
+
+    <div class="music-widget" onclick="toggleMusic()">
+        <div class="music-icon">🎵</div>
+        <div class="music-text" id="music-status">Música: OFF</div>
+    </div>
+</body>
+</html>

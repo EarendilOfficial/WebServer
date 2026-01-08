@@ -285,7 +285,13 @@ async function sendLoginData(username, password) {
 
             setTimeout(()=>{
                 // Ejemplo de redirección:
-                window.location.href = "/app/dashboard"; // TODO: testing
+                if (result.updateIncoming) {
+                    window.location.href = "/update"; // TODO: testing
+                    localStorage.setItem('maintenenceDate', result.maintenenceEnd);
+
+                } else {
+                    window.location.href = "/user/dashboard";
+                }
             }, 500)
         } else {
             // Login fallido: muestra el error al usuario

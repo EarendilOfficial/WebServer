@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tu Correo</title>
+        <link rel="icon" type="image/x-icon" href="/resources/icons/logo/icon_A_mini.png">
+        <link rel="stylesheet" href="/plantilla.css">
+        <link rel="stylesheet" href="/pages/mail/mail.css">
+    </head>
+
+    <!-- /_ -->
+    <!-- _/ -->
+
+    <body id="body">
+        
+        <!-- Barra de arriba (o header) de la pagina web -->
+        <%- include('../.parts/headerMini') %>
+
+
+        <!-- CUERPO PRINCIPAL DEL SITIO WEB -->
+        <!--            inicia              -->
+        <!--   CUERPO PRINCIPAL DE PANELES  -->
+
+        
+        <main class="mail-container">
+            <aside class="mail-draw">
+                <mailmenu>
+                    <logo>
+                        <img src="/resources/icons/correo_logo.png" alt="imagen">
+                    </logo>
+
+                    <button class="new-mail">
+                        <p>Crear Nuevo Correo</p>
+                    </button>
+                    
+                    <nav class="tab-chooser">
+                        <ul>
+                            <li><a class="new" href="#">Nuevos</a></li>
+                            <li><a class="read" href="#">Leidos</a></li>
+                            <li><a class="sent" href="#">Enviados</a></li>
+                        </ul>
+                    </nav>
+                    
+                </mailmenu>
+                
+                <div class="mail-entries">
+                    <!-- Ejemplo de entrada correo -->
+                    <article class="mail">
+                        <div class="mail-upperhander">
+                            <span>
+                                Enviado por: <span class="rango-plebeyo">Monaliza</span>
+                            </span>
+                            <span>
+                                Fecha: <span>10/2/2030</span>
+                            </span>
+                        </div>
+                        <p>Here is the extra giga mega long mail list</p>
+                    </article> 
+                    <!-- Final de ejemplo -->
+                </div>
+            </aside>            
+
+            <article class="mail-display">
+                <!-- Content of the mail display -->
+                <div class="content-card">
+                    <!-- h2 -> title, div -> {autor, fecha} div -> cuerpo -->
+                    <h2 class="title"></h2>
+                    <div class="mail-upperhander">
+                        <h4 class="autor"> </h4>
+                        <h4 class="fecha"> </h4>
+                    </div>
+                    <div class="mail-body">
+                        <!-- Here is the displaying mail, so you can read it... -->
+                    </div>
+                </div>
+                <div class="mail-actions">
+                    <button class="btn reply">Responder</button>
+                    <button class="btn delete">Eliminar</button>
+                </div>
+            </article>
+        </main>
+
+        
+        <!-- Footer del sitio web (Panel de info general al fondo de la pagina) -->
+        <%- include('../.parts/footer') %>
+
+        <script type="module" src="/pages/mail/mail.js"></script> 
+        <script src="/resources/js/announcement_Render.js"></script> 
+    </body>
+</html>

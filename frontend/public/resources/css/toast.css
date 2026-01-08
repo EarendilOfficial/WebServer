@@ -1,0 +1,38 @@
+.toast_default {
+    min-width: 260px;
+    max-width: 90vw;
+    padding: 14px 20px;
+    
+    background: rgba(30, 30, 30, 0.95);
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
+    
+    border-radius: 5px;
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35),
+        0 2px 8px rgba(0,0,0,0.25);
+
+        z-index: 9999;
+    opacity: 0;
+    
+    transition:
+    opacity 0.5s ease,
+        transform 0.5s ease;
+        
+    pointer-events: auto;
+    cursor: default;
+}
+
+.toast_error {
+    background: linear-gradient(135deg, #E53935, #B71C1C);
+}
+
+.toast_success {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+}
+
+.toast_info {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
+}

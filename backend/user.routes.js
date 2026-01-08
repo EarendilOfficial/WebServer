@@ -54,5 +54,13 @@ router.get('/console', getMyUserData, (req, res) => {
     })
 });
 
+router.get('/mail', getMyUserData, (req, res) => {
+    console.log(`User ${req.user.username} accessed console.`);
+    res.render('user/mail', {
+        user: req.userData
+        
+    })
+});
+
 
 module.exports = router

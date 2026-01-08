@@ -20,6 +20,7 @@ const createEventsHandler = require('./apiControllers/dashboard/eventsController
 const getLatestUpdate = require('./dataGetters/get_lastUpdate.js');
 const { setNotificationRead, getMyNotifications, removeNotification } = require('./apiControllers/notificationController.js');
 const { updateMyProfile, changePassword } = require('./apiControllers/user/updateAccountController.js');
+const { getMyMails, createMail, deleteMail, markMailRead } = require('./apiControllers/mailController.js');
 
 
 // El chequeo de autenticacion se aplica a todas las rutas
@@ -52,6 +53,18 @@ router.get("/get_my_notifications", getMyNotifications)
 router.put("/set_notification_read", setNotificationRead)
 
 router.post("/delete_notification", removeNotification)
+
+/// ------------ CORREOS ------------ ///
+// RESTful mail endpoints used by the frontend
+router.get('/mails', getMyMails);
+router.post('/mails', createMail);
+router.delete('/mails/:id', deleteMail);
+router.post('/mails/:id/mark-read', markMailRead);
+// legacy
+router.get('/get_my_mails', getMyMails);
+
+/// -------------------------------------- ///
+/// -------------------------------------- ///
 /// -------------------------------------- ///
 
 // Update user profile
