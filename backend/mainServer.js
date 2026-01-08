@@ -1,6 +1,10 @@
 // ---- Header ---- //
 // Creacion del servidor
 
+const updatingServerMaintenence = true; // ESTADO DEL SERVIDOR
+const dateMaintenenceEnd = new Date("January 10, 2026 00:00:00"); // Fecha de fin de mantenimiento
+console.log("INICIANDO SERVIDOR EN MODO DE MANTENIMIENTO!!! " + dateMaintenenceEnd.toDateString());
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -50,6 +54,7 @@ const protectedRoutes = require("./protected.routes.js");
 const adminRoutes = require("./admin.routes.js");
 const apiRequestRoutes = require("./apiRequest.routes.js");
 const publicBlogRouter = require('./publicBlog.routes');
+const { log } = require("console");
 
 // ------------------------ BLOGS -----------
 //app.use('/articles', articleRouter);
@@ -66,6 +71,12 @@ app.use('/api', apiRequestRoutes);
 app.post('/login', loginLimiter, async (req, res)=>{
     const result = await loginUser(req, res);
     if (!result.succesful) return res.status(401).json(result);
+
+    if (updatingServerMaintenence && Date.now() < dateMaintenenceEnd) {
+        result.updateIncoming = true; // Decir si hay mantenimiento
+        result.maintenenceEnd = dateMaintenenceEnd; // Fecha fin
+    }
+
     return res.json(result);
 });
 
@@ -84,8 +95,16 @@ app.post('/usr-new-register', loginLimiter, registerValidationRules(), validate,
 
 
 // ------------------------ EXPOSED PAGES ---------------------- //
+// app.get('/', apiLimiter, (req, res) => {
+//     res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
+// });
+
 app.get('/', apiLimiter, (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
+    if (updatingServerMaintenence && Date.now() < dateMaintenenceEnd) {
+        res.updateIncoming = true; // Decir si hay mantenimiento
+        res.maintenenceEnd = dateMaintenenceEnd; // Fecha fin
+    }
+    res.sendFile(path.join(__dirname, "..", "frontend/counter.html"))
 });
 
 // Registration

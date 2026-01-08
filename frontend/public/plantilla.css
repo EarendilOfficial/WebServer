@@ -1,8 +1,28 @@
-@import "/resources/css/card_styles.css";
-@import "/resources/css/body.css";
-@import "/resources/css/tooltip.css";
-@import "/resources/css/loading_icon.css";
-@import "/resources/css/footer.css";
-@import "/resources/css/monocraft.css";
-@import "/resources/css/header_and_nav.css";
+/* Estilos de las tarjetas */
+/* @import "/resources/css/card_styles.css"; */
+
+/* Cabezal de navegacion de la pagina */
+@import "/resources/css/header_and_nav.css"; 
 @import "/resources/css/header_logo.css";
+
+/* Cuerpo general de pagina */
+@import "/resources/css/body.css";
+
+/* Pie de pagina */
+@import "/resources/css/footer.css";
+
+/* Icono de carga de la pagina */
+@import "/resources/css/loading_icon.css";
+
+
+/* Estilos de ventanilla de alerta emergente estilo Minecraft */
+@import "/resources/css/tooltip.css";
+
+/* Fuente estilo minecraft */
+@import "/resources/css/monocraft.css";
+
+/* Colores de los nombres de jugador segun su rango mas alto */
+@import "/resources/css/colors.css";
+
+/* Estilo de toast */
+@import "/resources/css/toast.css";

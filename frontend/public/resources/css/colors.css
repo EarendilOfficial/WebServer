@@ -1,0 +1,42 @@
+/* Colores para los nombres de jugadores */
+.rango-plebeyo {
+    color: #AAAAAA;
+}
+
+.rango-burgues {
+    color: #55FF55;
+}
+
+.rango-noble {
+    color: #55FFFF;
+}
+
+.rango-caballero {
+    color: #00AAAA;
+}
+
+.rango-baron {
+    color: #5555FF;
+}
+
+.rango-conde {
+    color: #AA00AA;
+}
+
+.rango-duque {
+    color: #FFAA00;
+}
+
+.rango-principe {
+    color: #FF5555;
+}
+
+.rango-rey {
+    color: #9d00ff;
+    text-shadow: 1px 1px 0px rgb(255, 255, 255);
+}
+
+.rango-emperador {
+    color: #ff0000;
+    text-shadow: 1px 1px 0px rgb(255, 255, 255);
+}

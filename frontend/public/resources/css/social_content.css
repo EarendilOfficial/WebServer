@@ -1,0 +1,20 @@
+.pop_up {
+    position: fixed;
+    inset: 0px;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.pop_card {
+    background: rgb(47, 47, 47);
+    color: rgb(238, 238, 238);
+    padding: 1rem;
+    border-radius: 8px;
+    
+    min-width: 320px;
+    width: 60%;
+    max-width: 620px;
+}

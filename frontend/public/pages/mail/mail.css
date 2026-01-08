@@ -1,0 +1,254 @@
+@import url("/resources/css/social_content.css");
+body {
+    background-image: url("/resources/backgrounds/dirt.png");
+}
+
+/* Contenedor del contenido :P */
+.mail-container {
+    margin: auto;
+    background-color: rgb(28, 28, 28);
+    margin: 5% 10% 0 10%;
+    border: 8px double #3d3d3d;
+    /* border-radius: 10px; */
+    display: flex;
+    flex-direction: column;
+    flex-flow: row;
+
+    min-height: 500px;
+}
+
+/* Buzon lleno de correos ---------------------- */
+.mail-draw {
+    width: 40%;
+    display: block;
+    background-color: #161616;
+    /* border-right: 2px ridge white; */
+    border-radius: 8px 0 0 8px;
+    
+}
+
+.mail + .mail {
+  border-top: 3px solid rgb(28, 28, 28);;
+  margin-top: 0px;
+}
+
+.mail-entries {
+    display: flex;
+    flex-direction: column;
+    background-color: #161616;
+    /* border-right: 2px ridge white; */
+    border-radius: 8px 0 0 8px;
+}
+
+.mail-entries article {
+    /* Articulo de la bandeja de correo */
+    background-color: #3d3d3d;
+    min-height: min-content;
+    max-height: max-content;
+    padding: 5px;
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.71, 2.53);
+    cursor: pointer;
+}
+
+.mail-upperhander {
+    /* font-family: 'Courier New', Courier, monospace; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+    font-size: 0.8rem;
+    color: rgb(176, 176, 176);
+}
+
+.mail-entries article p {
+    /* Texto del atriculo */
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px 0 5px 0;
+    margin: 0 0 0 0;
+    cursor: pointer;
+}
+
+.mail-entries article:hover {
+    background-color: #898989;
+    transform: scale(1.05);
+    border: none;
+    border-radius: 5px;
+    border: 1px transparent;
+}
+
+/* TO FILTER THE MAIL YOU ARE TRYING TO SEE <mailmenu> */
+mailmenu {
+    display: flex;
+    flex-direction: column;
+}
+
+logo {
+    height: 10vh;
+    align-self: center;
+    margin-bottom: 8px;
+}
+
+logo img {
+    margin: 10px;
+    max-height: 80%;
+    max-width: fit-content;
+}
+
+.new-mail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    border: none;
+    border-top: 2px solid rgb(47, 47, 47);
+    
+    background-color: rgb(48, 39, 141);
+    color: white;
+    
+    cursor: pointer;
+
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.new-mail p {
+    margin: auto;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    
+    
+    font-family: 'Monocraft';
+    font-size: 1rem;
+}
+
+.new-mail:hover {
+    background-color: rgb(110, 89, 231);
+    /* background-color: #7777772c; */
+}
+
+.new-mail:active {
+    transform: scale(0.95);
+}
+
+.tab-chooser ul {
+    /* Lista de elementos */
+    display: flex;
+    list-style: none;
+    justify-items: stretch;
+    padding: 0;
+    margin: 0;
+    border-top: 2px solid rgb(47, 47, 47);
+}
+
+.tab-chooser li:not(:last-of-type) {
+    /* borde entre los botones */
+  border-right: 2px solid rgb(47, 47, 47);
+}
+
+.tab-chooser li {
+    /* centrar los botones */
+    flex: 1; 
+    text-align: center;
+}
+
+.tab-chooser a {
+    /* texto del elector */
+  display: block;
+  width: 100%; /* Para que el área de clic sea toda la celda */
+  padding: 12px 0; /* Padding vertical, el horizontal ya no es crítico */
+  
+
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.new {
+    color: white;
+    font-weight: bolder;
+}
+
+.read {
+    color: rgb(156, 156, 156);
+}
+
+.sent {
+    color: rgb(224, 166, 255);
+}
+
+.tab-chooser a:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 0px 2px 2px white;
+}
+
+/* Zona para mostrar los correos ------------------ */
+.mail-display {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+}
+
+.content-card {
+    margin: 0;
+    padding: 1.5rem;
+    background-color: #3d3d3d;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+}
+
+.mail-body {
+    /* This is where the mail text is */
+    flex: 1;
+    overflow-y: auto;
+    color: #eaeaea;
+    font-size: 1rem;
+    line-height: 1.6;
+    padding-right: 0.5rem;
+}
+
+.mail-actions {
+    /* Buttons of mail actions here */
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    /* Boton */
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn.reply {
+    /* Botón responder */
+    background-color: #55aaff;
+    color: #0e1a26;
+}
+
+.btn.delete {
+    /* Botón eliminar */
+    background-color: #ff5555;
+    color: #2b0000;
+}
+
+.btn.send {
+    /* Botón enviar */
+    background-color: #1e8100;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .mail-container {
+        margin: 5%;
+    }
+}
