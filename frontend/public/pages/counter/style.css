@@ -4,6 +4,7 @@
     --mc-gold: #ffaa00;
     --mc-dark: #1e1e1e;
     --mc-blue: #5555ff;
+    --mc-gray: #888888;
     --border-pixel: 4px solid #000;
 }
 
@@ -52,6 +53,7 @@ body {
 .header {
     display: flex;
     flex-direction: column;
+    z-index: 50;
 }
 
 
@@ -78,7 +80,7 @@ body {
     width: 100%; /* ocupa todo el ancho */
     display: block; /* asegura que se comporte como bloque */
     font-size: 1rem;
-    border: 10px double rgb(22, 22, 22);
+    border: 10px double rgb(52, 52, 52);
     margin-bottom: 0.5rem;
     text-align: center; /* opcional, centra el texto */
 }
@@ -109,7 +111,7 @@ body {
 }
 
 .ip-text {
-    z-index: 100;
+    z-index: 11;
     position: relative;
     display: block;
     font-size: clamp(1rem, 4vw, 1.8rem);
@@ -117,7 +119,7 @@ body {
 }
 
 .copy-hint {
-    z-index: 100;
+    z-index: 11;
     position: relative;
     font-size: 0.7rem;
     font-weight: bolder;
@@ -157,8 +159,17 @@ body {
 @keyframes blink { 50% { opacity: 0; } }
 
 /* Footer Event */
+.event-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
 .event-banner {
     display: flex;
+    flex-direction: column;
+
     align-items: center;
     justify-content: center;
     gap: 15px;
@@ -170,7 +181,75 @@ body {
 .event-name {
     margin: 0;
     color: var(--mc-red);
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+}
+
+.event-description {
+    max-width: 100%;
+    display: flex;
+    flex-grow: 1;
+    margin: 0 10px;
+    width: 100%;
+    flex-direction: column;
+}
+
+.event-description h4 {
+    margin: 5px 0;
+    color: #fff;
+    font-size: 15px;
+    align-self: flex-start;
+}
+
+.event-description h5 {
+    margin: 5px 0;
+    color: #fff;
+    font-size: 13px;
+    align-self: flex-start;
+    font-weight: bolder;
+}
+
+.event-description p{
+    margin: 4px 0;
+    color: #fff;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 15px;
+}
+
+.event-description ul {
+    margin: 4px 20px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+.centered-text {
+    align-self: center;
+}
+
+.red-text {
+    color: var(--mc-red);
+    font-weight: bold;
+}
+
+.blue-text {
+    color: var(--mc-blue);
+    font-weight: bold;
+}
+
+.gray-text {
+    color: var(--mc-gray);
+    font-style: italic;
+}
+
+.yellow-text {
+    color: var(--mc-gold);
+    font-weight: bold;
+}
+
+.green-text {
+    color: var(--mc-green);
+    font-weight: bold;
 }
 
 .pulse-icon {
