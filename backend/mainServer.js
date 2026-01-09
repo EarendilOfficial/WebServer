@@ -2,7 +2,7 @@
 // Creacion del servidor
 
 const updatingServerMaintenence = true; // ESTADO DEL SERVIDOR
-const dateMaintenenceEnd = new Date("January 10, 2026 00:00:00"); // Fecha de fin de mantenimiento
+const dateMaintenenceEnd = new Date("January 12, 2026 00:00:00"); // Fecha de fin de mantenimiento
 console.log("INICIANDO SERVIDOR EN MODO DE MANTENIMIENTO!!! " + dateMaintenenceEnd.toDateString());
 
 const express = require("express");
@@ -100,10 +100,6 @@ app.post('/usr-new-register', loginLimiter, registerValidationRules(), validate,
 // });
 
 app.get('/', apiLimiter, (req, res) => {
-    if (updatingServerMaintenence && Date.now() < dateMaintenenceEnd) {
-        res.updateIncoming = true; // Decir si hay mantenimiento
-        res.maintenenceEnd = dateMaintenenceEnd; // Fecha fin
-    }
     res.sendFile(path.join(__dirname, "..", "frontend/counter.html"))
 });
 
