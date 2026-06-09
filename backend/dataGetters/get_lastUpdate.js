@@ -3,7 +3,7 @@ const htmlDB = mongoose.createConnection("mongodb://localhost:27017/HtmlContent"
 const updateSchema = require("../schema/updateSchema")
 const Update = htmlDB.model("updates", updateSchema);
 
-if (htmlDB.readyState = 1) console.log('La base de datos esta conectada')
+if (htmlDB.readyState === 1) console.log('La base de datos esta conectada')
 
 async function getLatestUpdate() {
     try {

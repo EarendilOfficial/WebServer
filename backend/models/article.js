@@ -5,7 +5,7 @@ const createDomPurify = require('dompurify')
 const { JSDOM } = require('jsdom')
 const dompurify = createDomPurify(new JSDOM().window)
 
-// Conexión específica (como ya la tenías)
+// Conexión específica
 const blogDB = mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
 
 const articleSchema = new mongoose.Schema({
