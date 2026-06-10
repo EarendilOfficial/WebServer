@@ -2,7 +2,7 @@ name: CI/CD Pipeline para Red Social NodeJS
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   # --- 1. ETAPA DE INTEGRACIÓN CONTINUA (CI) ---
