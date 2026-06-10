@@ -1,14 +1,14 @@
-const mongoose = require('mongoose')
-const { marked } = require('marked') // Asegúrate de destructurar así
-const slugify = require('slugify')
-const createDomPurify = require('dompurify')
-const { JSDOM } = require('jsdom')
+import { createConnection, Schema } from 'mongoose'
+import { marked } from 'marked' // Asegúrate de destructurar así
+import slugify from 'slugify'
+import createDomPurify from 'dompurify'
+import { JSDOM } from 'jsdom'
 const dompurify = createDomPurify(new JSDOM().window)
 
 // Conexión específica
-const blogDB = mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
+const blogDB = createConnection('mongodb://localhost:27017/HtmlContent');
 
-const articleSchema = new mongoose.Schema({
+const articleSchema = new Schema({
     title: {
         type: String, 
         required: true
@@ -63,4 +63,4 @@ articleSchema.pre('validate', function(next){
     next();
 })
 
-module.exports = blogDB.model('Article', articleSchema);
+export default blogDB.model('Article', articleSchema);
