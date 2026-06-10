@@ -1,0 +1,48 @@
+name: CI/CD Pipeline para Red Social NodeJS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # --- 1. ETAPA DE INTEGRACIÓN CONTINUA (CI) ---
+  build-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Descargar código fuente
+      uses: actions/checkout@v3
+
+    - name: Configurar Node.js (Versión 18)
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: 'npm' # Esto acelera los builds futuros guardando la caché de tus módulos
+
+    - name: Instalar todas las dependencias (Prod + Dev)
+      run: npm install
+
+    # Tip para tu reporte: Validamos que no haya errores de sintaxis en el servidor
+    - name: Validar sintaxis del servidor principal
+      run: node --check backend/mainServer.js
+
+  # --- 2. ETAPA DE ENTREGA CONTINUA (CD) ---
+  push-to-dockerhub:
+    needs: build-and-validate
+    runs-on: ubuntu-latest
+    steps:
+    - name: Descargar código fuente
+      uses: actions/checkout@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v7
+      with:
+        context: .
+        push: true
+        tags: samycrafty/app:latest
