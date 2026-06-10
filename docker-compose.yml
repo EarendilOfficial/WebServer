@@ -25,8 +25,8 @@ services:
     image: containrrr/watchtower
     container_name: mi_watchtower
     volumes:
-      - //var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 mi-app
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --debug mi-app
 
 # AQUÍ ESTÁ LA CORRECCIÓN: Declaramos formalmente el volumen para Mongo
 volumes:
