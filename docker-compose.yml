@@ -7,11 +7,13 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - app-network
 
   # Tu red social de Node.js extraída desde Docker Hub
   mi-app:
     image: samycrafty/app:latest
-    container_name: mi_red_social_app
+    container_name: mi-app
     ports:
       - "6294:6294"
     environment:
@@ -23,6 +25,8 @@ services:
       MONGO_URI_FEEDBACK: mongodb://mongodb:27017/Feedback
     depends_on:
       - mongodb
+    networks:
+      - app-network
 
   # El agente DevOps que automatiza el despliegue continuo
   watchtower:
@@ -30,8 +34,14 @@ services:
     container_name: mi_watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --debug mi-app
+    command: --interval 30 --cleanup --debug mi-app
+    networks:
+      - app-network
 
 # AQUÍ ESTÁ LA CORRECCIÓN: Declaramos formalmente el volumen para Mongo
 volumes:
   mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

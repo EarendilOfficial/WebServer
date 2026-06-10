@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  # --- 1. ETAPA DE INTEGRACIÓN CONTINUA (CI) ---
+  # --- (CI) ---
   build-and-validate:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +25,7 @@ jobs:
     - name: Validar sintaxis del servidor principal
       run: node --check backend/mainServer.js
 
-  # --- 2. ETAPA DE ENTREGA CONTINUA (CD) ---
+  # --- (CD) ---
   push-to-dockerhub:
     needs: build-and-validate
     runs-on: ubuntu-latest
