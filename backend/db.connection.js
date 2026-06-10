@@ -20,6 +20,8 @@ const mailDB = mongoose.createConnection(MONGO_URI_MAIL);
 const notificationDB = mongoose.createConnection(MONGO_URI_MESSAGES)
 const feedbackDB = mongoose.createConnection(MONGO_URI_FEEDBACK)
 
+console.log(MONGO_URI_FEEDBACK, MONGO_URI_HTMLCONTENT, MONGO_URI_MAIL, MONGO_URI_MESSAGES, MONGO_URI_PLAYERCODES, MONGO_URI_USERDATA)
+
 // Logs de monitoreo de servicios
 userDataDB.on('connected', () => console.log('📦 MongoDB conectado a UserData DB'));
 playerCodesDB.on('connected', () => console.log('📦 MongoDB conectado a PlayerCodes DB'));
