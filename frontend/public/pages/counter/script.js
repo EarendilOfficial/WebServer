@@ -6,7 +6,7 @@ function actualizarTemporizador() {
     const distancia = FECHA_OBJETIVO - ahora;
 
     if (distancia < 0) {
-        document.querySelector(".timer-section").innerHTML = "<h2 class='number' style='color:var(--mc-green)'>¡EL SERVIDOR ESTÁ ABIERTO!</h2>";
+        document.querySelector(".timer-section").innerHTML = "<h2 class='number' style='color:var(--mc-green)'>¡EL SERVIDOR ESTÁ SIENDO ACTUALIZADO!</h2>";
         return;
     }
 
