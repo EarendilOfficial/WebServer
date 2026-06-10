@@ -60,8 +60,6 @@ router.get('/mails', getMyMails);
 router.post('/mails', createMail);
 router.delete('/mails/:id', deleteMail);
 router.post('/mails/:id/mark-read', markMailRead);
-// legacy
-router.get('/get_my_mails', getMyMails);
 
 /// -------------------------------------- ///
 /// -------------------------------------- ///

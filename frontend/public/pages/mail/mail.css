@@ -60,6 +60,10 @@ body {
     color: rgb(176, 176, 176);
 }
 
+.mail-upperhander h4 {
+    margin: 0;
+}
+
 .mail-entries article p {
     /* Texto del atriculo */
     white-space: nowrap;

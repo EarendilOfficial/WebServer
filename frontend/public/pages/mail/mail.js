@@ -6,6 +6,7 @@ import Toast from "/resources/js/toast.js";
     const entriesEl = document.querySelector('.mail-entries');
     const titleEl = document.querySelector('.content-card .title');
     const autorEl = document.querySelector('.content-card .autor');
+    const destinatarioEl = document.querySelector('.content-card .destinatario')
     const fechaEl = document.querySelector('.content-card .fecha');
     const bodyEl = document.querySelector('.mail-body');
     const replyBtn = document.querySelector('.btn.reply');
@@ -81,6 +82,7 @@ import Toast from "/resources/js/toast.js";
     // Render list based on current filter
     function renderList() {
         entriesEl.innerHTML = '';
+        
         const list = mails.filter((m) => {
             if (filter === 'new') return m.status === 'new';
             if (filter === 'read') return m.status === 'read';
@@ -102,6 +104,7 @@ import Toast from "/resources/js/toast.js";
             art.className = 'mail';
             art.dataset.id = m.id;
             art.dataset.status = m.status;
+            // TODO: Cambiar la clase de color segun el rango
             art.innerHTML = `
                 <div class="mail-upperhander">
                     <span>Enviado por: <span class="rango-plebeyo">${escapeHtml(m.from)}</span></span>
@@ -127,6 +130,7 @@ import Toast from "/resources/js/toast.js";
     function clearDisplay() {
         titleEl.textContent = '';
         autorEl.textContent = '';
+        destinatarioEl.textContent = "";
         fechaEl.textContent = '';
         bodyEl.textContent = '';
         selectedId = null;
@@ -138,6 +142,7 @@ import Toast from "/resources/js/toast.js";
         selectedId = id;
         titleEl.textContent = mail_to_show.subject;
         autorEl.textContent = `Autor: ${mail_to_show.from}`;
+        destinatarioEl.textContent = `Destinatario: ${mail_to_show.to}`
         fechaEl.textContent = `Fecha: ${formatDate(mail_to_show.date)}`;
         bodyEl.textContent = mail_to_show.body;
         // update visual selection
@@ -308,7 +313,7 @@ import Toast from "/resources/js/toast.js";
             ev.preventDefault();
             if (a.classList.contains('new')) filter = 'new';
             else if (a.classList.contains('read')) filter = 'read';
-            else if (a.classList.contains('sent')) filter = 'sent';
+            else if (a.classList.contains('sent')) filter = 'sent'; // TODO
             tabLinks.forEach((t) => t.style.boxShadow = '');
             a.style.boxShadow = '0 0 6px 2px rgba(255,255,255,0.2)';
             renderList();
