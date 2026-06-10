@@ -3,7 +3,7 @@ const eventSchema = require("../schema/eventSchema");
 
 async function getActiveEvents() {
     // 1. Configuración de conexión
-    const EventsDB = mongoose.createConnection("mongodb://localhost:27017/HtmlContent");
+    const { htmlContentDB : EventsDB } = require('../db.connection')
     const Events = EventsDB.model("eventos", eventSchema);
     
     // 2. Fecha actual
@@ -33,9 +33,6 @@ async function getActiveEvents() {
     } catch (error) {
         console.error("Error al buscar y filtrar eventos:", error);
         throw error;
-    } finally {
-        // Asegura que la conexión se cierre
-        await EventsDB.close(); 
     }
 }
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const htmlDB = mongoose.createConnection("mongodb://localhost:27017/HtmlContent");
+const { htmlContentDB : htmlDB } = require('../db.connection')
 const updateSchema = require("../schema/updateSchema")
 const Update = htmlDB.model("updates", updateSchema);
 

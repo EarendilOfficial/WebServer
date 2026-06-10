@@ -15,14 +15,18 @@ services:
     ports:
       - "6294:6294"
     environment:
-      - MONGO_URI_USERDATA=mongodb://mongodb:27017/UserData
-      - MONGO_URI_PLAYERCODES=mongodb://mongodb:27017/PlayerCodes
+      MONGO_URI_USERDATA: mongodb://mongodb:27017/UserData
+      MONGO_URI_PLAYERCODES: mongodb://mongodb:27017/PlayerCodes
+      MONGO_URI_HTMLCONTENT: mongodb://mongodb:27017/HtmlContent
+      MONGO_URI_MAIL: mongodb://mongodb:27017/Mail
+      MONGO_URI_MESSAGES: mongodb://mongodb:27017/Messages
+      MONGO_URI_FEEDBACK: mongodb://mongodb:27017/Feedback
     depends_on:
       - mongodb
 
   # El agente DevOps que automatiza el despliegue continuo
   watchtower:
-    image: containrrr/watchtower
+    image: nickfedor/watchtower
     container_name: mi_watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

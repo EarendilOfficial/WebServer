@@ -1,10 +1,12 @@
 const mongoose = require("mongoose")
 const eventSchema = require("../../schema/eventSchema")
+const { htmlContentDB } = require('../../db.connection')
+
 
 async function createEventsHandler(req, res) {
     const { rank, title, startTime, endTime, location, description, text } = req.body;
 
-    const Database = await mongoose.createConnection("mongodb://localhost:27017/HtmlContent");
+    const Database = htmlContentDB;
     const Event = Database.model("eventos", eventSchema);
 
     const newEvent = {

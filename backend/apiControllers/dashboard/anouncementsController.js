@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 // Cargar el esquema de bd de anuncios guardados
 const announcementSch = require("../../schema/announcementSchema");
+const { htmlContentDB } = require('../../db.connection')
 
 /**
  * Controlador para obtener el anuncio más reciente y publicado.
  * Expone un endpoint /api/get_content_latest (ruta protegida por isAuthCheck).
 */
 async function getLatestAnnouncementsHandler(req, res) {
-    const HtmlContent = await mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
+    const HtmlContent = htmlContentDB;
     const Announcement = HtmlContent.model('Anuncios', announcementSch);
 
     try {
@@ -43,14 +44,11 @@ async function getLatestAnnouncementsHandler(req, res) {
             reason: "Error interno del servidor al obtener el anuncio." 
         });
 
-    } finally {
-        // Just to check connection is down
-        await HtmlContent.close();
     }
 }
 
 async function saveAnnouncementHandler(req, res) {
-    const HtmlContent =  mongoose.createConnection('mongodb://localhost:27017/HtmlContent');
+    const HtmlContent =  htmlContentDB;
     const Announcement = HtmlContent.model('Anuncios', announcementSch);
     
     // Obtener nombre de la cuenta del autor

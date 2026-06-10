@@ -3,10 +3,10 @@ import { marked } from 'marked' // Asegúrate de destructurar así
 import slugify from 'slugify'
 import createDomPurify from 'dompurify'
 import { JSDOM } from 'jsdom'
+import { htmlContentDB } from '../db.connection.js'
 const dompurify = createDomPurify(new JSDOM().window)
 
 // Conexión específica
-const blogDB = createConnection('mongodb://localhost:27017/HtmlContent');
 
 const articleSchema = new Schema({
     title: {
@@ -63,4 +63,4 @@ articleSchema.pre('validate', function(next){
     next();
 })
 
-export default blogDB.model('Article', articleSchema);
+export default htmlContentDB.model('Article', articleSchema);

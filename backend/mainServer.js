@@ -31,14 +31,17 @@ app.use(express.json({ limit: '5kb' }));
 app.use(cookieParser());
 app.use(generalLimiter);
 
+const MONGO_URI_USERDATA = process.env.MONGO_URI_USERDATA || 'mongodb://localhost:27017/UserData';
+const MONGO_URI_PLAYERCODES = process.env.MONGO_URI_PLAYERCODES || 'mongodb://localhost:27017/PlayerCodes';
+
 // Conexion a la BD
 const mongoose = require("mongoose");
 mongoose.set('sanitizeFilter', true); 
-mongoose.connect('mongodb://localhost:27017/UserData')
+mongoose.connect(MONGO_URI_USERDATA)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
-const playerCodesDB = mongoose.createConnection('mongodb://localhost:27017/PlayerCodes')
+const playerCodesDB = mongoose.createConnection(MONGO_URI_PLAYERCODES)
 playerCodesDB.on('connected', () => {
     console.log('MongoDB connected to PlayerCodes DB');
 });

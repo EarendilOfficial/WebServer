@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const mailDB = mongoose.createConnection('mongodb://localhost:27017/mail');
+const { mailDB : mailDB } = require('../db.connection')
+
 const Mail = mailDB.model('Mail', require('../schema/mailSchema'));
 
 // Get mails for the authenticated user (inbox + sent)

@@ -6,7 +6,7 @@ const uitSchema = require("../schema/uit.js");
 const mongoose = require("mongoose"); 
 
 // Conexión a la base de datos secundaria para UIT
-const playerCodesDB = mongoose.createConnection('mongodb://localhost:27017/PlayerCodes');
+const { playerCodesDB } = require('../db.connection')
 const UIT = playerCodesDB.model('uidtoken', uitSchema);
 
 const JWT_SECRET = process.env.JWT_SECRET || 'SuperSecret91203718237';

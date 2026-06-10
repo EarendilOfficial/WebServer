@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const notificationSchema = require('../schema/notificationSchema.js')
 
-const NotificationDB = mongoose.createConnection('mongodb://localhost:27017/Messages')
+const { notificationDB : NotificationDB } = require('../db.connection')
+
 const Notifications = NotificationDB.model("notification", notificationSchema)
 
 
@@ -33,9 +34,7 @@ async function setNotificationRead(req, res) {
     } catch (e) {
         console.error("Error al guardar notificaciones:", e);
         res.status(500).json({ success: false, message: 'Error interno del servidor.' });
-    } // finally {
-    //     await NotificationDB.close()
-    // }
+    } 
 }
 
 async function removeNotification(req, res) {
@@ -51,9 +50,7 @@ async function removeNotification(req, res) {
     } catch (e) {
         console.error("Error al eliminar notificaciones:", e);
         res.status(500).json({ success: false, message: 'Error interno del servidor.' });
-    } // finally {
-    //     await NotificationDB.close()
-    // }
+    } 
 }
 
 module.exports = { getMyNotifications, setNotificationRead, removeNotification}
