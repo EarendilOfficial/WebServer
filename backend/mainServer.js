@@ -95,13 +95,13 @@ app.post('/usr-new-register', loginLimiter, registerValidationRules(), validate,
 
 
 // ------------------------ EXPOSED PAGES ---------------------- //
-// app.get('/', apiLimiter, (req, res) => {
-//     res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
-// });
-
 app.get('/', apiLimiter, (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "frontend/counter.html"))
+    res.sendFile(path.join(__dirname, "..", "frontend/login.html"))
 });
+
+// app.get('/', apiLimiter, (req, res) => {
+//     res.sendFile(path.join(__dirname, "..", "frontend/counter.html"))
+// });
 
 // Registration
 app.get('/register-user', (req, res) => {

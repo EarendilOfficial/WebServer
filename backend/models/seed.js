@@ -10,7 +10,7 @@ const sampleAttendance = [
     { studentId: 'student123', date: new Date('2025-09-24T12:00:00Z'), status: 'present' }
 ];
 
-const uitSample = { uit_code: "5555-5555-5555", mcAccount: "Khalid"};
+const uitSample = { uit_code: "5555-4444-5555", mcAccount: "Kali"};
 
 const TARGET_USERNAME = "Khalid"; // 🔑
 const newNotifications = [

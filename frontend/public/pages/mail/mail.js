@@ -167,6 +167,7 @@ import Toast from "/resources/js/toast.js";
             await fetch(`/api/mails/${encodeURIComponent(toDelete.id)}`, { method: 'DELETE', credentials: 'same-origin' })
                 .then((rest) => {
                     if (!rest.ok) throw new Error('delete-fail');
+                    new Toast('El mensaje fue eliminado correctamente', 3000, "toast_error");
                 });
         } catch (e) {
             new Toast('El correo no pudo ser eliminado del servidor!', 5000, "toast_error");
@@ -186,9 +187,34 @@ import Toast from "/resources/js/toast.js";
         card.classList.add("pop_card")
         card.innerHTML = `
             <form class="composer" style="display:flex;flex-direction:column;gap:.5rem;">
-                <label style="font-size:.85rem">Para:<input name="to" value="${escapeAttr(opts.to||'')}" required style="width:97%;padding:.4rem;border-radius:4px;border:1px solid #444"/></label>
-                <label style="font-size:.85rem">Asunto:<input name="subject" value="${escapeAttr(opts.subject||'')}" style="width:97%;padding:.4rem;border-radius:4px;border:1px solid #444"/></label>
-                <textarea name="body" rows="8" style="width:95%;padding:.6rem;border-radius:4px;border:1px solid #444">${escapeHtml(opts.body||'')}</textarea>
+                <style>
+                    .composer input, .composer textarea {
+                        box-sizing: border-box; /* Crucial para que el padding no rompa el ancho */
+                        width: 100%;            /* Ahora todos ocuparán el 100% del contenedor de forma uniforme */
+                        padding: .4rem;
+                        border-radius: 4px;
+                        border: 1px solid #444;
+                        resize: block;
+                    }
+                    .composer textarea {
+                        padding: .6rem; /* Si quieres dejarle más padding al texto, ya no romperá el alineado */
+                    }
+                </style>
+
+                <div style="display:flex;gap:.5rem;justify-content:flex-start;">
+                    <h2 style="margin:0;">Nuevo Correo</h2>
+                </div>
+                
+                <label style="font-size:.85rem; width: 100%;">Para:
+                    <input name="to" value="${escapeAttr(opts.to||'')}" required />
+                </label>
+                
+                <label style="font-size:.85rem; width: 100%;">Asunto:
+                    <input name="subject" value="${escapeAttr(opts.subject||'')}" />
+                </label>
+                
+                <textarea name="body" rows="8">${escapeHtml(opts.body||'')}</textarea>
+                
                 <div style="display:flex;gap:.5rem;justify-content:flex-end;">
                     <button type="button" data-action="cancel" class="btn delete">Cancelar</button>
                     <button type="submit" class="btn send">Enviar</button>
@@ -230,10 +256,13 @@ import Toast from "/resources/js/toast.js";
                     return res.json();
 
                 }).then((data) => {
+                    new Toast('El mensaje fue enviado correctamente!!', 3000, "toast_info");
+                    
                     if (data && data.id) mail.id = data.id; // server may assign real id
                     if (data.name) mail.from = data.name; // in case server wants to override sender name
                     addMail(mail);
                 })
+
             } catch (e) {
                 // ignore errors, kept locally
                 new Toast('No se pudo enviar el correo al servidor!', 3000, "toast_error");

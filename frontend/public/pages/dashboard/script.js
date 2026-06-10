@@ -1,17 +1,4 @@
-const logout_link = document.getElementById('logout_link');
 const firstLogin = localStorage.getItem('isFirstLogin')
-
-logout_link.addEventListener('click', async ()=>{
-    const response = await fetch('/logout', {
-        method: 'POST',
-        headers: {
-            // Indica al servidor que el cuerpo es JSON
-            'Content-Type': 'application/json'
-        },
-    });
-
-    window.location.href = '/';
-})
 
 
 

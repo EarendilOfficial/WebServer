@@ -290,7 +290,7 @@ async function sendLoginData(username, password) {
                     localStorage.setItem('maintenenceDate', result.maintenenceEnd);
 
                 } else {
-                    window.location.href = "/user/dashboard";
+                    window.location.href = "/app/dashboard";
                 }
             }, 500)
         } else {
