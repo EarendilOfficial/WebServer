@@ -5,35 +5,44 @@ const JWT_SECRET = process.env.JWT_SECRET || 'SuperSecret91203718237';
 const Users = require('../models/userModel.js')
 
 /**
- * Middleware para verificar si el usuario está autenticado a través de JWT.
- * Se espera que el token se encuentre en la cookie 'sessionId'.
+ * Middleware para verificar la autenticación del usuario.
+ * Soporta cookies (Web) y encabezados Authorization: Bearer <token> (Android/Retrofit).
  */
 async function isAuthCheck(req, res, next) {
-    // Check for the 'token' cookie, which stores the JWT
-    const token = req.cookies.sessionId; 
+    let token = req.cookies.sessionId; 
+    
+    // Si no hay cookie, buscar en el encabezado Authorization (Android/Retrofit).
+    if (!token && req.headers.authorization) {
+        const parts = req.headers.authorization.split(' ');
+        if (parts.length === 2 && parts[0] === 'Bearer') {
+            token = parts[1];
+        }
+    }
     
     if (!token) {
-        // 401 Unauthorized - No token found
-        // TODO: Change this for an actual 404 cool page
-        return res.status(401).send({ message: "Unauthorized: No token provided" });
+        return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
     
     try {
-        // Verify the token
+        // Verificar el token JWT
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        // Check the database for the user given that it is not deleted 
-        const user_in_check = await Users.findOne({username: decoded.username, $nor: [{deletedAccount: true}]});
-        // If user is deleted account, return error
-        if (!user_in_check) return res.status(401).send({ message: "Unauthorized: Invalid or expired login" });
+        // Verificar que el usuario exista y no tenga la cuenta eliminada
+        const user_in_check = await Users.findOne({
+            username: decoded.username, 
+            $nor: [{ deletedAccount: true }]
+        });
         
-        // Attach the decoded payload (e.g., userId) to the request object for use in routes
+        if (!user_in_check) {
+            return res.status(401).json({ message: "Unauthorized: Invalid or expired login" });
+        }
+        
+        // Adjuntar datos del usuario a la petición
         req.user = decoded; 
         
-        return next(); // Token is valid, continue to the route handler
+        return next(); 
     } catch (err) {
-        // 401 Unauthorized - Token is invalid or expired
-        return res.status(401).send({ message: "Unauthorized: Invalid or expired login" });
+        return res.status(401).json({ message: "Unauthorized: Invalid or expired login" });
     }
 }
 

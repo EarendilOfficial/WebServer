@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon backend/mainServer.js",
+    "dev": "nodemon --env-file=backend/proto.env backend/mainServer.js",
     "production": "node --env-file=backend/.env backend/mainServer.js"
   },
   "keywords": [],
@@ -19,11 +19,13 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.1.0",
     "express-validator": "^7.2.1",
+    "firebase-admin": "^14.0.0",
     "jsdom": "^27.2.0",
     "jsonwebtoken": "^9.0.2",
     "marked": "^17.0.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.20.1",
+    "multer": "^2.1.1",
     "path-to-regexp": "^8.3.0",
     "slugify": "^1.6.6"
   },
