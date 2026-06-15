@@ -275,7 +275,7 @@ async function sendLoginData(username, password) {
         // 3. Procesa la respuesta del servidor
         const result = await response.json();
 
-        if (result.succesful) {
+        if (result.successful) {
             // Login exitoso: redirige al usuario o actualiza la interfaz
             console.log("Login Exitoso:", result.reason);
             // Add loading animation

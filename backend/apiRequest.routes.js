@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose')
-
-// Importar los schemas
+const mongoose = require('mongoose');
+const multer = require('multer');
+const path = require('path'); // ✅ SOLUCIÓN 1: Módulo 'path' importado
 
 // Importar auth check
 const { isAuthCheck, isAdminCheck } = require("./auth/Auth_Middleware.js");
@@ -22,19 +22,119 @@ const { setNotificationRead, getMyNotifications, removeNotification } = require(
 const { updateMyProfile, changePassword } = require('./apiControllers/user/updateAccountController.js');
 const { getMyMails, createMail, deleteMail, markMailRead } = require('./apiControllers/mailController.js');
 
+// Cambiado a 'Post' para mantener concordancia con tus consultas internas
+const Post = require('./models/postModel.js'); 
 
 // El chequeo de autenticacion se aplica a todas las rutas
+router.use('/uploads', express.static('uploads'));
 router.use(isAuthCheck);
 router.use(express.json({
     limit: '5kb'
 })); 
 
+// Configurar dónde se guardarán las fotos que suba Android
+const storage = multer.diskStorage({
+    destination: 'uploads/', 
+    filename: (req, file, cb) => {
+        cb(null, `post-${Date.now()}${path.extname(file.originalname)}`);
+    }
+});
+const upload = multer({ storage: storage });
 
-// ---------------- RUTAS --------------- //
-// Obtiene los ultimos anuncios de la base de datos
+
+
+// ---------------- ARCHIVOS --------------- //
+
+router.post('/posts/create', upload.single('image'), async (req, res) => {
+    try {
+        const { title, description } = req.body;
+        if (!title || !description) {
+            return res.status(400).json({ successful: false, reason: "Campos incompletos" });
+        }
+
+        // Modificado para que guarde el prefijo /api que declaraste en tu MainServer
+        const imageUrl = req.file ? `/api/uploads/${req.file.filename}` : null;
+
+        const newPost = await Post.create({
+            title: title,
+            description: description,
+            author: req.user.username, 
+            imageUrl: imageUrl
+        });
+
+        return res.json({ successful: true, reason: "Publicación creada con éxito!" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ successful: false, reason: "Error interno del servidor" });
+    }
+});
+
+// ✅ SOLUCIÓN 2: Cambiado de postModel a Post
+router.get('/posts', async (req, res) => {
+    try {
+        const { search } = req.query;
+        let query = {};
+
+        if (search) {
+            query = {
+                $or: [
+                    { title: { $regex: search, $options: 'i' } },
+                    { description: { $regex: search, $options: 'i' } }
+                ]
+            };
+        }
+
+        const posts = await Post.find(query).sort({ createdAt: -1 }); 
+        return res.json({ successful: true, posts: posts });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ successful: false, reason: "Error al obtener publicaciones" });
+    }
+});
+
+router.put('/posts/:id', async (req, res) => {
+    try {
+        const { description } = req.body;
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ successful: false, reason: "Publicación no encontrada" });
+        
+        if (post.author !== req.user.username && !req.user.isAdmin) {
+            return res.status(403).json({ successful: false, reason: "No tienes permiso para editar esto" });
+        }
+
+        post.description = description;
+        await post.save();
+
+        return res.json({ successful: true, reason: "Publicación actualizada" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ successful: false, reason: "Error del servidor" });
+    }
+});
+
+router.delete('/posts/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ successful: false, reason: "Publicación no encontrada" });
+
+        if (post.author !== req.user.username && !req.user.isAdmin) {
+            return res.status(403).json({ successful: false, reason: "No tienes permiso para borrar esto" });
+        }
+
+        await post.deleteOne();
+        return res.json({ successful: true, reason: "Publicación eliminada" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ successful: false, reason: "Error al eliminar" });
+    }
+});
+
+
+// ---------------- RUTAS GENERALES --------------- //
 router.get('/get_content_latest', getLatestAnnouncementsHandler)
 
-// Get all the minecraft data
 router.get('/get_minecraft_data', getMinecraftData, (req, res) => {
     return res.status(200).json(req.minecraftData);
 })
@@ -47,45 +147,33 @@ router.get('/get_my_activity', getMyActivity, (req, res) => {
     return res.status(200).json(req.activity);
 })
 
-/// ---------- NOTIFICACIONES ------------ ///
 router.get("/get_my_notifications", getMyNotifications)
-
 router.put("/set_notification_read", setNotificationRead)
-
 router.post("/delete_notification", removeNotification)
 
-/// ------------ CORREOS ------------ ///
-// RESTful mail endpoints used by the frontend
+// Mails
 router.get('/mails', getMyMails);
 router.post('/mails', createMail);
 router.delete('/mails/:id', deleteMail);
 router.post('/mails/:id/mark-read', markMailRead);
 
-/// -------------------------------------- ///
-/// -------------------------------------- ///
-/// -------------------------------------- ///
-
-// Update user profile
+// Perfil
 router.post("/user/update_profile", updateMyProfile)
 router.post("/user/change_password", changePassword)
 
-// Get user count
-router.get('/get_user_count', async ({res}) => {
+router.get('/get_user_count', async (req, res) => {
     const playerCount = await fgetActiveUserCount();
-    return res.status(200).json({number: playerCount});
+    return res.status(200).json({ number: playerCount });
 })
 
-// Get playernames or username (if playername not available) for reports // Return: Array(name, name, ...)
-router.get('/get_player_names', async ({res}) => {
+router.get('/get_player_names', async (req, res) => {
     let playersData = await fgetUsersSafeData();
-    playersData = playersData.map((user)=> {
+    playersData = playersData.map((user) => {
         return user.mcAccount || user.username;
     })
-    
-    return res.status(200).json({playersData: playersData})
+    return res.status(200).json({ playersData: playersData })
 })
 
-// Endpoint para la Última Actualización
 router.get('/get_latest_update', async (req, res) => {
     try {
         return res.json(await getLatestUpdate() || latestUpdate);
@@ -94,12 +182,9 @@ router.get('/get_latest_update', async (req, res) => {
     }
 });
 
-// Endpoint para Eventos Activos
 router.get('/get_active_events', async (req, res) => {
     try {
-        // Obtencion de datos:
         const activeEvents = await getActiveEvents();
-
         return res.json({ events: activeEvents });
     } catch (e) {
         console.log(e)
@@ -107,20 +192,15 @@ router.get('/get_active_events', async (req, res) => {
     }
 });
 
-// Add a report to the database
 router.post(
     '/sendReport', reportLimiter,
-    reportValidationRules(), // 1. Aplica las reglas (limpieza y validación)
-    validateReport,          // 2. Maneja los errores si la validación falla
-    sendReportHandler        // 3. Si todo está limpio, guarda en la base de datos
+    reportValidationRules(), 
+    validateReport,          
+    sendReportHandler        
 );
 
-
-// ---------------- RUTAS ADMINISTRADOR --------------- //
-// - - - admin-edit-announcements.html
-// This is only accesible to admin (isAdminCheck is middleware for admin verification)
+// Administrador
 router.post('/save_announcement', isAdminCheck, saveAnnouncementHandler);
-
 router.post('/add_event', isAdminCheck, createEventsHandler);
 
 module.exports = router;

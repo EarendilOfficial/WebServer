@@ -18,7 +18,7 @@ app.set('trust proxy', 1);
 
 const { apiLimiter, generalLimiter, loginLimiter } = require("./security/rateLimiter.js");
 const { isAuthCheck } = require("./auth/Auth_Middleware.js"); 
-const { loginUser, logoutUser, registerNewUser } = require("./auth/User_Authentication.js"); 
+const { loginUser, loginGoogleUser, logoutUser, registerNewUser } = require("./auth/User_Authentication.js"); 
 const { registerValidationRules, validate } = require("./security/userRegistrationValidation.js");
 
 // Creacion de la cookie
@@ -73,13 +73,25 @@ app.use('/api', apiRequestRoutes);
 // ------------------------- USER AUTH API --------------------- //
 app.post('/login', loginLimiter, async (req, res)=>{
     const result = await loginUser(req, res);
-    if (!result.succesful) return res.status(401).json(result);
+    if (!result.successful) return res.status(401).json(result);
 
     if (updatingServerMaintenence && Date.now() < dateMaintenenceEnd) {
         result.updateIncoming = true; // Decir si hay mantenimiento
         result.maintenenceEnd = dateMaintenenceEnd; // Fecha fin
     }
 
+    return res.json(result);
+});
+
+// Login mediante Google (Usado por Android / TODO: Web Frontend)
+app.post('/login-google', async (req, res) => {
+    const result = await loginGoogleUser(req, res);
+    if (!result.successful) return res.status(401).json(result);
+
+    if (updatingServerMaintenence && Date.now() < dateMaintenenceEnd) {
+        result.updateIncoming = true; 
+        result.maintenenceEnd = dateMaintenenceEnd; 
+    }
     return res.json(result);
 });
 
@@ -117,10 +129,10 @@ app.use(express.static(path.join(__dirname, "..", 'frontend/public')));
 
 // ---- Server Start ---- //
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server Started at: http://localhost:${PORT}`);
-    console.log(`Access the unprotected root: http://localhost:${PORT}`);
-    console.log(`Blog Admin: http://localhost:${PORT}/admin/admin-blogs`); // Agregué esto para que tengas el link a mano
-    console.log('-------------------------------------------------------')
+    log(`Server Started at: http://localhost:${PORT}`);
+    log(`Access the unprotected root: http://localhost:${PORT}`);
+    log(`Blog Admin: http://localhost:${PORT}/admin/admin-blogs`); // Agregué esto para que tengas el link a mano
+    log('-------------------------------------------------------')
 });
 
 

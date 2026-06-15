@@ -113,7 +113,7 @@ async function register_user(username, password, mail, uit) {
         
         const result = await response.json();
 
-        if (result.succesful) {
+        if (result.successful) {
             // Mostrar resultado de exito
             showAlert('Su cuenta fue creada exitosamente!', 'Cuenta Registrada', true, false);
             
