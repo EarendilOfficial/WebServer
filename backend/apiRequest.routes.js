@@ -21,52 +21,63 @@ const getLatestUpdate = require('./dataGetters/get_lastUpdate.js');
 const { setNotificationRead, getMyNotifications, removeNotification } = require('./apiControllers/notificationController.js');
 const { updateMyProfile, changePassword } = require('./apiControllers/user/updateAccountController.js');
 const { getMyMails, createMail, deleteMail, markMailRead } = require('./apiControllers/mailController.js');
-
-// Cambiado a 'Post' para mantener concordancia con tus consultas internas
+const upload = require('./security/secureUpload.js');
 const Post = require('./models/postModel.js'); 
 
 // El chequeo de autenticacion se aplica a todas las rutas
 router.use('/uploads', express.static('uploads'));
+
 router.use(isAuthCheck);
 router.use(express.json({
     limit: '5kb'
 })); 
 
-// Configurar dónde se guardarán las fotos que suba Android
-const storage = multer.diskStorage({
-    destination: 'uploads/', 
-    filename: (req, file, cb) => {
-        cb(null, `post-${Date.now()}${path.extname(file.originalname)}`);
-    }
-});
-const upload = multer({ storage: storage });
-
-
-
 // ---------------- ARCHIVOS --------------- //
 
-router.post('/posts/create', upload.single('image'), async (req, res) => {
-    try {
-        const { title, description } = req.body;
-        if (!title || !description) {
-            return res.status(400).json({ successful: false, reason: "Campos incompletos" });
+router.post('/posts/create', (req, res, next) => {
+    upload.single('image')(req, res, async (err) => {
+        if (err instanceof multer.MulterError) {
+            // Errores propios de Multer (ej: archivo demasiado grande)
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                return res.status(400).json({ 
+                    successful: false, 
+                    reason: "El archivo es demasiado grande. El límite es de 5MB." 
+                });
+            }
+            return res.status(400).json({ successful: false, reason: `Error al subir archivo: ${err.message}` });
+        } else if (err) {
+            // Nuestro error personalizado de tipo de archivo (LIMIT_FILE_TYPE)
+            if (err.message === 'LIMIT_FILE_TYPE') {
+                return res.status(400).json({ 
+                    successful: false, 
+                    reason: "Formato de archivo no permitido. Solo se aceptan imágenes (JPG, PNG, GIF, WEBP)." 
+                });
+            }
+            return res.status(500).json({ successful: false, reason: "Error en el servidor al procesar el archivo." });
         }
 
-        // Modificado para que guarde el prefijo /api que declaraste en tu MainServer
-        const imageUrl = req.file ? `/api/uploads/${req.file.filename}` : null;
 
-        const newPost = await Post.create({
-            title: title,
-            description: description,
-            author: req.user.username, 
-            imageUrl: imageUrl
-        });
+        try {
+            const { title, description } = req.body;
+            if (!title || !description) {
+                return res.status(400).json({ successful: false, reason: "Campos incompletos" });
+            }
+            
+            const imageUrl = req.file ? `/api/uploads/${req.file.filename}` : null;
 
-        return res.json({ successful: true, reason: "Publicación creada con éxito!" });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ successful: false, reason: "Error interno del servidor" });
-    }
+            const newPost = await Post.create({
+                title: title,
+                description: description,
+                author: req.user.username, 
+                imageUrl: imageUrl
+            });
+
+            return res.json({ successful: true, reason: "Publicación creada con éxito!" });
+        } catch (error) {
+            console.error("Error al crear publicación", error);
+            return res.status(500).json({ successful: false, reason: "Error interno del servidor" });
+        }
+    });
 });
 
 // ✅ SOLUCIÓN 2: Cambiado de postModel a Post
